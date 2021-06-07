@@ -71,23 +71,15 @@ public class FileDAO {
 	public void addTransactionDetails() {
 		
 	}
-	public User loginCheck(String username, String password) throws ClassNotFoundException, SQLException {
-
-		String sql = "SELECT * FROM logIn WHERE username = ? and password = ?";
-		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, username);
-		statement.setString(2, password);
-
-		ResultSet resultSet = statement.executeQuery();
-
-		User user = null;
-		if (resultSet.next()) {
-			user = new User();
-			user.setUsername(username);
+	
+	public void closeConnection() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		connection.close();
-
-		return user;
 	}
+
+		
 }
