@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import java.io.IOException;
 import java.sql.SQLException;
-
 @WebServlet("/login")
 public class logInServlet extends HttpServlet {
     public logInServlet() {
@@ -21,15 +21,15 @@ public class logInServlet extends HttpServlet {
     }
 
     @POST
-    public void doPost(HttpServletRequest req, HttpServletResponse res) {
-        String username = req.getParameter("Enter username");
-        String psw = req.getParameter("Enter password");
+    public void doGet(HttpServletRequest req, HttpServletResponse res) {
+        String username = req.getParameter("uname");
+        String psw = req.getParameter("password");
 
         UserDAO userDao = new UserDAO();
 
         try{
             User user = userDao.loginCheck(username, psw);
-            String destinationPath = "logInPage.jsp";
+            String destinationPath = "login.jsp";
 
             if (user != null) {
                 HttpSession sessionCreation = req.getSession();
@@ -40,7 +40,7 @@ public class logInServlet extends HttpServlet {
                 req.setAttribute("Error: ", error);
             }
 
-            RequestDispatcher rd = req.getRequestDispatcher(destinationPath);
+            RequestDispatcher rd = req.getRequestDispatcher("/webapp/" + destinationPath);
             rd.forward(req, res);
 
 
