@@ -1,36 +1,41 @@
 package dao;
 
-import model.User;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import java.sql.*;
+import util.DbUtil;
 
 public class UserDAO {
-
-    public User loginCheck(String username, String password) throws ClassNotFoundException, SQLException {
-        String host = "bronto.ewi.utwente.nl";
-        String dbname = "dab_di20212b_7";
-        String jdbcURL = "jdbc:postgresql://" + host + ":5432/" + dbname + "?dab_di20212b_7";
-        String dbUser = "dab_di20212b_7";
-        String dbPass = "WHT7j8rVmsTZfH70";
-
-        Class.forName("com.postgresql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(jdbcURL, dbUser, dbPass);
-
-        String sql = "SELECT * FROM logIn WHERE username = ? and password = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, username);
-        statement.setString(2, password);
-
-        ResultSet resultSet = statement.executeQuery();
-
-        User user = null;
-        if (resultSet.next()) {
-            user = new User();
-            user.setUsername(username);
+    public static boolean validate(String userName, String password) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        boolean status = false;
+        boolean result = true;
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DbUtil.getConnection();
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        try {
+            ps = connection.prepareStatement("SELECT username,password FROM login WHERE username=? AND password=?");
+            ps.setString(1, userName);
+            ps.setString(2, password);
 
-        connection.close();
-
-        return user;
+            rs = ps.executeQuery();
+            status = rs.next();
+            //result = true;
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return status;
     }
 }

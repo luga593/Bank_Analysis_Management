@@ -49,8 +49,11 @@
             <input type="password" placeholder="Enter Password" name="psw" required style="height: 25px;width: 350px">
             <br>
             <br>
-            <button onclick = "login()" class= "loginButton">Log in</button>
-            <button onclick = "signup()" class="loginButton"> Sign up</button>
+<%--            <button onclick = "login()" class= "loginButton">Log in</button>--%>
+<%--            <button onclick = "signup()" class="loginButton"> Sign up</button>--%>
+            <button type="submit" class = "loginButton">Log In</button>
+            <button type="submit" class = "signUpButton">Sign Up</button>
+
             <br>
         </div>
     </div>
