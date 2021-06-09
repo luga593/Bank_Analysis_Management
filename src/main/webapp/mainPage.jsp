@@ -33,7 +33,7 @@
             <ul>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
-                <li><a href="login.html">Log out</a></li>
+                <li><a href="logInPage.jsp">Log out</a></li>
             </ul>
         </nav>
 

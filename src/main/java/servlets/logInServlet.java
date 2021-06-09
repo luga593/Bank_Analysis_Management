@@ -29,28 +29,36 @@ public class logInServlet extends HttpServlet {
         String userName = request.getParameter("uname");
         String password = request.getParameter("password");
 
+
         HttpSession session = request.getSession(false);
         if (session != null) {
+
             session.setAttribute("name", userName);
         }
 
         RequestDispatcher rd;
 
         if (UserDAO.validate(userName, password)) {
-            rd = request.getRequestDispatcher("welcome.jsp");
+
+            rd = request.getRequestDispatcher("mainPage.jsp");
             try {
                 rd.forward(request, response);
             } catch (ServletException | IOException e) {
+
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
+            System.out.println(userName);
+            System.out.println(password);
             out.print("<p style=\"color:red\">Sorry username or password is wrong</p>");
-            rd = request.getRequestDispatcher("login.jsp");
+            rd = request.getRequestDispatcher("logInPage.jsp");
             try {
                 rd.include(request, response);
+
             } catch (ServletException | IOException e) {
                 // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
         }
