@@ -259,7 +259,7 @@ public class parser {
         } else if (content.get(index).containsKey(":61:")) {
             field = content.get(index).get(":61:").get(line);
             field61.put("Value Date", field.substring(0, 2) + "-" +field.substring(2, 4) + "-" + field.substring(4, 6) );
-            field61.put("Entry Date", field.substring(6, 10));
+            field61.put("Entry Date", field.substring(6, 8)+ "-" + field.substring(8, 10));
             field61.put("Credit/Debit", String.valueOf(field.charAt(10)));
             temp = field.substring(11);
             for(int i=0; i<=temp.length()-1; i++) {
