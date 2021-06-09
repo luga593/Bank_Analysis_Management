@@ -49,8 +49,6 @@ public class logInServlet extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            System.out.println(userName);
-            System.out.println(password);
             out.print("<p style=\"color:red\">Sorry username or password is wrong</p>");
             rd = request.getRequestDispatcher("logInPage.jsp");
             try {

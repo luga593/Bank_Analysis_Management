@@ -44,7 +44,7 @@
             <br>
             <form action="login" method="post">
                 <!--<label for="login">username</label> -->
-                <input type="text" placeholder="Enter Username" name="una   me" required style="height: 25px; width: 350px">
+                <input type="text" placeholder="Enter Username" name="uname" required style="height: 25px; width: 350px">
                 <br>
                 <!-- <label for="psw">Password</label> -->
                 <input type="password" placeholder="Enter Password" name="password" required style="height: 25px;width: 350px">
