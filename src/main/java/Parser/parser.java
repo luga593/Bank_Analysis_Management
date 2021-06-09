@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import dao.FileDAO;
+import dao.UserDAO;
+
 public class parser {
     String mt3;
     ArrayList<String> files = new ArrayList<String>();
@@ -122,9 +125,14 @@ public class parser {
             int n65 = mt.indexOf(":65:");
             n86 = mt.indexOf(":86:", n86 + 1);
             int end = mt.length() - 1;
-            if (mt.contains("-}")) {
+            if (mt.contains("-}") || mt.charAt(mt.length()-1) == '-') {
                 end = mt.indexOf("-}") - 1;
+                if(end == -2 ) {
+                	end  = mt.length() - 2;
+                }
+                System.out.println(mt.charAt(mt.length()-1));
             }
+            //System.out.println(mt.charAt(mt.length()-3));
             if (n64 != -1) {
                 map.get(key62).add(getField(n62, n64, mt, 5));
                 map.put(":64:", new ArrayList<String>());
@@ -136,9 +144,9 @@ public class parser {
                         if (!map.containsKey(":86:")) {
                             map.put(":86:", new ArrayList<String>());
                         }
-                        map.get(":86:").add(getField(n86, end, mt, 4));
+                        map.get(":86:").add(getField(n86, mt.indexOf("\n", n86), mt, 4));
                     } else {
-                        map.get(":65:").add(getField(n65, end, mt, 4));
+                        map.get(":65:").add(getField(n65, mt.indexOf("\n", n65), mt, 4));
                     }
                 } else {
                     if (n86 != -1) {
@@ -146,9 +154,9 @@ public class parser {
                         if (!map.containsKey(":86:")) {
                             map.put(":86:", new ArrayList<String>());
                         }
-                        map.get(":86:").add(getField(n86, end, mt, 4));
+                        map.get(":86:").add(getField(n86, mt.indexOf("\n", n86), mt, 4));
                     } else {
-                        map.get(":64:").add(getField(n64, end, mt, 4));
+                        map.get(":64:").add(getField(n64, mt.indexOf("\n", n64), mt, 4));
                     }
                 }
             } else if (n65 != -1) {
@@ -159,9 +167,9 @@ public class parser {
                     if (!map.containsKey(":86:")) {
                         map.put(":86:", new ArrayList<String>());
                     }
-                    map.get(":86:").add(getField(n86, end, mt, 4));
+                    map.get(":86:").add(getField(n86, mt.indexOf("\n", n86), mt, 4));
                 } else {
-                    map.get(":65:").add(getField(n65, end, mt, 4));
+                    map.get(":65:").add(getField(n65, mt.indexOf("\n", n65), mt, 4));
                 }
             } else {
                 if (n86 != -1) {
@@ -169,9 +177,9 @@ public class parser {
                     if (!map.containsKey(":86:")) {
                         map.put(":86:", new ArrayList<String>());
                     }
-                    map.get(":86:").add(getField(n86, end, mt, 4));
-                } else if (map.containsKey(":62:")) {
-                    map.get(":62:").add(getField(n62, end, mt, 4));
+                    map.get(":86:").add(getField(n86, mt.indexOf("\n", n86), mt, 4));
+                } else if (map.containsKey(":62F:")) {
+                    map.get(key62).add(getField(n62, mt.indexOf("\n", n62), mt, 5));
                 }
             }
             content.add(map);
@@ -212,26 +220,37 @@ public class parser {
             return content.get(index).get(":25:").get(0);
         }
     }
-
-    public HashMap<String, String> get60field(int index) {
-        HashMap<String, String> field60 = new HashMap<String, String>();
+    public String get28field(int index) {
+        if (index >= content.size()) {
+            return "Error";
+        } else {
+        	if(content.get(index).containsKey(":28:")) {
+        		return content.get(index).get(":28:").get(0);
+        	} else {
+        		return content.get(index).get(":28C:").get(0);
+        	}
+            
+        }
+    }
+    public LinkedHashMap<String, String> get60field(int index) {
+        LinkedHashMap<String, String> field60 = new LinkedHashMap<String, String>();
         String field;
         if (index >= content.size()) {
             return null;
         } else if (content.get(index).containsKey(":60F:")) {
             field = content.get(index).get(":60F:").get(0);
-            field60.put("Last Statement Date", field.substring(1, 7));
+            field60.put("Last Statement Date", field.substring(1, 3) + "-" + field.substring(3, 5) + "-"+ field.substring(5, 7));
         } else {
             field = content.get(index).get(":60M:").get(0);
-            field60.put("Current Statement Date", field.substring(1, 7));
+            field60.put("Current Statement Date", field.substring(1, 3) + "-" + field.substring(3, 5) + "-"+ field.substring(5, 7));
         }
         field60.put("D/C", String.valueOf(field.charAt(0)));
         field60.put("Currency", field.substring(7, 10));
         field60.put("Ammount", field.substring(10));
         return field60;
     }
-    public HashMap<String, String> get61field(int index,int line) {
-        HashMap<String, String> field61 = new HashMap<String, String>();
+    public LinkedHashMap<String, String> get61field(int index,int line) {
+        LinkedHashMap<String, String> field61 = new LinkedHashMap<String, String>();
         int until = 0;
         String field;
         String temp;
@@ -239,8 +258,8 @@ public class parser {
             return null;
         } else if (content.get(index).containsKey(":61:")) {
             field = content.get(index).get(":61:").get(line);
-            field61.put("Value Date", field.substring(0, 6));
-            field61.put("Entry Date", field.substring(6, 10));
+            field61.put("Value Date", field.substring(0, 2) + "-" +field.substring(2, 4) + "-" + field.substring(4, 6) );
+            field61.put("Entry Date", field.substring(6, 8)+ "-" + field.substring(8, 10));
             field61.put("Credit/Debit", String.valueOf(field.charAt(10)));
             temp = field.substring(11);
             for(int i=0; i<=temp.length()-1; i++) {
@@ -264,8 +283,8 @@ public class parser {
         }
         return field61;
     }
-    public HashMap<String, String> get86field(int index,int line) {
-        HashMap<String, String> field86 = new HashMap<String, String>();
+    public LinkedHashMap<String, String> get86field(int index,int line) {
+        LinkedHashMap<String, String> field86 = new LinkedHashMap<String, String>();
         String field;
         String temp;
         int until = 0;
@@ -309,32 +328,31 @@ public class parser {
         }
         return field86;
     }
-    public HashMap<String, String> get62Ffield(int index,int line) {
-        HashMap<String, String> field62F = new HashMap<String, String>();
+    public LinkedHashMap<String, String> get62Ffield(int index,int line) {
+        LinkedHashMap<String, String> field62F = new LinkedHashMap<String, String>();
         String field;
-        if (index >= content.size()||line >= content.get(index).get(":62F:").size()) {
-            System.out.println("CCCC");
+        if (index >= content.size()) {
             return null;
         } else if (content.get(index).containsKey(":62F:")) {
             field = content.get(index).get(":62F:").get(line);
             field62F.put("Credit/Debit", field.substring(0, 1));
-            field62F.put("Balance Date", field.substring(1, 7));
+            field62F.put("Balance Date", field.substring(1, 3) + "-" + field.substring(3, 5) + "-"+ field.substring(5, 7));
             field62F.put("Currency", field.substring(7, 10));
-            field62F.put("Ammount", "+"+field.substring(10));
+            field62F.put("Ammount", field.substring(10));
         }
         return field62F;
     }
-    public HashMap<String, String> get64field(int index,int line) {
-        HashMap<String, String> field64 = new HashMap<String, String>();
+    public LinkedHashMap<String, String> get64field(int index,int line) {
+        LinkedHashMap<String, String> field64 = new LinkedHashMap<String, String>();
         String field;
         if (index >= content.size()||line >= content.get(index).get(":64:").size()) {
             return null;
         } else if (content.get(index).containsKey(":64:")) {
             field = content.get(index).get(":64:").get(line);
             field64.put("Credit/Debit", field.substring(0, 1));
-            field64.put("Balance Date", field.substring(1, 7));
+            field64.put("Balance Date", field.substring(1, 3) + "-" + field.substring(3, 5) + "-"+ field.substring(5, 7));
             field64.put("Currency", field.substring(7, 10));
-            field64.put("Ammount", "+"+field.substring(10));
+            field64.put("Ammount", field.substring(10));
         }
         return field64;
     }
@@ -346,14 +364,14 @@ public class parser {
         } else if (content.get(index).containsKey(":65:")) {
             field = content.get(index).get(":65:").get(line);
             field65.put("Credit/Debit", field.substring(0, 1));
-            field65.put("Balance Date", field.substring(1, 7));
+            field65.put("Balance Date", field.substring(1, 3) + "-" + field.substring(3, 5) + "-"+ field.substring(5, 7));
             field65.put("Currency", field.substring(7, 10));
-            field65.put("Ammount", "+"+field.substring(10));
+            field65.put("Ammount", field.substring(10));
         }
         return field65;
     }
-    public HashMap<String, String> get86finfield(int index,int line) {
-        HashMap<String, String> field86fin = new HashMap<String, String>();
+    public LinkedHashMap<String, String> get86finfield(int index,int line) {
+        LinkedHashMap<String, String> field86fin = new LinkedHashMap<String, String>();
         String field;
         if ((index >= content.size()||line >= content.get(index).get(":86:").size())||!content.get(index).get(":86:").get(line).contains("SUM")) {
             return null;
@@ -367,41 +385,90 @@ public class parser {
     }
     public static void main(String[] args) {
 
-        String mt3 = "ABNANL2A\n"
-                + "940\n"
-                + "ABNANL2A\n"
-                + ":20:ABN AMRO BANK NV\n"
-                + ":25:NL34RABO0327101691\n"
-                + ":28:00000/1\n"
-                + ":60F:C210301EUR1437,54\n"
-                + ":61:2103010301D476,57N526NONREF\n"
-                + ":86:NL43INGB0002821135 D. Bannie  Rabobank Nederland APO Doe er w\n"
-                + "at leuks mee :)\n"
-                + ":61:2103020301D3,10N526NONREF\n"
-                + ":86:Kosten  Rabo BasisPakket Periode 01-03-2021 t/m 31-03-2021\n"
-                + ":61:2103040304D27,72N526NONREF\n"
-                + ":86:NL26RABO0140251111 InShared Nederland B.V.  2103020925578885 \n"
-                + "INSH130925500001 NL60ZZZ321410680000 Factuur 2021/02 nr. 1309255.\n"
-                + "00033\n"
-                + ":61:2103050305D6,98N526NONREF\n"
-                + ":86:NL58RABO0102825025 HEMA Schadeverzekeringen  2103036085697980\n"
-                + " HEMA126085600001 NL12ZZZ512557900000 Factuur 2021/03 nr. 1260856\n"
-                + ".00068\n"
-                + ":61:2103050305D647,95N526NONREF\n"
-                + ":86:NL51DEUT0265262361 SanitairCounter B.V. via Mollie  05-03-2021 10:12 1150001484534192 M06675111M9GSACB 1150001484534192 100127\n"
-                + "883 badplaats.nl x7693 pasnr.010\n"
-                + ":62F:C210305EUR275,22\n"
-                + "-\n"
-                + ""
-                + "";
+        String mt3 = "{1:F01INGBNL2ABXXX0000000000}\r\n"
+        		+ "{2:I940INGBNL2AXXXN}\r\n"
+        		+ "{4:\r\n"
+        		+ ":20:P210429000000001\r\n"
+        		+ ":25:NL34RABO0327101691EUR\r\n"
+        		+ ":28C:00000\r\n"
+        		+ ":60F:C210301EUR1437,54\r\n"
+        		+ ":61:2103010301D476,57NTRFNONREF//21030100000001\r\n"
+        		+ "/TRCD/00100/\r\n"
+        		+ ":86:/CNTP/NL43INGB0002821135//D. Bannie///REMI/USTD//Rabobank Ned\r\n"
+        		+ "erland APO Doe er wat leuks mee :)/\r\n"
+        		+ ":62F:C210301EUR960,97\r\n"
+        		+ ":64:C210301EUR960,97\r\n"
+        		+ ":65:C210301EUR960,97\r\n"
+        		+ ":65:C210301EUR960,97\r\n"
+        		+ ":86:/SUM/1/0/476,57/0,00/\r\n"
+        		+ "-}\r\n"
+        		+ "{1:F01INGBNL2ABXXX0000000000}\r\n"
+        		+ "{2:I940INGBNL2AXXXN}\r\n"
+        		+ "{4:\r\n"
+        		+ ":20:P210429000000001\r\n"
+        		+ ":25:NL34RABO0327101691EUR\r\n"
+        		+ ":28C:00000\r\n"
+        		+ ":60F:C210302EUR960,97\r\n"
+        		+ ":61:2103020301D3,10NTRFNONREF//21030200000002\r\n"
+        		+ "/TRCD/00100/\r\n"
+        		+ ":86:/CNTP///Kosten///REMI/USTD//Rabo BasisPakket Periode 01-03-20\r\n"
+        		+ "21 t*m 31-03-2021/\r\n"
+        		+ ":62F:C210302EUR957,87\r\n"
+        		+ ":64:C210302EUR957,87\r\n"
+        		+ ":65:C210302EUR957,87\r\n"
+        		+ ":65:C210302EUR957,87\r\n"
+        		+ ":86:/SUM/1/0/3,10/0,00/\r\n"
+        		+ "-}\r\n"
+        		+ "{1:F01INGBNL2ABXXX0000000000}\r\n"
+        		+ "{2:I940INGBNL2AXXXN}\r\n"
+        		+ "{4:\r\n"
+        		+ ":20:P210429000000001\r\n"
+        		+ ":25:NL34RABO0327101691EUR\r\n"
+        		+ ":28C:00000\r\n"
+        		+ ":60F:C210304EUR957,87\r\n"
+        		+ ":61:2103040304D27,72NTRFNONREF//21030400000003\r\n"
+        		+ "/TRCD/00100/\r\n"
+        		+ ":86:/CNTP/NL26RABO0140251111//InShared Nederland B.V.///REMI/USTD\r\n"
+        		+ "//2103020925578885 INSH130925500001 NL60ZZZ321410680000 Factuur 2\r\n"
+        		+ "021*02 nr. 1309255.00033/\r\n"
+        		+ ":62F:C210304EUR930,15\r\n"
+        		+ ":64:C210304EUR930,15\r\n"
+        		+ ":65:C210304EUR930,15\r\n"
+        		+ ":65:C210304EUR930,15\r\n"
+        		+ ":86:/SUM/1/0/27,72/0,00/\r\n"
+        		+ "-}\r\n"
+        		+ "{1:F01INGBNL2ABXXX0000000000}\r\n"
+        		+ "{2:I940INGBNL2AXXXN}\r\n"
+        		+ "{4:\r\n"
+        		+ ":20:P210429000000001\r\n"
+        		+ ":25:NL34RABO0327101691EUR\r\n"
+        		+ ":28C:00000\r\n"
+        		+ ":60F:C210305EUR930,15\r\n"
+        		+ ":61:2103050305D6,98NTRFNONREF//21030500000004\r\n"
+        		+ "/TRCD/00100/\r\n"
+        		+ ":86:/CNTP/NL58RABO0102825025//HEMA Schadeverzekeringen///REMI/UST\r\n"
+        		+ "D//2103036085697980 HEMA126085600001 NL12ZZZ512557900000 Factuur \r\n"
+        		+ "2021*03 nr. 1260856.00068/\r\n"
+        		+ ":61:2103050305D647,95NTRFNONREF//21030500000005\r\n"
+        		+ "/TRCD/00100/\r\n"
+        		+ ":86:/CNTP/NL51DEUT0265262361//SanitairCounter B.V. via Mollie///R\r\n"
+        		+ "EMI/USTD//05-03-2021 10:12 1150001484534192 M06675111M9GSACB 1150\r\n"
+        		+ "001484534192 100127883 badplaats.nl x7693 pasnr.010/\r\n"
+        		+ ":62F:C210305EUR275,22\r\n"
+        		+ ":64:C210305EUR275,22\r\n"
+        		+ ":65:C210305EUR275,22\r\n"
+        		+ ":65:C210305EUR275,22\r\n"
+        		+ ":86:/SUM/2/0/654,93/0,00/\r\n"
+        		+ "-}";
         parser parser = new parser(mt3);
+        FileDAO dao = new FileDAO();
         parser.parseFile();
+        dao.addFileDetails(parser);
         //Parser.parser.get60field(0);
+        
         System.out.println(parser.get86field(0,4));
 
     }
 
 }
-
- 
 
