@@ -24,6 +24,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import Parser.parser;
+import dao.FileDAO;
 
 @WebServlet("/upload")
 @MultipartConfig
@@ -47,7 +48,6 @@ public class uploadServlet extends HttpServlet{
             InputStream fileInputStream = filePart.getInputStream();
             File fileToSave = new File(UPLOAD_FOLDER + filePart.getSubmittedFileName());
             Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
             String fileUrl = "http://localhost:8080/uploaded-files/" + filePart.getSubmittedFileName();
             response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + "you uploaded:</p>");
             //[Debug]------------------------
@@ -129,6 +129,8 @@ public class uploadServlet extends HttpServlet{
                 if (getUploadedContent(UPLOAD_FOLDER + files[i]) != null) {
                     parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + files[i]));
                     parser.parseFile();
+                    FileDAO fileDao =  new FileDAO();
+                    fileDao.addFileDetails(parser);
                     for (int j = 0; j < parser.getContentSize(); j++) {
                         res += "SubFile " + String.valueOf(j + 1) + "\n";
                         res += "Reference number: " + parser.get20field(j) + "\n";

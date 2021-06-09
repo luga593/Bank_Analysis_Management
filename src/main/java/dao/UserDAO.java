@@ -22,6 +22,7 @@ public class UserDAO {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
         try {
             ps = connection.prepareStatement("SELECT username,password FROM login WHERE username=? AND password=?");
             ps.setString(1, userName);

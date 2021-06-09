@@ -1,6 +1,7 @@
 package dao;
 
 import model.User;
+import util.DbUtil;
 
 import javax.xml.transform.Result;
 
@@ -15,24 +16,15 @@ public class FileDAO {
 	private Connection connection;
 
 	public FileDAO() {
-		String host = "bronto.ewi.utwente.nl";
-		String dbname = "dab_di20212b_7";
-		String jdbcURL = "jdbc:postgresql://" + host + ":5432/" + dbname + "?dab_di20212b_7";
-		String dbUser = "dab_di20212b_7";
-		String dbPass = "WHT7j8rVmsTZfH70";
-
 		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			connection = DriverManager.getConnection(jdbcURL, dbUser, dbPass);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            if (connection == null || connection.isClosed()) {
+                connection = DbUtil.getConnection();
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		
 	}
 
 	public void addFileDetails(parser parser) {
