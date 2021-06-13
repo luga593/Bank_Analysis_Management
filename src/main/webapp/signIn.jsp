@@ -39,7 +39,7 @@
 
 
 <!-- sign up -->
-<div class ="backImage" style="background-image: url('images/typ.jfif');">
+<div class ="backImage" style="background-image: url('images/typ.jfif');">co
   <div class = "topicusLogo"> </div>
   <div class = "containerLogin">
     <div class="login">
