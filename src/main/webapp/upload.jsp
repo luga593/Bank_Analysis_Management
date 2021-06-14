@@ -5,8 +5,8 @@
   Time: 11:42 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<jsp:include page="base.jsp"/>
 <!DOCTYPE html>
 <html>
  <head>
