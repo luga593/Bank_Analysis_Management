@@ -23,8 +23,11 @@ public class signUpServlet extends HttpServlet {
         String host = "bronto.ewi.utwente.nl";
         String dbname = "dab_di20212b_7";
         String jdbcURL = "jdbc:postgresql://" + host + ":5432/" + dbname + "?dab_di20212b_7";
-        String dbUser = "dab_di20212b_7";
-        String dbPass = "WHT7j8rVmsTZfH70";
+        String dbUser = System.getenv("DBUsername");
+        //String dbUser = "dab_di20212b_7";
+
+        String dbPass = System.getenv("DBPass");
+        //String dbPass = "WHT7j8rVmsTZfH70";
 
 
         res.setContentType("text/html");
