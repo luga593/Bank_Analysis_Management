@@ -25,12 +25,14 @@
 
             <a href="home.html"><img src="images/topicus-logo.png" alt="logo" class="logo"></a>
 
+
             <button class="btn-toggle">TOGGLE DARK-MODE</button>
 
 
             <nav>
                 <ul>
-                    <li><a href="logInPage.jsp">Log out</a></li>
+                    <li><a href="testLogin.jsp">Log out</a></li>
+                    <li><a href ="https://topicus.nl/contact"> Contact </a></li>
                 </ul>
             </nav>
 

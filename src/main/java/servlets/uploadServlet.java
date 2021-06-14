@@ -31,7 +31,7 @@ import dao.FileDAO;
 public class uploadServlet extends HttpServlet{
 
     /** The path to the folder where we want to store the uploaded files */
-    private static final String UPLOAD_FOLDER = "c:/Topicus-UploadedFiles/";
+    private static final String UPLOAD_FOLDER = "C:/temp/Topicus-UploadedFiles/";
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -49,7 +49,7 @@ public class uploadServlet extends HttpServlet{
             File fileToSave = new File(UPLOAD_FOLDER + filePart.getSubmittedFileName());
             Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
             String fileUrl = "http://localhost:8080/uploaded-files/" + filePart.getSubmittedFileName();
-            response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + "you uploaded:</p>");
+            response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + " " + "you uploaded:</p>");
             //[Debug]------------------------
             response.getOutputStream().println(showInformation());
             //response.getOutputStream().println("<mt940 file src=\"" + fileUrl + "\" />");

@@ -17,8 +17,8 @@
 
         <nav>
             <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="https://topicus.nl/ons-verhaal">About</a></li>
+                <li><a href="https://topicus.nl/contact">Contact</a></li>
             </ul>
         </nav>
 
@@ -26,31 +26,31 @@
 </header>
 
 <!-- login -->
-<div class ="backImage" style="background-image: url('images/typ.jfif');">
-    <div class = "topicusLogo"> </div>
-    <div class = "containerLogin">
-        <div class="login" style="padding-left: 20px">
+<%--<div class ="backImage" style="background-image: url('images/typ.jfif');">--%>
+<%--    <div class = "topicusLogo"> </div>--%>
+<%--    <div class = "containerLogin">--%>
+<%--        <div class="login" style="padding-left: 20px">--%>
 
-            <h2 style="text-align: center"> Login here </h2>
-            <br>
-            <form action="login" method="post">
-                <!--<label for="login">username</label> -->
-                <input type="text" placeholder="Enter Username" name="uname" required style="height: 25px; width: 350px">
-                <br>
-                <!-- <label for="psw">Password</label> -->
-                <input type="password" placeholder="Enter Password" name="password" required style="height: 25px;width: 350px">
-                <br>
-                <br>
-    <%--            <button onclick = "login()" class= "loginButton">Log in</button>--%>
-    <%--            <button onclick = "signup()" class="loginButton"> Sign up</button>--%>
-                <button type="submit" class = "loginButton">Log In</button>
+<%--            <h2 style="text-align: center"> Login here </h2>--%>
+<%--            <br>--%>
+<%--            <form action="login" method="post">--%>
+<%--                <!--<label for="login">username</label> -->--%>
+<%--                <input type="text" placeholder="Enter Username" name="uname" required style="height: 25px; width: 350px">--%>
+<%--                <br>--%>
+<%--                <!-- <label for="psw">Password</label> -->--%>
+<%--                <input type="password" placeholder="Enter Password" name="password" required style="height: 25px;width: 350px">--%>
+<%--                <br>--%>
+<%--                <br>--%>
+<%--    &lt;%&ndash;            <button onclick = "login()" class= "loginButton">Log in</button>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;            <button onclick = "signup()" class="loginButton"> Sign up</button>&ndash;%&gt;--%>
+<%--                <button type="submit" class = "loginButton">Log In</button>--%>
 
-            </form>
-                <button type="submit" class = "loginButton"> <a href="signIn.jsp">Sign Up </a> </button>
-            <br>
-        </div>
-    </div>
-</div>
+<%--            </form>--%>
+<%--                <button type="submit" class = "loginButton"> <a href="signIn.jsp">Sign Up </a> </button>--%>
+<%--            <br>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 
 

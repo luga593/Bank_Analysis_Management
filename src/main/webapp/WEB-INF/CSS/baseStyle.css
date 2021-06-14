@@ -1,7 +1,7 @@
 /*dark theme*/
 body {
     --text-color: #222;
-    --bkg-color: #fff;
+    --bkg-color: #3b4465;
     --header-color: #F9E805;
     --header-a-color-hover: #fff;
     --header-a-color: #5c5c5c;
@@ -38,7 +38,7 @@ body.dark-theme {
     }
     body.light-theme {
         --text-color: #222;
-        --bkg-color: #fff;
+        --bkg-color: #3b4465;
         --header-color: #F9E805;
         --header-a-color-hover: #fff;
         --header-a-color: #5c5c5c;
