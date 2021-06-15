@@ -11,6 +11,7 @@
         <a href = "upload.jsp"> uploader </a> <br>
         <a href = "signIn.jsp">sign up</a> <br>
         <a href = "newUI.jsp">eye</a> <br>
-        <a href = "testLogin.jsp">test</a>
+        <a href = "testLogin.jsp">test</a> <br>
+        <a href = "failedLogin.jsp">fail login</a>
     </body>
 </html>

@@ -1,0 +1,15 @@
+<transactionfiles>
+	<transactionfile accid="NL34RABO0327101691EUR&#13;&#10;" date="2021-03-01" startingamount="1437.5400390625" closingammount="960.969970703125" closingdate="2021-03-01">
+		<process iban="NL43INGB0002821135" transactionammount="-476.570007324219" valuedate="2021-03-01" entrydate="2021-03-01"/>
+	</transactionfile>
+	<transactionfile accid="NL34RABO0327101691EUR&#13;&#10;" date="2021-03-02" startingamount="960.969970703125" closingammount="957.869995117188" closingdate="2021-03-02">
+		<process transactionammount="-3.09999990463257" valuedate="2021-03-02" entrydate="2021-03-01"/>
+	</transactionfile>
+	<transactionfile accid="NL34RABO0327101691EUR&#13;&#10;" date="2021-03-04" startingamount="957.869995117188" closingammount="930.150024414062" closingdate="2021-03-04">
+		<process iban="NL26RABO0140251111" transactionammount="-27.7199993133545" valuedate="2021-03-04" entrydate="2021-03-04"/>
+	</transactionfile>
+	<transactionfile accid="NL34RABO0327101691EUR&#13;&#10;" date="2021-03-05" startingamount="930.150024414062" closingammount="275.220001220703" closingdate="2021-03-05">
+		<process iban="NL58RABO0102825025" transactionammount="-6.98000001907349" valuedate="2021-03-05" entrydate="2021-03-05"/>
+		<process iban="NL51DEUT0265262361" transactionammount="-647.950012207031" valuedate="2021-03-05" entrydate="2021-03-05"/>
+	</transactionfile>
+</transactionfiles>
