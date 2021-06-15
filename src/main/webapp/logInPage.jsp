@@ -11,7 +11,7 @@
 <header>
     <div class="nav-bar">
 
-        <a href="home.html"><img src="images/topicus-logo.png" alt="logo" class="logo"></a>
+        <a href="https://topicus.nl/"><img src="images/topicus-logo.png" alt="logo" class="logo"></a>
 
         <button class="btn-toggle">TOGGLE DARK-MODE</button>
 
