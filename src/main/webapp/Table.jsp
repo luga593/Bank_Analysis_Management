@@ -41,7 +41,7 @@ function myFunction(xml) {
 		table += "<tr><td>" +
 		x[i].getAttribute("accid") + "</td><td>" +
 	    x[i].getElementsByTagName("process")[j].getAttribute("iban") + "</td><td>" + 
-	    x[i].getAttribute("description")  + "</td><td>" +
+	    x[i].getElementsByTagName("process")[j].getAttribute("description")  + "</td><td>" +
 		x[i].getAttribute("date") + "</td><td>" + 
 		x[i].getElementsByTagName("process")[j].getAttribute("valuedate") + "</td><td>" + 
 		x[i].getAttribute("startingamount") + "</td><td>" +
