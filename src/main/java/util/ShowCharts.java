@@ -78,6 +78,8 @@ public class ShowCharts extends Application{
     		result.get(1).add(rs.getString(2));
     		result.get(2).add(rs.getString(3));
     		result.get(3).add(rs.getString(4));
+    		result.get(4).add(rs.getString(5));
+
     	}
        	 for(int i = 0;i<result.size();i++) {
        		 for(int j=0;j<result.get(i).size();j++) {
