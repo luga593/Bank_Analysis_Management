@@ -13,7 +13,7 @@ th,td {
 </style>
 <body>
 
-<button type="button" onclick="loadXMLDoc()">Get my CD collection</button>
+<button type="button" onclick="loadXMLDoc()">Get table</button>
 <br><br>
 <table id="demo"></table>
 
@@ -25,7 +25,7 @@ function loadXMLDoc() {
       myFunction(this);
     }
   };
-  xmlhttp.open("GET", "RetrievedTransaction_v2.xml", true);
+  xmlhttp.open("GET", "http://localhost:8080/Topicus/tempxml", true);
   xmlhttp.send();
 }
 function myFunction(xml) {
