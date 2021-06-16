@@ -63,7 +63,7 @@ public class TableDAO {
 			ResultSet res = st.executeQuery(sql);
 			while(res.next()) {
 				xml  = res.getSQLXML(1).getString();
-				System.out.println(xml);
+				//System.out.println(xml);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
