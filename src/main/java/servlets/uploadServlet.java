@@ -48,6 +48,8 @@ public class uploadServlet extends HttpServlet{
             InputStream fileInputStream = filePart.getInputStream();
             File fileToSave = new File(UPLOAD_FOLDER + filePart.getSubmittedFileName());
             Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
+            parser.uploadToDatabase(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
             String fileUrl = "http://localhost:8080/uploaded-files/" + filePart.getSubmittedFileName();
             response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + "you uploaded:</p>");
             //[Debug]------------------------
@@ -126,11 +128,12 @@ public class uploadServlet extends HttpServlet{
                 // System.out.println(files[i]);
                 files[i] = files[i].replace(" Sample ", "Sample ");
                 files[i] = files[i].replace("\n", "");
+                /**
                 if (getUploadedContent(UPLOAD_FOLDER + files[i]) != null) {
                     parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + files[i]));
                     parser.parseFile();
-                    FileDAO fileDao =  new FileDAO();
-                    fileDao.addFileDetails(parser);
+                  //  FileDAO fileDao =  new FileDAO();
+                  //  fileDao.addFileDetails(parser);
                     for (int j = 0; j < parser.getContentSize(); j++) {
                         res += "SubFile " + String.valueOf(j + 1) + "\n";
                         res += "Reference number: " + parser.get20field(j) + "\n";
@@ -176,7 +179,9 @@ public class uploadServlet extends HttpServlet{
                             }
                         }
                     }
+                    
                 }
+                **/
             }
         }
         return res;
