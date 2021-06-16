@@ -31,7 +31,7 @@ import dao.FileDAO;
 public class uploadServlet extends HttpServlet{
 
     /** The path to the folder where we want to store the uploaded files */
-    private static final String UPLOAD_FOLDER = "C:/temp/Topicus-UploadedFiles/";
+    private static final String UPLOAD_FOLDER = "C:/Topicus-UploadedFiles/";
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
