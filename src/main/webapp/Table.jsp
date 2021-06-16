@@ -36,6 +36,9 @@ th {
     <button id="download-xlsx">Download XLSX</button>
     <button id="download-pdf">Download PDF</button>
     <button id="download-html">Download HTML</button>
+    <button id="lang-french">French</button>
+    <button id="lang-dutch">Dutch</button>
+    <button id="lang-default">Default (English)</button>
 </div>
 <body>
 
@@ -93,6 +96,49 @@ function myFunction(xml) {
       pagination:"local",
       paginationSize: 10,
       layout: "fitDataTable",
+      langs:{
+          "fr-fr":{ //French Definition Language
+              "columns":{
+                  "Account-ID" : "identifiant de compte",
+                  "IBAN" : "IBAN",
+                  "Description" : "la description",
+                  "Date" : "Date",
+                  "ValueDate" : "Date de valeur",
+                  "StartingAmount" : "Solde d'ouverture",
+                  "TransactionAmount" : "Montant traité",
+                  "ClosingAmount" : "Solde de clôture",
+                  "isTrusted" : "Transaction de confiance",
+              },
+              "pagination":{
+                  "first":"Premier",
+                  "last":"Dernier",
+                  "prev":"Précédent",
+                  "next":"Suivant",
+              }
+          },
+
+          "nl-nl": {
+              "columns":{
+                  "Account-ID" : "Account ID",
+                  "IBAN" : "IBAN",
+                  "Description" : "Omschrijving",
+                  "Date" : "Datum",
+                  "Value Date" : "Waardedatum",
+                  "StartingAmount" : "openingsbalans",
+                  "TransactionAmount" : "verhandeld bedrag",
+                  "ClosingAmount" : "eindsaldo",
+                  "isTrusted" : "vertrouwde transactie",
+              },
+              "pagination":{
+                  "first":"eerste",
+                  "last":"laatste",
+                  "prev":"vorige",
+                  "next":"De volgende",
+
+              }
+          }
+      },
+
       columns: [
           {title: "Account ID", field: "accid"},
           {title: "IBAN", field: "IBAN"},
@@ -128,6 +174,23 @@ function myFunction(xml) {
     document.getElementById("download-html").addEventListener("click", function(){
         table.download("html", "data.html", {style:true});
     });
+
+    //set locale to French
+    document.getElementById("lang-french").addEventListener("click", function(){
+        table.setLocale("fr-fr");
+    });
+
+//set locale to Dutch
+    document.getElementById("lang-dutch").addEventListener("click", function(){
+        table.setLocale("nl-nl");
+    });
+
+//set default locale
+    document.getElementById("lang-default").addEventListener("click", function(){
+        table.setLocale("");
+    });
+
+
 }
 
 </script>
