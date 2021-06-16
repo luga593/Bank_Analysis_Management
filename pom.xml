@@ -59,7 +59,16 @@
     <artifactId>postgresql</artifactId>
     <version>42.2.20</version>
 </dependency>
-
+<dependency>
+ <groupId>com.prowidesoftware</groupId>
+    <artifactId>pw-swift-core</artifactId>
+    <version>SRU2020-9.1.4</version>
+</dependency>
+<dependency>
+  <groupId>commons-validator</groupId>
+  <artifactId>commons-validator</artifactId>
+  <version>1.7</version>
+</dependency>
     </dependencies>
 
     <build>
