@@ -18,7 +18,7 @@
  <body>
      <div id="main">
          <div id="fileUpload">
-             <form action="/Topicus_war/upload" method="post" enctype="multipart/form-data">
+             <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
                  <p>
                      Select a file : <input type="file" name="fileToUpload" size="45" accept=".940"/>
                  </p>
