@@ -42,6 +42,36 @@ public class TableDAO {
 		return xml;
 		
 	}
+	
+	public String selectData2() {
+		String sql ="Select XMLELEMENT(NAME transactionFiles, XMLAGG(xml)) "
+				+ "FROM (SELECT xmlelement(Name transactionFile , "
+				+ "				xmlattributes(accid , date , startingamount , closingammount , closingdate), "
+				+ "				xmlagg(xmlelement(Name process, "
+				+ "						xmlattributes(p.iban, description, transactionammount, valuedate, entrydate) "
+				+ "								 ) "
+				+ "					   ) "
+				+ "				) AS xml "
+				+ "	  from transactionfile f, process p "
+				+ "	  where f.fileid = p.fileid "
+				+ "	  group by f.fileid "
+				+ "	  order by f.fileid "
+				+ ") AS transactions;";
+		String xml = null;
+		try {
+			Statement st = connection.createStatement();
+			ResultSet res = st.executeQuery(sql);
+			while(res.next()) {
+				xml  = res.getSQLXML(1).getString();
+				//System.out.println(xml);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return xml;		
+	}
+	
 	public static void main(String args[]) {
 		TableDAO dao =  new TableDAO();
 		dao.selectData();
