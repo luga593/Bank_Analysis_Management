@@ -466,7 +466,7 @@ public class parser {
         dao.addFileDetails(parser);
         //Parser.parser.get60field(0);
         
-        System.out.println(parser.get86field(0,4));
+        System.out.println("answer "+parser.get86field(1,4));
 
     }
 
