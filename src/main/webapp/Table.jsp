@@ -294,12 +294,14 @@
                 let temp;
                 temp = {accid: x[i].getAttribute("accid"),
                     IBAN: x[i].getElementsByTagName("process")[j].getAttribute("iban"),
+                    CreditDebit: x[i].getElementsByTagName("process")[j].getAttribute("creditdebit"),
                     Description: x[i].getElementsByTagName("process")[j].getAttribute("description"),
                     Date: x[i].getAttribute("date"),
                     ValueDate: x[i].getElementsByTagName("process")[j].getAttribute("valuedate"),
                     StartingAmount: x[i].getAttribute("startingamount"),
                     TransactionAmount: x[i].getElementsByTagName("process")[j].getAttribute("transactionammount"),
                     ClosingAmount: x[i].getAttribute("closingammount"),
+                    PartyName: x[i].getElementsByTagName("process")[j].getAttribute("partyname"),
                     isTrusted: x[i].getElementsByTagName("process")[j].getAttribute("iban") != null && (x[i].getAttribute("startingamount") - x[i].getAttribute("closingammount") < 600)
                 }
                 tableData.push(temp);
@@ -315,12 +317,14 @@
                     "columns":{
                         "Account-ID" : "identifiant de compte",
                         "IBAN" : "IBAN",
+                        "CreditDebit" : "Crédit ou débit",
                         "Description" : "la description",
                         "Date" : "Date",
                         "ValueDate" : "Date de valeur",
                         "StartingAmount" : "Solde d'ouverture",
                         "TransactionAmount" : "Montant traité",
                         "ClosingAmount" : "Solde de clôture",
+                        "PartyName" : "Nom de la fête",
                         "isTrusted" : "Transaction de confiance",
                     },
                     "pagination":{
@@ -335,12 +339,14 @@
                     "columns":{
                         "Account-ID" : "Account ID",
                         "IBAN" : "IBAN",
+                        "CreditDebit" : "Credit of debet",
                         "Description" : "Omschrijving",
                         "Date" : "Datum",
-                        "Value Date" : "Waardedatum",
+                        "ValueDate" : "Waardedatum",
                         "StartingAmount" : "openingsbalans",
                         "TransactionAmount" : "verhandeld bedrag",
                         "ClosingAmount" : "eindsaldo",
+                        "PartyName" : "Feest naam",
                         "isTrusted" : "vertrouwde transactie",
                     },
                     "pagination":{
@@ -356,12 +362,14 @@
             columns: [
                 {title: "Account ID", field: "accid"},
                 {title: "IBAN", field: "IBAN"},
+                {title: "Credit Or Debit", field: "CreditDebit"},
                 {title: "Description", field: "Description"},
                 {title: "Date", field: "Date"},
                 {title: "Value Date", field: "ValueDate"},
                 {title: "Opening Balance", field: "StartingAmount"},
                 {title: "Transacted Amount", field: "TransactionAmount"},
                 {title: "Closing Balance", field: "ClosingAmount"},
+                {title: "Party Name", field: "PartyName"},
                 {title: "Trusted Transaction", field: "isTrusted", formatter: "tickCross", sorter: "boolean"}
             ]
         })

@@ -46,9 +46,9 @@ public class TableDAO {
 	public String selectData2() {
 		String sql ="Select XMLELEMENT(NAME transactionFiles, XMLAGG(xml)) "
 				+ "FROM (SELECT xmlelement(Name transactionFile , "
-				+ "				xmlattributes(accid , date , startingamount , closingammount , closingdate), "
+				+ "				xmlattributes(accid , date , ROUND(startingamount::numeric, 2) as startingAmount , ROUND(closingammount::numeric, 2) as closingammount , closingdate), "
 				+ "				xmlagg(xmlelement(Name process, "
-				+ "						xmlattributes(p.iban, description, transactionammount, valuedate, entrydate) "
+				+ "						xmlattributes(p.iban, description, ROUND(transactionammount::numeric, 2) as transactionammount, valuedate, entrydate, p.creditdebit, p.partyname) "
 				+ "								 ) "
 				+ "					   ) "
 				+ "				) AS xml "
