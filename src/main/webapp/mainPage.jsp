@@ -3,13 +3,22 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="MyStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <meta charset="utf-8">
 </head>
 
 <body>
+    <%
+
+       if (servlets.logInServlet.getUser() == null) {
+
+           String redirectURL = "testLogin.jsp";
+           response.sendRedirect(redirectURL);
+       }
+    %>
+
     <jsp:include page="base.jsp"/>
+
     <div id="main">
 
     </div>

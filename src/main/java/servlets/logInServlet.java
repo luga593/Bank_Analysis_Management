@@ -1,6 +1,7 @@
 package servlets;
 
 import dao.UserDAO;
+import model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,9 +17,18 @@ import java.io.PrintWriter;
 public class logInServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private static User loggedin;
 
     public logInServlet() {
         super();
+    }
+
+    public static User getUser() {
+        return loggedin;
+    }
+
+    public static void resetUser() {
+        loggedin = null;
     }
 
     public void doPost (HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +49,7 @@ public class logInServlet extends HttpServlet {
         RequestDispatcher rd;
 
         if (UserDAO.validate(userName, password)) {
+            loggedin = new User(userName, password);
 
             rd = request.getRequestDispatcher("mainPage.jsp");
             try {

@@ -51,15 +51,28 @@ public class uploadServlet extends HttpServlet{
             parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
             parser.uploadToDatabase(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
             String fileUrl = "http://localhost:8080/uploaded-files/" + filePart.getSubmittedFileName();
-            response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + " " + "you uploaded:</p>");
+
+            String redirectURL = "UploadSuccess.jsp";
+            try {
+                response.sendRedirect(redirectURL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + " " + "you uploaded:</p>");
             //[Debug]------------------------
-            response.getOutputStream().println(showInformation());
+//            response.getOutputStream().println(showInformation());
             //response.getOutputStream().println("<mt940 file src=\"" + fileUrl + "\" />");
             //response.getOutputStream().println("<p>Upload another mt940 file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");
         }
         else{
+            String redirectURL = "UploadFail.jsp";
+            try {
+                response.sendRedirect(redirectURL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             //the file was not a mt940 file
-            response.getOutputStream().println("<p>Please only upload mt940 files.</p>");
+//            response.getOutputStream().println("<p>Please only upload mt940 files.</p>");
             //response.getOutputStream().println("<p>Upload another file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");
         }
 

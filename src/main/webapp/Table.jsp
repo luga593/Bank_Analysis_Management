@@ -2,27 +2,9 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<title>Tables</title>
+
 <head>
-    <style>
-table,th,td {
-  border : 1px solid black;
-  border-collapse: collapse;
-}
-th,td {
-    text-align: left;
-  padding: 10px;
-}
-
-tr:hover {background-color: #f5f5f5;}
-
-th {
-    background-color: #3b4465 ;
-}
-
-#table
-
-
-</style>
     <link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
@@ -30,23 +12,66 @@ th {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.5/jspdf.plugin.autotable.js"></script>
 </head>
 
-<div>
-    <button id="download-csv">Download CSV</button>
-    <button id="download-json">Download JSON</button>
-    <button id="download-xlsx">Download XLSX</button>
-    <button id="download-pdf">Download PDF</button>
-    <button id="download-html">Download HTML</button>
-    <button id="lang-french">French</button>
-    <button id="lang-dutch">Dutch</button>
-    <button id="lang-default">Default (English)</button>
-</div>
 <body>
+<jsp:include page="base.jsp"/>
+    <div id="main">
 
-<button type="button" onclick="loadXMLDoc()">Get table</button>
-<br><br>
-<div id = "table"></div>
+        <div id="container-table"></div>
+            <div id="table"></div>
+
+
+        <div>
+            <button id="download-csv">Download CSV</button>
+            <button id="download-json">Download JSON</button>
+            <button id="download-xlsx">Download XLSX</button>
+            <button id="download-pdf">Download PDF</button>
+            <button id="download-html">Download HTML</button>
+            <button id="lang-french">French</button>
+            <button id="lang-dutch">Dutch</button>
+            <button id="lang-default">Default (English)</button>
+        </div>
+
+        <button type="button" onclick="loadXMLDoc()">Get table</button>
+        <br><br>
+
+    </div>
+</body>
+
+<style>
+    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+
+    table,th,td {
+        border : 1px solid black;
+        border-collapse: collapse;
+    }
+    th,td {
+        text-align: left;
+        padding: 10px;
+    }
+
+    tr:hover {background-color: #f5f5f5;}
+
+    th {
+        background-color: #3b4465 ;
+    }
+
+    #table {
+        margin: auto;
+    }
+
+    #container-table {
+        margin: 10px auto auto;
+        background-color: var(--bkg-color);
+        height: 200px;
+        width: 200px;
+    }
+
+
+</style>
 
 <script>
+    <jsp:include page="WEB-INF/JS/darkTheme.js"/>
+    <jsp:include page="WEB-INF/JS/sideNav.js"/>
 
 function loadXMLDoc() {
   var xmlhttp = new XMLHttpRequest();
@@ -55,28 +80,17 @@ function loadXMLDoc() {
       myFunction(this);
     }
   };
-  xmlhttp.open("GET", "http://localhost:8080/Topicus_war_exploded/tempxml", true);
+  xmlhttp.open("GET", "http://localhost:8080/Topicus_war/tempxml", true);
   xmlhttp.send();
 }
 function myFunction(xml) {
   var i;
   var xmlDoc = xml.responseXML;
-  // var table="<tr><th>Trusted</th><th><tr><th>Account_id</th><th>IBAN</th><th>Description</th><th>Date</th><th>Value_Date</th>"
-  // 				+ "<th>Opening_Amount</th><th>Transaction_Amount</th><th>Closing_Amount</th></tr>";
+
   var x = xmlDoc.getElementsByTagName("transactionfile");
   let tableData = []
   for (i = 0; i <x.length; i++) {
-	  for (j = 0; j <x[i].getElementsByTagName("process").length; j++) { 
-		// table += "<tr><td>" +
-		// x[i].getAttribute("accid") + "</td><td>" +
-	    // x[i].getElementsByTagName("process")[j].getAttribute("iban") + "</td><td>" +
-	    // x[i].getElementsByTagName("process")[j].getAttribute("description")  + "</td><td>" +
-		// x[i].getAttribute("date") + "</td><td>" +
-		// x[i].getElementsByTagName("process")[j].getAttribute("valuedate") + "</td><td>" +
-		// x[i].getAttribute("startingamount") + "</td><td>" +
-		// x[i].getElementsByTagName("process")[j].getAttribute("transactionammount") + "</td><td>" +
-		// x[i].getAttribute("closingammount") +
-	    // "</td></tr>";
+	  for (j = 0; j <x[i].getElementsByTagName("process").length; j++) {
           let temp;
           temp = {accid: x[i].getAttribute("accid"),
           IBAN: x[i].getElementsByTagName("process")[j].getAttribute("iban"),
@@ -195,5 +209,4 @@ function myFunction(xml) {
 
 </script>
 
-</body>
 </html>
