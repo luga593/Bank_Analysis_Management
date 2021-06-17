@@ -15,9 +15,14 @@ import Parser.parser;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class FileDAO {
+	int fileid;
 	private Connection connection;
 
 	public FileDAO() {
@@ -33,7 +38,8 @@ public class FileDAO {
 	}
 
 	public void addFileDetails(MT940 mt940,String tmp) {
-		String insertFile = "Insert into transactionfile values " + "(?,?,?,?,?,?,?,?,?,?)";
+		String insertFile = "Insert into transactionfile(transactionreferenceno,relatedreference,accid,statementno,date,currency,startingamount,userid,closingammount,closingdate,Time)" + 
+				"values " + "(?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTransaction = "Insert into process(valuedate,entrydate,creditdebit,transactionammount,cusomter_reference,details,iban,incasantid,description,partyname,fileid) values "
 				+ "(?,?,?,?,?,?,?,?,?,?,?)";
 		String query = "Select f.fileid from dab_di20212b_7.transactionfile f "
@@ -98,7 +104,12 @@ public class FileDAO {
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			statement3.setDate(10, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
+			Long datetime = System.currentTimeMillis()/1000;
+			java.sql.Timestamp timestamp = new Timestamp(datetime);
+	        System.out.println(timestamp.getNanos());
+			statement1.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
 			statement1.executeUpdate();
+			
 			int j = 0;
 			int cnt = 0;
 			for (int k = 0; k < mt940.getField61().size(); k++) {
@@ -144,6 +155,7 @@ public class FileDAO {
 					ResultSet set = statement3.executeQuery();
 					while (set.next()) {
 						statement2.setInt(11, set.getInt(1));
+						this.fileid = set.getInt(1);
 					}
 					statement2.executeUpdate();
 					// j++;
@@ -157,10 +169,10 @@ public class FileDAO {
 			// }
 
 		}
+		DbUtil.closeConnection();
 	}
-
-	public void addTransactionDetails() {
-
+	public int getFileID() {
+		return this.fileid;
 	}
 
 	public void closeConnection() {
