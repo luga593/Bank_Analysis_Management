@@ -15,39 +15,53 @@
     <meta charset="utf-8">
 </head>
 <body>
-    <header>
-        <div class="nav-bar">
-
-            <!-- Use any element to open the sidenav -->
-            <span class="sidenav-button" onclick="openNav()">
-                    <div></div>
-                </span>
-
-            <a href="https://topicus.nl/"><img src="images/topicus-logo.png" alt="logo" class="logo"></a>
 
 
-            <button class="btn-toggle">TOGGLE DARK-MODE</button>
+<header>
+    <div class="nav-bar">
 
+        <!-- Use any element to open the sidenav -->
+        <span class="sidenav-button" onclick="openNav()">
+                    <div><img src="images/menu.png" alt="menu"></div>
+            </span>
 
-            <nav>
-                <ul>
-                    <li><a href="testLogin.jsp">Log out</a></li>
-                    <li><a href ="https://topicus.nl/contact"> Contact </a></li>
-                </ul>
-            </nav>
-
+        <div id="logo-container">
+            <a href="mainPage.jsp"><img src="images/topicus-logo.png" alt="logo" class="logo"></a>
         </div>
-    </header>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Processes And Transactions</a>
-        <a href="upload.jsp">Bank Statement Upload</a>
-        <a href="Chart.jsp">Chart-view And Graph</a>
+        <button class="btn-toggle">TOGGLE DARK-MODE</button>
+
+        <nav>
+            <ul>
+                <%
+                    String username = "";
+
+                    if (servlets.logInServlet.getUser() != null) {
+                        username = servlets.logInServlet.getUser().getUsername();
+                    }
+                %>
+
+                Hello <%= username%>!
+
+                <li>
+                    <form action="logout" method="get">
+                        <button type="submit" id="log-out">Log out</button>
+                    </form>
+                </li>
+                <li><a href ="https://topicus.nl/contact"> Contact </a></li>
+            </ul>
+        </nav>
+
     </div>
+</header>
 
-    <div id="main">
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Processes And Transactions</a>
+    <a href="upload.jsp">Bank Statement Upload</a>
+    <a href="Chart.jsp">Chart view And Graph</a>
+    <a href="Table.jsp">Table view</a>
+</div>
 
-    </div>
 </body>
 </html>

@@ -17,6 +17,7 @@
         Login
         <span class="underline"></span>
       </button>
+
       <form class="form form-login" action="login" method = "post">
         <fieldset>
           <legend>Please, enter your username and password for login.</legend>
@@ -31,6 +32,7 @@
         </fieldset>
         <button type="submit" class="btn-login">Login</button>
       </form>
+
     </div>
     <div class="form-wrapper">
       <button type="button" class="switcher switcher-signup">
@@ -89,7 +91,7 @@
   body {
     margin: 0;
     font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-    background: #3b4465;
+    background: var(--bkg-color);
   }
 
   .forms-section {

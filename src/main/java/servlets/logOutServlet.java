@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
+import java.io.IOException;
 
 @WebServlet("/logout")
 public class logOutServlet extends HttpServlet {
@@ -16,12 +17,21 @@ public class logOutServlet extends HttpServlet {
     }
 
     @GET
-    public void doGet(HttpServletRequest req, HttpServletResponse res){
+    public void doGet(HttpServletRequest req, HttpServletResponse res) {
+
         HttpSession session = req.getSession(false);
         if (session != null) {
             session.removeAttribute("user");
 
-            RequestDispatcher rd = req.getRequestDispatcher("logInPage.jsp");
+            logInServlet.resetUser();
+
+            String redirectURL = "testLogin.jsp";
+            try {
+                res.sendRedirect(redirectURL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }

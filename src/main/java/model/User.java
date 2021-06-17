@@ -29,6 +29,13 @@ public class User {
         super();
     }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        email = "";
+        userID = 0;
+    }
+
     public String getPassword() {
         return password;
     }

@@ -3,25 +3,34 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="MyStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <meta charset="utf-8">
 </head>
 
 <body>
-    <jsp:include page="base.jsp"/>
-    <div id="main">
+<%
 
-    </div>
+    if (servlets.logInServlet.getUser() == null) {
 
-    <style>
-        <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
-    </style>
+        String redirectURL = "testLogin.jsp";
+        response.sendRedirect(redirectURL);
+    }
+%>
 
-    <script>
-        <jsp:include page="WEB-INF/JS/darkTheme.js"/>
-        <jsp:include page="WEB-INF/JS/sideNav.js"/>
-    </script>
+<jsp:include page="base.jsp"/>
+
+<div id="main">
+
+</div>
+
+<style>
+    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+</style>
+
+<script>
+    <jsp:include page="WEB-INF/JS/darkTheme.js"/>
+    <jsp:include page="WEB-INF/JS/sideNav.js"/>
+</script>
 
 </body>
 </html>
