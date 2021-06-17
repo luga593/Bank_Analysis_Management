@@ -104,7 +104,7 @@ public class FileDAO {
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			statement3.setDate(10, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
-			Long datetime = System.currentTimeMillis()/1000;
+			Long datetime = System.currentTimeMillis();
 			java.sql.Timestamp timestamp = new Timestamp(datetime);
 	        System.out.println(timestamp.getNanos());
 			statement1.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
@@ -169,7 +169,7 @@ public class FileDAO {
 			// }
 
 		}
-		DbUtil.closeConnection();
+		//DbUtil.closeConnection();
 	}
 	public int getFileID() {
 		return this.fileid;
