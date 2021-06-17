@@ -31,7 +31,7 @@ import dao.FileDAO;
 public class uploadServlet extends HttpServlet{
 
     /** The path to the folder where we want to store the uploaded files */
-    private static final String UPLOAD_FOLDER = "C:/temp/Topicus-UploadedFiles/";
+    private static final String UPLOAD_FOLDER = "C:/Topicus-UploadedFiles/";
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -48,30 +48,19 @@ public class uploadServlet extends HttpServlet{
             InputStream fileInputStream = filePart.getInputStream();
             File fileToSave = new File(UPLOAD_FOLDER + filePart.getSubmittedFileName());
             Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
+            parser.uploadToDatabase(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
             String fileUrl = "http://localhost:8080/uploaded-files/" + filePart.getSubmittedFileName();
-           // response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + " " + "you uploaded:</p>");
-
-            String redirectURL = "UploadSuccess.jsp";
-            try {
-                response.sendRedirect(redirectURL);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + " " + "you uploaded:</p>");
             //[Debug]------------------------
-            //response.getOutputStream().println(showInformation());
+            response.getOutputStream().println(showInformation());
             //response.getOutputStream().println("<mt940 file src=\"" + fileUrl + "\" />");
             //response.getOutputStream().println("<p>Upload another mt940 file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");
         }
         else{
             //the file was not a mt940 file
-            //response.getOutputStream().println("<p>Please only upload mt940 files.</p>");
+            response.getOutputStream().println("<p>Please only upload mt940 files.</p>");
             //response.getOutputStream().println("<p>Upload another file <a href=\"http://localhost:8080/index.html\">here</a>.</p>");
-            String redirectURL = "UploadFail.jsp";
-            try {
-                response.sendRedirect(redirectURL);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
     }
@@ -139,57 +128,60 @@ public class uploadServlet extends HttpServlet{
                 // System.out.println(files[i]);
                 files[i] = files[i].replace(" Sample ", "Sample ");
                 files[i] = files[i].replace("\n", "");
-                if (getUploadedContent(UPLOAD_FOLDER + files[i]) != null) {
-                    parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + files[i]));
-                    parser.parseFile();
-                    FileDAO fileDao =  new FileDAO();
-                    fileDao.addFileDetails(parser);
-                    for (int j = 0; j < parser.getContentSize(); j++) {
-                        res += "SubFile " + String.valueOf(j + 1) + "\n";
-                        res += "Reference number: " + parser.get20field(j) + "\n";
-                        if (parser.getContent().get(j).containsKey("21")) {
-                            res += "Related reference: " + parser.get21Field(j) + "\n";
-                        }
-                        res += "Account identification number: " + parser.get25field(j) + "\n";
-                        // res+="Statement Number/Sequence Number " + parser.get28Field(j) +"\n";
-                        res += "Opening Balance: \n";
-                        for (String key : parser.get60field(j).keySet()) {
-                            res += key + ": " + parser.get60field(j).get(key) + "\n";
-                        }
-                        for (int k = 0; k < parser.getContent().get(j).get(":61:").size(); k++) {
-                            if (parser.get61field(j, k) != null) {
-                                res += "Transaction " + String.valueOf(k + 1) + ":\n";
-                                for (String key : parser.get61field(j, k).keySet()) {
-                                    res += key + ": " + parser.get61field(j, k).get(key) + "\n";
-                                }
-                                for (String key : parser.get86field(j, k).keySet()) {
-                                    res += key + ": " + parser.get86field(j, k).get(key) + "\n";
-                                }
-                            }
-                        }
-                        res+="\n";
-                        if (parser.get62Ffield(j, 0)!= null) {
-                            for (String key : parser.get62Ffield(j, 0).keySet()) {
-                                res += key + ": " + parser.get62Ffield(j, 0).get(key) + "\n";
-                            }
-                        }
-                        if (parser.getContent().get(j).containsKey(":64:") && parser.get64field(j, 0)!= null) {
-                            for (String key : parser.get64field(j, 0).keySet()) {
-                                res += key + ": " + parser.get64field(j, 0).get(key) + "\n";
-                            }
-                        }
-                        if (parser.getContent().get(j).containsKey(":65:") && parser.get65field(j, 0)!= null) {
-                            for (String key : parser.get65field(j, 0).keySet()) {
-                                res += key + ": " + parser.get65field(j, 0).get(key) + "\n";
-                            }
-                        }
-                        if (parser.get86finfield(j, parser.getContent().get(j).get(":86:").size()-1)!= null) {
-                            for (String key : parser.get86finfield(j, parser.getContent().get(j).get(":86:").size()-1).keySet()) {
-                                res += key + ": " + parser.get86finfield(j, parser.getContent().get(j).get(":86:").size()-1).get(key) + "\n";
-                            }
-                        }
-                    }
-                }
+                /**
+                 if (getUploadedContent(UPLOAD_FOLDER + files[i]) != null) {
+                 parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + files[i]));
+                 parser.parseFile();
+                 //  FileDAO fileDao =  new FileDAO();
+                 //  fileDao.addFileDetails(parser);
+                 for (int j = 0; j < parser.getContentSize(); j++) {
+                 res += "SubFile " + String.valueOf(j + 1) + "\n";
+                 res += "Reference number: " + parser.get20field(j) + "\n";
+                 if (parser.getContent().get(j).containsKey("21")) {
+                 res += "Related reference: " + parser.get21Field(j) + "\n";
+                 }
+                 res += "Account identification number: " + parser.get25field(j) + "\n";
+                 // res+="Statement Number/Sequence Number " + parser.get28Field(j) +"\n";
+                 res += "Opening Balance: \n";
+                 for (String key : parser.get60field(j).keySet()) {
+                 res += key + ": " + parser.get60field(j).get(key) + "\n";
+                 }
+                 for (int k = 0; k < parser.getContent().get(j).get(":61:").size(); k++) {
+                 if (parser.get61field(j, k) != null) {
+                 res += "Transaction " + String.valueOf(k + 1) + ":\n";
+                 for (String key : parser.get61field(j, k).keySet()) {
+                 res += key + ": " + parser.get61field(j, k).get(key) + "\n";
+                 }
+                 for (String key : parser.get86field(j, k).keySet()) {
+                 res += key + ": " + parser.get86field(j, k).get(key) + "\n";
+                 }
+                 }
+                 }
+                 res+="\n";
+                 if (parser.get62Ffield(j, 0)!= null) {
+                 for (String key : parser.get62Ffield(j, 0).keySet()) {
+                 res += key + ": " + parser.get62Ffield(j, 0).get(key) + "\n";
+                 }
+                 }
+                 if (parser.getContent().get(j).containsKey(":64:") && parser.get64field(j, 0)!= null) {
+                 for (String key : parser.get64field(j, 0).keySet()) {
+                 res += key + ": " + parser.get64field(j, 0).get(key) + "\n";
+                 }
+                 }
+                 if (parser.getContent().get(j).containsKey(":65:") && parser.get65field(j, 0)!= null) {
+                 for (String key : parser.get65field(j, 0).keySet()) {
+                 res += key + ": " + parser.get65field(j, 0).get(key) + "\n";
+                 }
+                 }
+                 if (parser.get86finfield(j, parser.getContent().get(j).get(":86:").size()-1)!= null) {
+                 for (String key : parser.get86finfield(j, parser.getContent().get(j).get(":86:").size()-1).keySet()) {
+                 res += key + ": " + parser.get86finfield(j, parser.getContent().get(j).get(":86:").size()-1).get(key) + "\n";
+                 }
+                 }
+                 }
+
+                 }
+                 **/
             }
         }
         return res;
