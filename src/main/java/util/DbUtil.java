@@ -2,7 +2,9 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -40,6 +42,7 @@ public class DbUtil {
     public static Connection getConnection() {
         return connection;
     }
+<<<<<<< HEAD
     public static void closeConnection() {
 		try {
 			connection.close();
@@ -48,4 +51,22 @@ public class DbUtil {
 			e.printStackTrace();
 		}
 	}
+=======
+    public static void main(String args[]) throws SQLException {
+    	DbUtil newdb = new DbUtil();
+    	Statement statement = newdb.getConnection().createStatement();
+    	String query = "SELECT t.fileid, t.date,t.startingamount,t.closingdate,t.closingammount\n"
+    			+ "FROM dab_di20212b_7.transactionfile AS t\n"
+    			+ "ORDER BY t.date";
+
+    	ResultSet rs = statement.executeQuery(query);
+    	while (rs.next())
+    	{ 
+    		System.out.println(rs.getString(2));
+    	}
+    	rs.close();
+    	statement.close();
+            
+}
+>>>>>>> 95d93ecc9398e3096b1af2fea524db05cd2f661f
 }
