@@ -42,7 +42,6 @@ public class DbUtil {
     public static Connection getConnection() {
         return connection;
     }
-<<<<<<< HEAD
     public static void closeConnection() {
 		try {
 			connection.close();
@@ -51,7 +50,7 @@ public class DbUtil {
 			e.printStackTrace();
 		}
 	}
-=======
+    
     public static void main(String args[]) throws SQLException {
     	DbUtil newdb = new DbUtil();
     	Statement statement = newdb.getConnection().createStatement();
@@ -68,5 +67,4 @@ public class DbUtil {
     	statement.close();
             
 }
->>>>>>> 95d93ecc9398e3096b1af2fea524db05cd2f661f
 }
