@@ -280,7 +280,7 @@
                 myFunction(this);
             }
         };
-        xmlhttp.open("GET", "http://localhost:8080/Topicus_war_exploded/tempxml", true);
+        xmlhttp.open("GET", "http://localhost:8080/Topicus/tempxml", true);
         xmlhttp.send();
     }
     function myFunction(xml) {
