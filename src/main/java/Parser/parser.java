@@ -422,6 +422,7 @@ public class parser {
 	}
 
 	public void uploadToDatabase(String mt3) {
+		Long dateTime = System.currentTimeMillis();
 		int index = 0;
 		while (index != -1) {
 			int previndex = index;
@@ -439,7 +440,7 @@ public class parser {
 				tmp = tmp.replace(":28:", ":28C:");
 				MT940 file = new MT940(tmp);
 				FileDAO dao = new FileDAO();
-				dao.addFileDetails(file,tmp);
+				dao.addFileDetails(file,tmp,dateTime);
 			}
 		}
 	}

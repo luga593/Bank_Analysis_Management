@@ -37,7 +37,7 @@ public class FileDAO {
 
 	}
 
-	public void addFileDetails(MT940 mt940,String tmp) {
+	public void addFileDetails(MT940 mt940,String tmp,Long dateTime) {
 		String insertFile = "Insert into transactionfile(transactionreferenceno,relatedreference,accid,statementno,date,currency,startingamount,userid,closingammount,closingdate,Time)" + 
 				"values " + "(?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTransaction = "Insert into process(valuedate,entrydate,creditdebit,transactionammount,cusomter_reference,details,iban,incasantid,description,partyname,fileid) values "
@@ -104,8 +104,7 @@ public class FileDAO {
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			statement3.setDate(10, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
-			Long datetime = System.currentTimeMillis();
-			java.sql.Timestamp timestamp = new Timestamp(datetime);
+			java.sql.Timestamp timestamp = new Timestamp(dateTime);
 	        System.out.println(timestamp.getNanos());
 			statement1.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
 			statement1.executeUpdate();
