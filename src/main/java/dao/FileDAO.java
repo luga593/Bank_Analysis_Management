@@ -37,9 +37,9 @@ public class FileDAO {
 
 	}
 
-	public void addFileDetails(MT940 mt940,String tmp) {
-		String insertFile = "Insert into transactionfile(transactionreferenceno,relatedreference,accid,statementno,date,currency,startingamount,userid,closingammount,closingdate,Time)" + 
-				"values " + "(?,?,?,?,?,?,?,?,?,?,?)";
+	public void addFileDetails(MT940 mt940,String tmp,Long dateTime,String filename) {
+		String insertFile = "Insert into transactionfile(transactionreferenceno,relatedreference,accid,statementno,date,currency,startingamount,userid,closingammount,closingdate,time,filename)" + 
+				"values " + "(?,?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTransaction = "Insert into process(valuedate,entrydate,creditdebit,transactionammount,cusomter_reference,details,iban,incasantid,description,partyname,fileid) values "
 				+ "(?,?,?,?,?,?,?,?,?,?,?)";
 		String query = "Select f.fileid from dab_di20212b_7.transactionfile f "
@@ -104,10 +104,9 @@ public class FileDAO {
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			statement3.setDate(10, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
-			Long datetime = System.currentTimeMillis();
-			java.sql.Timestamp timestamp = new Timestamp(datetime);
-	        System.out.println(timestamp.getNanos());
+			java.sql.Timestamp timestamp = new Timestamp(dateTime);
 			statement1.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
+			statement1.setString(12, filename);
 			statement1.executeUpdate();
 			
 			int j = 0;

@@ -46,10 +46,11 @@ public class uploadServlet extends HttpServlet{
                 response.getOutputStream().println("<p>Can not create destination folder on server.</p>");
             }
             InputStream fileInputStream = filePart.getInputStream();
-            File fileToSave = new File(UPLOAD_FOLDER + filePart.getSubmittedFileName());
+            String filename = UPLOAD_FOLDER + filePart.getSubmittedFileName();
+            File fileToSave = new File(filename);
             Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            parser parser = new parser(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
-            parser.uploadToDatabase(getUploadedContent(UPLOAD_FOLDER + filePart.getSubmittedFileName()));
+            parser parser = new parser(filename);
+            parser.uploadToDatabase(getUploadedContent(filename), filePart.getSubmittedFileName());
             String fileUrl = "http://localhost:8080/uploaded-files/" + filePart.getSubmittedFileName();
             response.getOutputStream().println("<p>" + "Here's " + filePart.getSubmittedFileName() + " " + "you uploaded:</p>");
             //[Debug]------------------------
