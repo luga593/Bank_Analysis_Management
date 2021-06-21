@@ -15,14 +15,14 @@ import dao.TableDAO;
 /**
  * Servlet implementation class DataServlet
  */
-@WebServlet("/tempxml")
-public class TableServlet extends HttpServlet {
+@WebServlet("/singular")
+public class TableSingularServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TableServlet() {
+    public TableSingularServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,7 @@ public class TableServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		TableDAO tableDao = new TableDAO();
-		response.getOutputStream().println(tableDao.selectData2());
+		response.getOutputStream().println(tableDao.selectData3());
 		
 	}
  

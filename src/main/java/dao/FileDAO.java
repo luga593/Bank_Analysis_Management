@@ -45,7 +45,7 @@ public class FileDAO {
 		String query = "Select f.fileid from dab_di20212b_7.transactionfile f "
 				+ "where transactionreferenceno = ? and " + "relatedreference	=? and " + "accid = ? and "
 				+ "statementno= ? and " + "date = ? and " + "currency = ? and " + "startingamount = ? and "
-				+ "userid = ? and " + "closingammount = ? and " + "closingdate = ?";
+				+ "userid = ? and " + "closingammount = ? and " + "closingdate = ? and time = ? and filename = ?";
 
 		try {
 			int index = 0;
@@ -106,7 +106,10 @@ public class FileDAO {
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			java.sql.Timestamp timestamp = new Timestamp(dateTime);
 			statement1.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
+			statement3.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
+			
 			statement1.setString(12, filename);
+			statement3.setString(12, filename);
 			statement1.executeUpdate();
 			
 			int j = 0;
