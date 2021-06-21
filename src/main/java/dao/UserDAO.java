@@ -6,14 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import util.DbUtil;
+import util.PasswordUtil;
 
 public class UserDAO {
     public static boolean validate(String userName, String password) {
+    	String encryptedPwd = PasswordUtil.encrypt(password);
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection connection = null;
         boolean status = false;
-        boolean result = true;
         try {
             if (connection == null || connection.isClosed()) {
                 connection = DbUtil.getConnection();
@@ -26,11 +27,10 @@ public class UserDAO {
         try {
             ps = connection.prepareStatement("SELECT username,password FROM login WHERE username=? AND password=?");
             ps.setString(1, userName);
-            ps.setString(2, password);
+            ps.setString(2, encryptedPwd);
 
             rs = ps.executeQuery();
             status = rs.next();
-            //result = true;
             rs.close();
             ps.close();
         } catch (SQLException e) {
