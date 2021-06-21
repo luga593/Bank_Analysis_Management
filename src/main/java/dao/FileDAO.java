@@ -147,7 +147,7 @@ public class FileDAO {
 					// if (parser.get86field(i, j).containsKey("description")) {
 					// statement2.setString(9, parser.get86field(i, j).get("description"));
 					// } else {
-					statement2.setString(9, null);
+					statement2.setString(9, line.getDescription());
 					// }
 					// if (parser.get86field(i, j).containsKey("partyName")) {
 					statement2.setString(10, line.getNameParty());

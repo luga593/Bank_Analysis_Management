@@ -5,6 +5,7 @@ public class Line86Parsed {
     private String line;
     private String account;
     private String nameParty;
+    private String description;
 
     public Line86Parsed(String line) {
         this.line = line;
@@ -25,7 +26,9 @@ public class Line86Parsed {
             String splitted[] = line.split("/");
             this.account = splitted[2];
             this.nameParty = splitted[4];
-        } else {
+            this.description = splitted[splitted.length-1] ; 
+            } 
+        else {
             String splitted1[] = line.split("  ");
             String splitted2[] = splitted1[0].split(" ");
             this.nameParty = "";
@@ -36,6 +39,9 @@ public class Line86Parsed {
                     this.nameParty += splitted2[i] + " ";
                 }
             }
+            this.description = splitted1[1];
+            
+            
         }
     }
 
@@ -55,5 +61,9 @@ public class Line86Parsed {
         }
 
     }
+
+	public String getDescription() {
+		return this.description;
+	}
 
 }

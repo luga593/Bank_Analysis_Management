@@ -36,7 +36,7 @@ public class PasswordUtil {
 
   //[Debug]
   public static void main(String[] args) {
-	  System.out.println("222 = " + encrypt("222"));
+	  System.out.println("user2 = " + encrypt("user2"));
 	  // SDLBQOfojzbNQmN3B3HqlA==
 	  //System.out.println("decrypt = " + decrypt(encrypt("000")));
   }
