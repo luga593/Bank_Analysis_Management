@@ -34,9 +34,11 @@ public class uploadServlet extends HttpServlet{
 			String result = IOUtils.toString(fileContent, StandardCharsets.UTF_8);
 			parser parser = new parser(fileName);
 	        parser.uploadToDatabase(result, fileName);
-	        // [Debug]: should redirect to the table
-	        response.getOutputStream().println(result);
-			
+	     // [Debug]: should redirect to the table
+	        // response.getOutputStream().println(result);
+	        if (response.getStatus() == 200) {
+	        	response.sendRedirect("Table.jsp");
+	        }
 		} else{
 			//the file was not a mt940 file
 			response.getOutputStream().println("<p>Please only upload mt940 files.</p>");
