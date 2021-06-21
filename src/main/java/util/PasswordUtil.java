@@ -44,8 +44,4 @@ public class PasswordUtil {
 	    return null;
   }
   
-  //[Debug]
-  public static void main(String[] args) {
-	  System.out.println("000 = " + encrypt("000"));
-  }
 }

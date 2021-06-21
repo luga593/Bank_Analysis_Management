@@ -10,6 +10,7 @@
 <a href = "signIn.jsp">sign up</a> <br>
 <a href = "newUI.jsp">eye animation</a> <br>
 <a href = "failedLogin.jsp">failed login</a> <br>
-<a href = "Table.jsp"> table </a>
+<a href = "Table.jsp"> table </a> <br>
+<a href="Chart.jsp">chart</a>
 </body>
 </html>

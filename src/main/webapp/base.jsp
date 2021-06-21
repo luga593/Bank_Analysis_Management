@@ -57,10 +57,10 @@
 
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Processes And Transactions</a>
+    <a href="Table.jsp">Processes And Transactions</a>
     <a href="upload.jsp">Bank Statement Upload</a>
     <a href="Chart.jsp">Chart view And Graph</a>
-    <a href="Table.jsp">Table view</a>
+    <a href="TableSingular.jsp">Table view</a>
 </div>
 
 </body>
