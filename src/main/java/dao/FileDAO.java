@@ -88,8 +88,8 @@ public class FileDAO {
 			statement3.setString(6, currency);
 			statement1.setFloat(7, amount);
 			statement3.setFloat(7, amount);
-			statement1.setInt(8, 2);
-			statement3.setInt(8, 2);
+			statement1.setInt(8, 2); 
+			statement3.setInt(8, 2); // userid should be dynamic
 			if (mt940.getField62F() != null) {
 				date = mt940.getField62F().getDate();
 				amount = Float.valueOf(mt940.getField62F().getAmount().replace(",", ".").replace("-", ""));
