@@ -93,8 +93,6 @@ Date: 14/06/2021
     }
 </style>
 
->>>>>>> 67d96f43c19b91b393345c89a2a65f31e34706ad
-
     <script>
         var datavalues;
         // iban is NL34RABO0327101691

@@ -25,7 +25,7 @@ public class logInServlet extends HttpServlet {
         super();
     }
 
-<<<<<<< HEAD
+
     public static User getUser() {
         return loggedin;
     }
@@ -33,9 +33,9 @@ public class logInServlet extends HttpServlet {
     public static void resetUser() {
         loggedin = null;
     }
-=======
 
->>>>>>> 67d96f43c19b91b393345c89a2a65f31e34706ad
+
+
 
     public void doPost (HttpServletRequest request, HttpServletResponse response)
             throws IOException {

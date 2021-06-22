@@ -15,7 +15,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <junit.version>5.7.1</junit.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -71,7 +70,6 @@
   <artifactId>commons-validator</artifactId>
   <version>1.7</version>
 </dependency>
-<<<<<<< HEAD
  <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
@@ -89,7 +87,6 @@
 		    <artifactId>org.apache.commons.codec</artifactId>
 		    <version>1.8</version>
 		</dependency>
-=======
 
 <!-- https://mvnrepository.com/artifact/org.knowm.xchart/xchart -->
 <dependency>
@@ -97,8 +94,6 @@
     <artifactId>xchart</artifactId>
     <version>3.8.0</version>
 </dependency>
-
->>>>>>> 67d96f43c19b91b393345c89a2a65f31e34706ad
     </dependencies>
 <build>
         <plugins>
