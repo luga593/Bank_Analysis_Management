@@ -1,5 +1,7 @@
 package dao;
 
+import model.File;
+import model.Process;
 import model.User;
 import util.DbUtil;
 
@@ -53,8 +55,10 @@ public class FileDAO {
 			PreparedStatement statement1 = connection.prepareStatement(insertFile);
 			PreparedStatement statement2 = connection.prepareStatement(insertTransaction);
 			PreparedStatement statement3 = connection.prepareStatement(query);
-			statement1.setString(1, mt940.getField20().getValue());
-			statement3.setString(1, mt940.getField20().getValue());
+			File file = new File();
+			file.setTransactionReference(mt940.getField20().getValue());
+			statement1.setString(1, file.getTransactionReference());
+			statement3.setString(1, file.getTransactionReference());
 			if(mt940.getField21()!=null) {
 				statement1.setString(2, mt940.getField21().getValue());
 				statement3.setString(2, mt940.getField21().getValue());
@@ -63,66 +67,79 @@ public class FileDAO {
 				statement3.setString(2,"No info available");
 				
 			}
-			statement1.setString(3, mt940.getField25().getAccount());
-			statement3.setString(3, mt940.getField25().getAccount());
-			statement1.setString(4, mt940.getField28C().getStatementNumber());
-			statement3.setString(4, mt940.getField28C().getStatementNumber());
+			file.setAccid(mt940.getField25().getAccount());
+			statement1.setString(3, file.getAccid());
+			statement3.setString(3, file.getAccid());
+			file.setStatementNo(mt940.getField28C().getStatementNumber());
+			statement1.setString(4,file.getStatementNo());
+			statement3.setString(4, file.getStatementNo());
 			String date;
 			String currency;
 			Float amount;
 			if (mt940.getField60F() != null) {
-				date = mt940.getField60F().getDate();
-				currency = mt940.getField60F().getCurrency();
-				amount = Float.valueOf(mt940.getField60F().getAmount().replace(",", "."));
+				file.setDate(mt940.getField60F().getDate());
+				file.setCurrency(mt940.getField60F().getCurrency());
+				file.setStartingAmount(Float.valueOf(mt940.getField60F().getAmount().replace(",", ".")));
+				date = file.getDate();
 
 			} else {
-				date = mt940.getField60M().getDate();
-				currency = mt940.getField60M().getCurrency();
-				amount = Float.valueOf(mt940.getField60M().getAmount().replace(",", "."));
+				file.setDate(mt940.getField60M().getDate());
+				file.setCurrency(mt940.getField60M().getCurrency());
+				file.setStartingAmount(Float.valueOf(mt940.getField60M().getAmount().replace(",", ".")));
+				date = file.getDate();
 			}
 			statement1.setDate(5, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			statement3.setDate(5, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			// (Date) formatter.parse(parser.get60field(i).get("Last Statement Date")));
-			statement1.setString(6, currency);
-			statement3.setString(6, currency);
-			statement1.setFloat(7, amount);
-			statement3.setFloat(7, amount);
+			statement1.setString(6, file.getCurrency());
+			statement3.setString(6, file.getCurrency());
+			statement1.setFloat(7, file.getStartingAmount());
+			statement3.setFloat(7, file.getStartingAmount());
 			statement1.setInt(8, 2); 
 			statement3.setInt(8, 2); // userid should be dynamic
 			if (mt940.getField62F() != null) {
-				date = mt940.getField62F().getDate();
-				amount = Float.valueOf(mt940.getField62F().getAmount().replace(",", ".").replace("-", ""));
+				file.setClosingDate(mt940.getField62F().getDate());
+				date = file.getClosingDate();
+				file.setClosingAmount(Float.valueOf(mt940.getField62F().getAmount().replace(",", ".").replace("-", "")));
 
 			} else {
-				date = mt940.getField62M().getDate();
-				amount = Float.valueOf(mt940.getField62M().getAmount().replace(",", "."));
+				file.setClosingDate(mt940.getField62M().getDate());
+				date = file.getClosingDate();
+				file.setClosingAmount(Float.valueOf(mt940.getField62M().getAmount().replace(",", ".").replace("-", "")));
 			}
-			statement1.setFloat(9, amount);
-			statement3.setFloat(9, amount);
+			statement1.setFloat(9, file.getClosingAmount());
+			statement3.setFloat(9, file.getClosingAmount());
 			statement1.setDate(10, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			statement3.setDate(10, java.sql.Date
 					.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
 			java.sql.Timestamp timestamp = new Timestamp(dateTime);
-			statement1.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
-			statement3.setTimestamp(11,timestamp,Calendar.getInstance(TimeZone.getTimeZone("UTC")));
-			
-			statement1.setString(12, filename);
-			statement3.setString(12, filename);
+			file.setTime(timestamp);
+			statement1.setTimestamp(11,file.getTime(),Calendar.getInstance(TimeZone.getTimeZone("UTC")));
+			statement3.setTimestamp(11,file.getTime(),Calendar.getInstance(TimeZone.getTimeZone("UTC")));
+			file.setFilename(filename);
+			statement1.setString(12, file.getFilename());
+			statement3.setString(12, file.getFilename());
 			statement1.executeUpdate();
 			
 			int j = 0;
 			int cnt = 0;
 			for (int k = 0; k < mt940.getField61().size(); k++) {
-				date = mt940.getField61().get(k).getEntryDate();
+				Process process =  new Process();
+				process.setEntryDate(mt940.getField61().get(k).getEntryDate());
+				date = process.getEntryDate();
 				statement2.setDate(1, java.sql.Date.valueOf("2021-" + date.substring(0, 2) + "-" + date.substring(2, 4)));
-				date =  mt940.getField61().get(k).getValueDate();
+				process.setValueDate(mt940.getField61().get(k).getValueDate());
+				date =  process.getValueDate();
 				statement2.setDate(2, java.sql.Date.valueOf("20" + date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6)));
-				statement2.setString(3, mt940.getField61().get(k).getDCMark());
-				statement2.setFloat(4, Float.valueOf(mt940.getField61().get(k).getAmount().replace(",", ".")));
-				statement2.setString(5, mt940.getField61().get(k).getReferenceForTheAccountOwner());
+				process.setCreditDebit(mt940.getField61().get(k).getDCMark());
+				statement2.setString(3, process.getCreditDebit());
+				process.setTransactionAmount(Float.valueOf(mt940.getField61().get(k).getAmount().replace(",", ".")));
+				statement2.setFloat(4, process.getTransactionAmount());
+				process.setCustomerReference(mt940.getField61().get(k).getReferenceForTheAccountOwner());
+				statement2.setString(5, process.getCustomerReference());
 				int t = tmp.indexOf(mt940.getField61().get(k).getValue());
 				int val = t + mt940.getField61().get(k).getValue().length() + 2;
 				if (tmp.substring(val, val + 4) .equals(":86:")) {
@@ -130,31 +147,13 @@ public class FileDAO {
 					line.setDetails();
 					cnt++;
 					statement2.setString(6, null);
-					// if (parser.get86field(i, j).containsKey("Details")) {
-					// statement2.setString(6, parser.get86field(i, j).get("Details"));
-					// } else {
-					// statement2.setString(6, null);
-					// }
-					// if (parser.get86field(i, j).containsKey("TransactionIBAN")) {
-					statement2.setString(7, line.getAccount());
-					// } else {
-					// statement2.setString(7, null);
-					// }
-					// if (parser.get86field(i, j).containsKey("IncassantID")) {
-					// statement2.setString(8, parser.get86field(i, j).get("IncassantID"));
-					// } else {
+					process.setIban(line.getAccount());
+					statement2.setString(7, process.getIban());
 					statement2.setString(8, null);
-					// }
-					// if (parser.get86field(i, j).containsKey("description")) {
-					// statement2.setString(9, parser.get86field(i, j).get("description"));
-					// } else {
-					statement2.setString(9, line.getDescription());
-					// }
-					// if (parser.get86field(i, j).containsKey("partyName")) {
-					statement2.setString(10, line.getNameParty());
-					// } else {
-					// statement2.setString(10, null);
-					// }
+					process.setDescription(line.getDescription());
+					statement2.setString(9, process.getDescription());
+					process.setPartyname(line.getNameParty());
+					statement2.setString(10, process.getPartyname());
 					ResultSet set = statement3.executeQuery();
 					while (set.next()) {
 						statement2.setInt(11, set.getInt(1));
