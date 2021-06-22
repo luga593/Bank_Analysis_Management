@@ -47,12 +47,14 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
+         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->
+<dependency>
+    <groupId>org.junit.platform</groupId>
+    <artifactId>junit-platform-runner</artifactId>
+    <version>1.8.0-M1</version>
+    <scope>test</scope>
+</dependency>
+
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 <dependency>
     <groupId>org.postgresql</groupId>
@@ -69,6 +71,11 @@
   <artifactId>commons-validator</artifactId>
   <version>1.7</version>
 </dependency>
+ <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>3.141.59</version>
+    </dependency>
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 		    <groupId>commons-io</groupId>
@@ -82,9 +89,16 @@
 		    <version>1.8</version>
 		</dependency>
     </dependencies>
-
-    <build>
+<build>
         <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -92,4 +106,4 @@
             </plugin>
         </plugins>
     </build>
-</project>
+</project>  

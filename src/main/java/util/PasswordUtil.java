@@ -43,5 +43,9 @@ public class PasswordUtil {
 	    }
 	    return null;
   }
-  
+  public static void main(String args[]) {
+	PasswordUtil util = new PasswordUtil();
+	System.out.println(util.encrypt("user2"));
+  }
+
 }
