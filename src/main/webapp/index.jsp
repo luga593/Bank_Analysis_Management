@@ -3,7 +3,7 @@
 <head>
     <title>Index</title>
 </head>
-<<<<<<< HEAD
+
 <body>
 <a href = "testLogin.jsp">login</a> <br>
 <a href = "mainPage.jsp"> main </a> <br>
@@ -14,7 +14,7 @@
 <a href = "Table.jsp"> table </a> <br>
 <a href="Chart.jsp">chart</a>
 </body>
-=======
+
     <body>
 
         <a href = "logInPage.jsp"> login with css </a> <br>
@@ -28,5 +28,5 @@
         <a href = "Table.jsp"> table </a> <br>
         <a href = "charTest.jsp"> Chart Test</a>
     </body>
->>>>>>> 67d96f43c19b91b393345c89a2a65f31e34706ad
+
 </html>
