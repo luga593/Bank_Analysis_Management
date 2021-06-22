@@ -50,12 +50,31 @@
   }
   //after taking all values updates the chart <waiting until all vars are assigned a value,the this func>
   function updateChart(chart) {
-    let dataArray = datavalues.split(',');
+    //updating the datavalues
+    let dataArray = datavalues.split(',',4);
     console.log(dataArray[1]);
-
     chart.data.datasets[0].data = dataArray;
-    chart.update();
 
+    //calculating percentage
+    let total = parseInt(datavalues.split(',')[4]);
+    console.log(total);
+    let fraudulent = total - parseInt(dataArray[3]);
+    console.log(fraudulent);
+    let fraudulence = (fraudulent/total) * 100;
+    console.log(fraudulence);
+
+    //updating the title
+    chart.options = {
+      plugins: {
+        title: {
+          display: true,
+          text: 'The percentage of fraudulence is ' + fraudulence.toFixed(0)+ '%',
+          fontsize: 40
+        }
+      }
+    };
+
+    chart.update();
   }
 
 
@@ -85,7 +104,7 @@
 
       }]
     },
-    options: {}
+    options: {},
   });
 
 

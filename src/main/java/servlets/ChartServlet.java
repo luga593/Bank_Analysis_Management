@@ -14,7 +14,9 @@ import java.sql.SQLException;
 @WebServlet("/ChartTest")
 public class ChartServlet extends HttpServlet {
 
-    //writes the number of transactions associated with a file
+    /**Writes the number of processes flagged for differenet reasons separated by coma. the last value is the total number
+     * of files
+     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException{
         ShowChartsLuis chartdata = new ShowChartsLuis();
