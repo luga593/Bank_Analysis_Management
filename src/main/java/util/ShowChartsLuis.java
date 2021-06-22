@@ -52,7 +52,7 @@ public class ShowChartsLuis {
         String result = null;
 
         PreparedStatement st = connection.prepareStatement(QUERY);
-        st.setString(1,iban + "%");
+        st.setString(1,iban);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -63,7 +63,7 @@ public class ShowChartsLuis {
     public String getNoRecipient(String iban) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY1);
-        st.setString(1,iban + "%");
+        st.setString(1,iban);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -74,7 +74,7 @@ public class ShowChartsLuis {
     public String getNoDescription(String iban) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY2);
-        st.setString(1,iban + "%");
+        st.setString(1,iban );
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -84,7 +84,7 @@ public class ShowChartsLuis {
     public String getNoIbanNoDesc(String iban) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY4);
-        st.setString(1,iban + "%");
+        st.setString(1,iban );
         ResultSet resultSet = st.executeQuery();
         resultSet.next();
 
@@ -94,8 +94,8 @@ public class ShowChartsLuis {
     public String getGoodProcesses(String iban) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY3);
-        st.setString(1,iban + "%");
-        st.setString(2,iban + "%");
+        st.setString(1,iban );
+        st.setString(2,iban );
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
