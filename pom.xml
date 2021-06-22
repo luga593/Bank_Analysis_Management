@@ -69,6 +69,14 @@
   <artifactId>commons-validator</artifactId>
   <version>1.7</version>
 </dependency>
+
+<!-- https://mvnrepository.com/artifact/org.knowm.xchart/xchart -->
+<dependency>
+    <groupId>org.knowm.xchart</groupId>
+    <artifactId>xchart</artifactId>
+    <version>3.8.0</version>
+</dependency>
+
     </dependencies>
 
     <build>

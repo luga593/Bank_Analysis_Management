@@ -13,6 +13,7 @@
         <a href = "newUI.jsp">eye</a> <br>
         <a href = "testLogin.jsp">test</a> <br>
         <a href = "failedLogin.jsp">fail login</a> <br>
-        <a href = "Table.jsp"> table </a>
+        <a href = "Table.jsp"> table </a> <br>
+        <a href = "charTest.jsp"> Chart Test</a>
     </body>
 </html>
