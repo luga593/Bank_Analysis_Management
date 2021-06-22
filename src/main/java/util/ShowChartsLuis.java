@@ -32,7 +32,8 @@ public class ShowChartsLuis {
      * non matching iban query pending
      */
     public String[] getStats(String iban) throws SQLException{
-        return new String[]{getNoRecipient(iban), getNoIbanNoDesc(iban),getNoDescription(iban), getGoodProcesses(iban)};
+        return new String[]{getNoRecipient(iban), getNoIbanNoDesc(iban),getNoDescription(iban), getGoodProcesses(iban),
+        getProcesses(iban)};
     };
 
     //puts all of the id's into a list and returns it
