@@ -71,6 +71,7 @@
   <artifactId>commons-validator</artifactId>
   <version>1.7</version>
 </dependency>
+<<<<<<< HEAD
  <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
@@ -88,6 +89,16 @@
 		    <artifactId>org.apache.commons.codec</artifactId>
 		    <version>1.8</version>
 		</dependency>
+=======
+
+<!-- https://mvnrepository.com/artifact/org.knowm.xchart/xchart -->
+<dependency>
+    <groupId>org.knowm.xchart</groupId>
+    <artifactId>xchart</artifactId>
+    <version>3.8.0</version>
+</dependency>
+
+>>>>>>> 67d96f43c19b91b393345c89a2a65f31e34706ad
     </dependencies>
 <build>
         <plugins>
