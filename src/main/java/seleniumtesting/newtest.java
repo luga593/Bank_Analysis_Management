@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.remote.*;
-import org.testng.annotations.*;
 
 public class newtest {
 	
