@@ -11,7 +11,7 @@ public class FirstTest {
 	// TODO Auto-generated method stub
 
 	//setting the driver executable
-	System.setProperty("webdriver.chrome.driver", "/Users/andrea/Desktop/Development/workspace/TopicusFinal/chromedriver");
+	System.setProperty("webdriver.chrome.driver", "chromedriver");
 
 	//Initiating your chromedriver
 	WebDriver driver=new ChromeDriver();
