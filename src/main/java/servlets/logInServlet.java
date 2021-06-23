@@ -48,6 +48,7 @@ public class logInServlet extends HttpServlet {
         
     	if (UserDAO.validate(userName, password)) {
         	loggedin = new User(userName, password);
+        	loggedin.setUserID(UserDAO.verifyCookie(userName));
         	request.getSession().setAttribute("uname", userName);            	
         	//Create session Cookie    			
 			Cookie cookie = new Cookie(userName, session.getId());

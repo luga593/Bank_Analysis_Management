@@ -17,7 +17,7 @@ public class UserDAO {
 	 * @param uname
 	 * @return personid in dab_di20212b_7.login
 	 */
-	public int verifyCookie(String uname) {
+	public static int verifyCookie(String uname) {
 		PreparedStatement ps = null;
         ResultSet rs = null;
         Connection connection = null;
