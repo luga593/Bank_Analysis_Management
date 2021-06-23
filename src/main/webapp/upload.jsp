@@ -20,7 +20,7 @@
          <h2>BANK STATEMENT UPLOAD</h2>
 
          <div id="fileUpload">
-             <form action="/Topicus_war_exploded/upload" method="post" enctype="multipart/form-data">
+             <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
                  <p>
                      Select a file : <input type="file" name="fileToUpload" size="45" accept=".940"/>
                  </p>
