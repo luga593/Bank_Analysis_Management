@@ -27,7 +27,9 @@
         <a href = "testLogin.jsp">test</a> <br>
         <a href = "failedLogin.jsp">fail login</a> <br>
         <a href = "Table.jsp"> table </a> <br>
-        <a href = "charTest.jsp"> Chart Test</a>
+        <a href = "charTest.jsp"> Chart Test</a> <br>
+        <a href = "src/main/webapp/WEB-INF/chartSimon.jsp"> Chart Simon</a>
+
     </body>
 
 </html>
