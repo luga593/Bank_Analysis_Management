@@ -3,6 +3,7 @@ package dao;
 import model.File;
 import model.Process;
 import model.User;
+import servlets.logInServlet;
 import util.DbUtil;
 
 import javax.sound.sampled.Line;
@@ -97,8 +98,9 @@ public class FileDAO {
 			statement3.setString(6, file.getCurrency());
 			statement1.setFloat(7, file.getStartingAmount());
 			statement3.setFloat(7, file.getStartingAmount());
-			statement1.setInt(8, 2); 
-			statement3.setInt(8, 2); // userid should be dynamic
+			// userid
+			statement1.setInt(8, logInServlet.getUser().getUserID());
+			statement3.setInt(8, logInServlet.getUser().getUserID());
 			if (mt940.getField62F() != null) {
 				file.setClosingDate(mt940.getField62F().getDate());
 				date = file.getClosingDate();

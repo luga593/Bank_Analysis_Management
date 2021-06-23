@@ -14,7 +14,7 @@ import java.sql.SQLException;
 @WebServlet("/ChartTest")
 public class ChartServlet extends HttpServlet {
 
-    /**Writes the number of processes flagged for differenet reasons separated by coma. the last value is the total number
+    /**Writes the number of processes flagged for different reasons separated by coma. the last value is the total number
      * of files
      */
     @Override

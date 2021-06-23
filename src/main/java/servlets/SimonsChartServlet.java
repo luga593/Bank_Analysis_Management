@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import util.ShowChartsLuis;
 import util.SimonsGraph;
+
 @WebServlet("/TestSimon")
 public class SimonsChartServlet extends HttpServlet {
 
