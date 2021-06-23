@@ -44,7 +44,7 @@
 
       }
     }
-    request.open("GET","http://localhost:8080/Topicus_war/ChartTest" + "?" +
+    request.open("GET","http://localhost:8080/Topicus/ChartTest" + "?" +
             "iban="+ ibanVal,true);                                                      //CHANGE PARAM TO IBAN
     request.send();
   }
