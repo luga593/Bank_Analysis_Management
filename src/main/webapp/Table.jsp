@@ -225,7 +225,9 @@
 		<h2>PROCESSES AND TRANSACTIONS</h2>
 
 		<div id="table"></div>
-
+		<div >
+		<input type = "button" value = "Print" onclick = "window.print()"/>		
+		</div>
 
 		<div>
 			<button id="download-csv">Download CSV</button>
