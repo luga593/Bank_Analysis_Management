@@ -14,6 +14,7 @@
 <a href = "failedLogin.jsp">failed login</a> <br>
 <a href = "Table.jsp"> table </a> <br>
 <a href="Chart.jsp">chart</a>
+<a href = "LoanDecision.jsp">loanDecision</a>
 </body>
 
     <body>
