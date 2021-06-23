@@ -5,6 +5,7 @@
 </head>
 
 <body>
+<a href = "newMainPage.jsp">Introduction</a> <br>
 <a href = "testLogin.jsp">login</a> <br>
 <a href = "mainPage.jsp"> main </a> <br>
 <a href = "upload.jsp"> uploader </a> <br>

@@ -37,7 +37,7 @@ public class uploadServlet extends HttpServlet{
 	     // [Debug]: should redirect to the table
 	        // response.getOutputStream().println(result);
 	        if (response.getStatus() == 200) {
-	        	response.sendRedirect("Table.jsp");
+	        	response.sendRedirect("TableSingular.jsp");
 	        }
 		} else{
 			//the file was not a mt940 file

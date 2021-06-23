@@ -146,6 +146,7 @@
 
         <button class="btn-toggle">TOGGLE DARK-MODE</button>
 
+
         <nav>
             <ul>
                 <li><a href="https://topicus.nl/ons-verhaal">About</a></li>
@@ -167,7 +168,7 @@
 
         display: flex;
         flex-direction: column;
-        margin: 0px;
+        margin: 2px;
         padding: 0px;
         align-items: center;
     }

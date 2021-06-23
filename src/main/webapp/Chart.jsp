@@ -2,10 +2,18 @@
 Created by IntelliJ IDEA.
 User: User
 Date: 14/06/2021
+Time: 12:08
+To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Chart View</title>
+</head>
 <body>
     <jsp:include page="base.jsp"/>
     <div id="main">
-<<<<<<< HEAD
+        <h2>CHART VIEW AND GRAPH</h2>
 
         <div id="query-container">
             <form action="#" method="post">
@@ -43,6 +51,14 @@ Date: 14/06/2021
 
     <style>
         <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+
+        h2{
+            color: white;
+            text-align: center;
+            letter-spacing: 3px;
+            /*margin-bottom: 200px;*/
+            margin-top: 20px;
+        }
 
         input, label {
             display: block;
@@ -154,3 +170,6 @@ Date: 14/06/2021
 
 
     </script>
+
+</body>
+</html>

@@ -202,7 +202,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<title>Tables</title>
+<title>PROCESSES AND TRANSACTIONS</title>
 
 <head>
 <link
@@ -219,11 +219,11 @@
 </head>
 
 <body>
-	<jsp:include page="base.jsp" />
-	<div id="main">
+<jsp:include page="base.jsp"/>
 
-		<div id="container-table"></div>
-		
+	<div id="main">
+		<h2>PROCESSES AND TRANSACTIONS</h2>
+
 		<div id="table"></div>
 
 
@@ -247,6 +247,14 @@
 
 <style>
 <jsp:include page ="WEB-INF/CSS/baseStyle.css"/>
+
+h2{
+	color: white;
+	text-align: center;
+	letter-spacing: 3px;
+	margin-bottom: 20px;
+}
+
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
@@ -315,13 +323,19 @@ th {
 					StartingAmount : x[i].getAttribute("startingamount"),
 					TransactionAmount : x[i].getElementsByTagName("process")[j]
 							.getAttribute("transactionammount"),
-					ClosingAmount : x[i].getAttribute("closingammount"),
+					// ClosingAmount : x[i].getAttribute("closingammount"),
+					// ClosingAmount: parseFloat(x[i].getAttribute("startingamount")) +
+					// 		parseFloat(x[i].getElementsByTagName("process")[j].getAttribute("transactionammount")),
+
+					ClosingAmount: (parseFloat(x[i].getAttribute("startingamount")) + parseFloat(x[i].getElementsByTagName("process")[j]
+							.getAttribute("transactionammount"))).toFixed(2),
 					PartyName : x[i].getElementsByTagName("process")[j]
 							.getAttribute("partyname"),
 					isTrusted : x[i].getElementsByTagName("process")[j]
 							.getAttribute("iban") != null
-							&& (x[i].getAttribute("startingamount")
-									- x[i].getAttribute("closingammount") < 600)
+							&& (x[i].getAttribute("closingammount")
+									- x[i].getAttribute("startinggamount") != x[i].getElementsByTagName("process")[j]
+											.getAttribute("transactionammount"))
 				}
 				tableData.push(temp);
 			}

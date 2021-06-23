@@ -22,6 +22,7 @@
 <body>
 	<jsp:include page="base.jsp" />
 	<div id="main">
+		<h2>TABLE VIEW</h2>
 
 		<div id="container-table"></div>
 		
@@ -48,6 +49,14 @@
 
 <style>
 <jsp:include page ="WEB-INF/CSS/baseStyle.css"/>
+
+h2{
+	color: white;
+	text-align: center;
+	letter-spacing: 3px;
+	margin-bottom: 20px;
+}
+
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
