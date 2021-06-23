@@ -22,9 +22,11 @@ public class SimonsGraph extends Application{
     	
     	private static final String query = "SELECT t.fileid, t.date,t.startingamount,t.closingdate,t.closingammount \n"
     			+ "FROM dab_di20212b_7.transactionfile AS t \n"
+    			+"WHERE t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t)"
     			+ "ORDER BY t.date";
     	private static final String queryrep = "SELECT t.fileid, t.date,t.startingamount,t.closingdate,t.closingammount \n"
     			+ "FROM dab_di20212b_7.transactionfile AS t \n"
+    			+"WHERE t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t)"
     			+ "ORDER BY t.date";
 //    	String query2 = "CREATE MATERIALIZED VIEW transactiondifer3 AS "
 //    			+ "SELECT t.fileid, t.startingamount - t.closingammount AS transferredmoney \n"
@@ -95,14 +97,25 @@ public class SimonsGraph extends Application{
    		result.get(2).add(rs.getString(3));
    		result.get(3).add(rs.getString(4));
    	}
-      	 for(int i = 0;i<result.size();i++) {
-      		 for(int j=0;j<result.get(i).size();j++) {
-      			 System.out.println(result.get(i).get(j));
-      		 }
-      	 }
+//      	 for(int i = 0;i<result.size();i++) {
+//      		 for(int j=0;j<result.get(i).size();j++) {
+//      			 System.out.println(result.get(i).get(j));
+//      		 }
+//      	 }
    	rs.close();
    	rsrep.close();
 		return result;
     	
     }
+    public static void main(String[] args) throws SQLException {
+    	SimonsGraph newggraph = new SimonsGraph();
+    	List<List<String>> result1 = new ArrayList<List<String>>();
+    	result1 = newggraph.getqueryResult();
+    	 for(int i = 0;i<result1.size();i++) {
+      		 for(int j=0;j<result1.get(i).size();j++) {
+      			 System.out.println(result1.get(i).get(j));
+      		 }
+      	 }
+    }
 }
+
