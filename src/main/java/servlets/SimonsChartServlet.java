@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import util.ShowChartsLuis;
 import util.SimonsGraph;
-@WebServlet("/ChartTest")
+
+@WebServlet("/TestSimon")
 public class SimonsChartServlet extends HttpServlet {
 
 	    /**Writes the number of processes flagged for differenet reasons separated by coma. the last value is the total number
