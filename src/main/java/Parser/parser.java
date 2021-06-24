@@ -421,7 +421,8 @@ public class parser {
 		return field86fin;
 	}
 
-	public void uploadToDatabase(String mt3,String filename) {
+	public boolean uploadToDatabase(String mt3,String filename) {
+		boolean result = false;
 		Long dateTime = System.currentTimeMillis();
 		int index = 0;
 		while (index != -1) {
@@ -440,8 +441,9 @@ public class parser {
 				tmp = tmp.replace(":28:", ":28C:");
 				MT940 file = new MT940(tmp);
 				FileDAO dao = new FileDAO();
-				dao.addFileDetails(file,tmp,dateTime,filename);
+				result = dao.addFileDetails(file,tmp,dateTime,filename);
 			}
 		}
+		return result;
 	}
 }

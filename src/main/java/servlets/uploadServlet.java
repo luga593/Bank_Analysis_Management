@@ -29,19 +29,22 @@ public class uploadServlet extends HttpServlet{
 		//get the file chosen by the user
 		Part filePart = request.getPart("fileToUpload");		
 		if(filePart.getSubmittedFileName().endsWith(".940")){
+			boolean isMalicious = false;
 			String fileName = filePart.getSubmittedFileName();
 			InputStream fileContent = filePart.getInputStream();
 			String result = IOUtils.toString(fileContent, StandardCharsets.UTF_8);
 			parser parser = new parser(fileName);
-	        parser.uploadToDatabase(result, fileName);
-	     // [Debug]: should redirect to the table
-	        // response.getOutputStream().println(result);
-	        if (response.getStatus() == 200) {
-	        	response.sendRedirect("TableSingular.jsp");
+			isMalicious = parser.uploadToDatabase(result, fileName);
+	        if (isMalicious == true) {
+	        	response.sendRedirect("Table.jsp");
+	        } else {
+	        	response.sendRedirect("UploadFail.jsp");
 	        }
+	        // [Debug]: should redirect to the table
+	        // response.getOutputStream().println(result);	        
 		} else{
 			//the file was not a mt940 file
-			response.getOutputStream().println("<p>Please only upload mt940 files.</p>");
+			response.sendRedirect("UploadFail.jsp");
 			}
 
 	}		    

@@ -41,7 +41,7 @@ public class FileDAO {
 
 	}
 
-	public void addFileDetails(MT940 mt940,String tmp,Long dateTime,String filename) {
+	public boolean addFileDetails(MT940 mt940,String tmp,Long dateTime,String filename) {
 		String insertFile = "Insert into transactionfile(transactionreferenceno,relatedreference,accid,statementno,date,currency,startingamount,userid,closingammount,closingdate,time,filename)" + 
 				"values " + "(?,?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTransaction = "Insert into process(valuedate,entrydate,creditdebit,transactionammount,cusomter_reference,details,iban,incasantid,description,partyname,fileid) values "
@@ -165,13 +165,12 @@ public class FileDAO {
 					// j++;
 				}
 			}
-
 			// System.out.println(res);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			return true; 			
+		} catch (SQLException | NullPointerException e) {			
 			e.printStackTrace();
-			// }
-
+			System.out.println("FileDAO.addFileDetails() fail!");
+			return false;
 		}
 		//DbUtil.closeConnection();
 	}
