@@ -71,7 +71,7 @@ h2 {
 	}
 	function downloadPDF() {
 		var doc = new jsPDF();
-		doc.fromHTML('<html><head><title>${title}</title></head><body>' + document.getElementById("Decision").innerHTML + '</body></html>');
+		doc.fromHTML('<html><head><title>${title}</title></head><body>' + document.getElementById("NegativeDecision").innerHTML + '</body></html>',30,30);
 		doc.save('Decision.pdf');
 		html2pdf(element);
 	}
