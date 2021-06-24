@@ -14,11 +14,8 @@
 <a href = "failedLogin.jsp">failed login</a> <br>
 <a href = "Table.jsp"> table </a> <br>
 <a href="Chart.jsp">chart</a>
-<<<<<<< HEAD
 <a href = "LoanDecision.jsp">loanDecision</a>
-=======
 <a href="chartSimon.jsp">Simons Chart</a>
->>>>>>> refs/heads/master
 </body>
 
     <body>
@@ -32,10 +29,8 @@
         <a href = "testLogin.jsp">test</a> <br>
         <a href = "failedLogin.jsp">fail login</a> <br>
         <a href = "Table.jsp"> table </a> <br>
-<<<<<<< HEAD
         <a href = "charTest.jsp"> Chart Test</a>
         <a href="chartSimon.jsp">Simons Chart</a>
-=======
         <a href = "charTest.jsp"> Chart Test</a> <br>
         <a href = "src/main/webapp/WEB-INF/chartSimon.jsp"> Chart Simon</a>
 
