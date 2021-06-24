@@ -11,7 +11,7 @@
   <canvas id="myChart" ></canvas>
 </div>
 	<script>
-	SimonsGraph newgraph = new SimonsGraph();
+	 SimonsGraph newgraph = new SimonsGraph();
 	List<List<String>> result1 = new ArrayList<List<String>>();
 	result1 = newgraph.getqueryResult();
 	var jsArray = <%= newgraphtoJavascriptArray(result1) %>;
