@@ -6,28 +6,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import util.ShowChartsLuis;
 import util.SimonsGraph;
 
-@WebServlet("/TestSimon")
-public class SimonsChartServlet extends HttpServlet {
-
-	/**
-	 * 
-	 */
+/**
+ * Servlet implementation class AmountDateServlet
+ */
+@WebServlet("/AmountDateServlet")
+public class AmountDateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AmountDateServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * Writes the number of processes flagged for differenet reasons separated by
-	 * coma. the last value is the total number of files
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		System.out.println("hello");
 		SimonsGraph newggraph = new SimonsGraph();
 		List<List<String>> result = new ArrayList<List<String>>();
@@ -46,7 +52,7 @@ public class SimonsChartServlet extends HttpServlet {
 				if (j == result.get(i).size() - 1) {
 					result2 = result2 + "/";
 				} else {
-					result2 = result2 + result.get(i).get(j)+",";
+					result2 = result2 + ",";
 				}
 
 			}
@@ -56,6 +62,14 @@ public class SimonsChartServlet extends HttpServlet {
 		pw.close();
 		response.setContentType("text/plain");
 
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

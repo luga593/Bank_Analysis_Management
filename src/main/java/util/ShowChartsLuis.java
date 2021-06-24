@@ -18,15 +18,18 @@ public class ShowChartsLuis {
 
     private static final String QUERY2 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
             "Where t.fileid = p.fileid AND t.accid LIKE ? AND p.description is NULL AND iban is NOT NULL;\n";
-    //transactions with IBAN AND DESCRIPTION NULL
-    public static final String QUERY4 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
-            "Where t.fileid = p.fileid AND t.accid LIKE ? AND p.iban is NULL And p.description is NULL;";
 
     private static final String QUERY3 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
             "Where p.fileid= t.fileid AND t.accid LIKE ? AND p.processid NOT IN(SELECT DISTINCT p.processid FROM TransactionFile t, process \n" +
             "  WHERE t.fileid = p.fileid AND t.accid LIKE ? AND (p.description is NULL OR p.iban \n" +
             "  is NULL ));\n";
 
+    public static final String QUERY4 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
+            "Where t.fileid = p.fileid AND t.accid LIKE ? AND p.iban is NULL And p.description is NULL;";
+
+
+    private static final String QUERY5 = "SELECT COUNT(DISTINCT p1.*) FROM process p1, process p2, transactionfile t\n" +
+            "WHERE p1.partyname = p2.partyname AND p1.iban <> p2.iban AND p1.fileid = t.fileid AND p2.fileid= t.fileid AND time = (SELECT MAX(time) FROM transactionfile WHERE userid = ?);\n";
 
     /**
      * non matching iban query pending
@@ -91,7 +94,7 @@ public class ShowChartsLuis {
 
         result = resultSet.getString(1);
         return result;
-    };
+    }
     public String getGoodProcesses(String iban) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY3);
@@ -103,7 +106,16 @@ public class ShowChartsLuis {
         result = resultSet.getString(1);
         return result;
     }
+    public String getDifferentIban(String userid) throws SQLException{
+        String result = "0";
+        PreparedStatement st = connection.prepareStatement(QUERY5);
+        st.setString(1,userid );
+        ResultSet resultSet = st.executeQuery();
 
+        resultSet.next();
+        result = resultSet.getString(1);
+        return result;
+    }
 
 
     public static void main(String args[]) throws SQLException {

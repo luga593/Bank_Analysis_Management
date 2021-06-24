@@ -128,16 +128,17 @@ To change this template use File | Settings | File Templates.
         "iban="+ ibanVal,true);                                                      //CHANGE PARAM TO IBAN
         request.send();
     }
+
         //after taking all values updates the chart <waiting until all vars are assigned a value,the this func>
         function updateChart(chart) {
         let dataArray = datavalues.split(',');
         console.log(dataArray[1]);
 
         chart.data.datasets[0].data = dataArray;
+
         chart.update();
 
     }
-
 
         //Chart
         let myChart= document.getElementById('myChart').getContext('2d');
