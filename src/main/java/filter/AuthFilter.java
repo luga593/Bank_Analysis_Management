@@ -38,7 +38,7 @@ public class AuthFilter implements Filter{
         if (req.getRequestURI().equals(
                 req.getContextPath() + "/testLogin.jsp") || 
         	req.getRequestURI().equals(
-                        req.getContextPath() + "/newMainPage.jsp")) {
+                        req.getContextPath() + "/failedLogin.jsp")) {
             if (isLoggedIn) {
                 // Redirect to landing or home page
                 HttpServletResponse res = (HttpServletResponse) response;
@@ -49,7 +49,11 @@ public class AuthFilter implements Filter{
                 // pass the request along the filter chain
                 chain.doFilter(request, response);
             }
-        } else {
+        } else if (req.getRequestURI().equals(
+                req.getContextPath() + "/newMainPage.jsp")) {
+        	// pass the request along the filter chain
+            chain.doFilter(request, response);
+        }else {
             // For all other pages,
             if (isLoggedIn) {
                 // Nothing to do
