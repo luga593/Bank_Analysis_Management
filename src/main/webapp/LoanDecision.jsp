@@ -38,6 +38,8 @@ h2 {
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 40px;
+	width: 595px;
+	height: 842px;
 }
 #PositiveDecision {
 	margin-top: 100px;
@@ -72,6 +74,7 @@ h2 {
 	function downloadPDF() {
 		var doc = new jsPDF();
 		doc.fromHTML('<html><head><title>${title}</title></head><body>' + document.getElementById("NegativeDecision").innerHTML + '</body></html>',30,30);
+		doc.setLineWidth(130);
 		doc.save('Decision.pdf');
 		html2pdf(element);
 	}
