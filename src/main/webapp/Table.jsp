@@ -218,14 +218,16 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.5/jspdf.plugin.autotable.js"></script>
 </head>
 
-<body>
-<jsp:include page="base.jsp"/>
-
+<body onload = "getFiles()">
+<jsp:include page="base.jsp" />
 	<div id="main">
-		<h2>PROCESSES AND TRANSACTIONS</h2>
+		<h2>TABLE VIEW</h2>
 
-		<div id="table"></div>
+		<div id="container-table"></div>
 		
+		<div id="table"></div>
+		<div id="ListOfFiles"></div>
+
 		<div>
 			<button id="download-csv">Download CSV</button>
 			<button id="download-json">Download JSON</button>
@@ -240,14 +242,12 @@
 		<button type="button" onclick="loadXMLDoc()">Get table</button>
 		<br>
 		<br>
-		
+
 	</div>
 </body>
-
 <style>
 <jsp:include page ="WEB-INF/CSS/baseStyle.css"/>
-
-h2{
+h2 {
 	color: white;
 	text-align: center;
 	letter-spacing: 3px;
@@ -288,6 +288,24 @@ th {
 	<jsp:include page="WEB-INF/JS/darkTheme.js"/>
 	<jsp:include page="WEB-INF/JS/sideNav.js"/>
 
+
+	function getFiles() {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState === 4 && this.status === 200) {
+				console.log(this.responseText);
+				var files = this.responseText.split("\n");
+				for(i = 0; i < files.length; i++) {
+					console.log(files[i]);
+					
+				}
+				document.getElementById("ListOfFiles").innerHTML = this.responseText;
+			}
+		};
+		xmlhttp.open("GET", "http://localhost:8080/Topicus/ListOfFilesServlet",
+				true);
+		xmlhttp.send();
+	}
 	function loadXMLDoc() {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -326,15 +344,18 @@ th {
 					// ClosingAmount: parseFloat(x[i].getAttribute("startingamount")) +
 					// 		parseFloat(x[i].getElementsByTagName("process")[j].getAttribute("transactionammount")),
 
-					ClosingAmount: (parseFloat(x[i].getAttribute("startingamount")) + parseFloat(x[i].getElementsByTagName("process")[j]
+					ClosingAmount : (parseFloat(x[i]
+							.getAttribute("startingamount")) + parseFloat(x[i]
+							.getElementsByTagName("process")[j]
 							.getAttribute("transactionammount"))).toFixed(2),
 					PartyName : x[i].getElementsByTagName("process")[j]
 							.getAttribute("partyname"),
 					isTrusted : x[i].getElementsByTagName("process")[j]
 							.getAttribute("iban") != null
 							&& (x[i].getAttribute("closingammount")
-									- x[i].getAttribute("startinggamount") != x[i].getElementsByTagName("process")[j]
-											.getAttribute("transactionammount"))
+									- x[i].getAttribute("startinggamount") != x[i]
+									.getElementsByTagName("process")[j]
+									.getAttribute("transactionammount"))
 				}
 				tableData.push(temp);
 			}
@@ -343,7 +364,7 @@ th {
 			//				x[i].getAttribute("time") ]);
 			//console.log(a[i][0],a[i][1]);
 		}
-		
+
 		//var choose = document.getElementById("filter-value");
 		//let array = Array.from(new Set(a));
 		//console.log(a.length);
@@ -351,7 +372,7 @@ th {
 		//	choose.options[choose.options.length] = new Option(
 		//			array[index][0], index);
 		//}
-		
+
 		let table = new Tabulator("#table", {
 			data : tableData,
 			pagination : "local",
@@ -496,5 +517,4 @@ th {
 		table.setFilter("filename", "=", name);
 	}
 </script>
-
 </html>

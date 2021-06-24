@@ -15,10 +15,11 @@
      </title>
  </head>
 
- <body>
+ <body onload = "getFiles()">
      <div id="main">
          <h2>BANK STATEMENT UPLOAD</h2>
-
+		 <div id="ListOfFiles"></div>
+		 <select id = "Selector"></select>
          <div id="fileUpload">
              <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
                  <p>
@@ -83,5 +84,32 @@
 <script>
     <jsp:include page="WEB-INF/JS/darkTheme.js"/>
     <jsp:include page="WEB-INF/JS/sideNav.js"/>
+    	function getFiles() {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState === 4 && this.status === 200) {
+				var files = this.responseText.split("\n");
+				select(files);
+				//for(i = 0; i < files.length; i++) {
+				//	console.log(files[i]);		
+					document.getElementById("ListOfFiles").innerHTML = this.responseText;
+				//}
+			}
+		};
+		xmlhttp.open("GET", "http://localhost:8080/Topicus/ListOfFilesServlet",
+				true);
+		xmlhttp.send();
+	}
+    function select(files) {
+    	var x = document.getElementById("Selector");
+		for(i = 0; i < files.length; i++) {
+			//console.log(files[i]);		
+			var option = document.createElement("option");
+			option.value = files[i];
+			option.text = files[i];
+			console.log(option);
+			x.add(option,null);
+   		}
+    }
 </script>
 </html>

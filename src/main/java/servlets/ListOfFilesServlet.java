@@ -37,7 +37,7 @@ public class ListOfFilesServlet extends HttpServlet {
 		String res = "";
 		LinkedHashMap<String, java.sql.Timestamp> map = list.getFiles();
 		for (String key : map.keySet()) {
-			res += key + ": " + map.get(key);
+			res += key + ": " + map.get(key) + "\n";
 		}
 		response.getWriter().write(res);
 	}
