@@ -19,6 +19,7 @@ public class SimonsGraph {
 //    	Statement statement3 = newdb.getConnection().createStatement();
 //    	Statement statement4 = newdb.getConnection().createStatement();
 
+
 	private static final String query = "SELECT t.startingamount,p.entrydate,p.creditdebit, p.transactionammount ,t.time \n"
 			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
 			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
@@ -27,6 +28,8 @@ public class SimonsGraph {
 			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
 			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
 			+ "ORDER BY p.entrydate ";
+
+    	
 //    	String query2 = "CREATE MATERIALIZED VIEW transactiondifer3 AS "
 //    			+ "SELECT t.fileid, t.startingamount - t.closingammount AS transferredmoney \n"
 //    			+ "FROM dab_di20212b_7.transactionfile AS t \n"
@@ -127,4 +130,40 @@ public class SimonsGraph {
 		return finalresult;
 
 	}
+
+    public static String toJavascriptArray(List<List<String>> arr){
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        for(int i=0; i<arr.get(0).size(); i++){
+            sb.append("\"").append(arr.get(0)).append("\"");
+            if(i+1 < arr.get(0).size()){
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+    public static String toJavascriptArray1(List<List<String>> arr){
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        for(int i=0; i<arr.get(0).size(); i++){
+            sb.append("\"").append(arr.get(0)).append("\"");
+            if(i+1 < arr.get(0).size()){
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+    public static void main(String[] args) throws SQLException {
+    	SimonsGraph newggraph = new SimonsGraph();
+    	List<List<String>> result1 = new ArrayList<List<String>>();
+    	result1 = newggraph.getqueryResult();
+    	 for(int i = 0;i<result1.size();i++) {
+      		 for(int j=0;j<result1.get(i).size();j++) {
+      			 System.out.println(result1.get(i).get(j));
+      		 }
+      	 }
+    }
+
 }
