@@ -158,7 +158,21 @@
    		}
     }
    	function selectFile() {
-   		console.log(1);
+   		console.log(document.getElementById("Selector").value);
+   		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState === 4 && this.status === 200) {
+				
+				//for(i = 0; i < files.length; i++) {
+				//	console.log(files[i]);		
+				//	document.getElementById("ListOfFiles").innerHTML = this.responseText;
+				//}
+			}
+		};
+		xmlhttp.open("Post", "http://localhost:8080/Topicus/RequestServlet",
+				true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send(document.getElementById("Selector").value);
    	}
 </script>
 </html>
