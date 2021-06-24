@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.RequestDao;
+
 /**
  * Servlet implementation class RequestServlet
  */
@@ -35,7 +37,9 @@ public class RequestServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		String[] body = request.getReader().readLine().split(":");
+		RequestDao dao = new RequestDao();
+		dao.addToDatabase(body[0]);
 	}
 
 }
