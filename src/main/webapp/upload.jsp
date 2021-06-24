@@ -77,6 +77,7 @@
     #SelectFilebutton {
     border-width: 2px;
     border-radius: 10px;
+    margin-top : 5px;'
     }
     #leftcenter{
       margin: auto;
