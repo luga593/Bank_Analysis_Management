@@ -15,62 +15,62 @@ To change this template use File | Settings | File Templates.
     <div id="main">
         <h2>CHART VIEW AND GRAPH</h2>
 
-        <div id="query-container">
-            <form action="#" method="post">
-                <label for="query1">Query</label>
-                <select id="query1" name="query1">
-                    <option value="#1">query1</option>
-                    <option value="#2">query2</option>
-                    <option value="#3">query3</option>
-                </select>
+    <div id="query-container">
+        <form action="#" method="post">
+            <p>Select a query and enter the data to load a graph.</p>
 
-                <label for="date1">From</label>
-                <input type="date" id="date1" name="date1">
+            <select id="query1" name="query" onchange="showElements(this.value);">
+                <option value="1">query1</option>
+                <option value="2">query2</option>
+                <option value="3">query3</option>
+                <option value="4">query4</option>
+                <option value="5">query5</option>
+            </select>
 
-                <label for="date2">To</label>
-                <input type="date" id="date2" name="date2">
-            </form>
+            <input type="number" id="input1" placeholder="Minimum amount of credits." name="credit">
 
-            <form action="#" method="post">
-                <label for="query2">Query</label>
-                <select id="query2" name="query2">
-                    <option value="#1">query1</option>
-                    <option value="#2">query2</option>
-                    <option value="#3">query3</option>
-                </select>
+            <input type="month" id="input235" placeholder="Please enter the month and date." name="month-year">
 
-                <label for="date3">From</label>
-                <input type="date" id="date3" name="date3">
+            <input type="text" id="input4" placeholder="Please enter the IBAN." name="IBAN">
 
-                <label for="date4">To</label>
-                <input type="date" id="date4" name="date4">
-            </form>
-        </div>
-
+            <button type="submit">Load graph</button>
+        </form>
     </div>
 
-    <style>
-        <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+</div>
 
-        h2{
-            color: white;
-            text-align: center;
-            letter-spacing: 3px;
-            /*margin-bottom: 200px;*/
-            margin-top: 20px;
-        }
+<style>
+    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
 
-        input, label {
-            display: block;
-            margin: 0 auto;
-        }
+    body {
+        height: auto;
+    }
 
-        #query-container {
-            display: flex;
-            margin-left: 10px;
-            margin-top: 10px;
-            justify-content: space-around;
-        }
+    input, label {
+        display: block;
+        margin: 0 auto;
+    }
+
+    #input1 {
+        display: block;
+    }
+
+    #input4 {
+        display: none;
+    }
+
+    #input235 {
+        display: none;
+    }
+
+    #query-container {
+        display: flex;
+        margin-left: 0;
+        margin-top: 10px;
+        width: 25%;
+        height: 100%;
+        /*justify-content: space-around;*/
+    }
 
         #query-container form {
             display: inline-block;
@@ -107,6 +107,27 @@ To change this template use File | Settings | File Templates.
     input, label {
         display: block;
     }
+
+    #query-container form input {
+        margin-top: 10px;
+    }
+
+    #query-containe form select {
+        border: inherit;
+        border-radius: inherit;
+    }
+
+    #query-container form button {
+        margin-top: 10px;
+        border: inherit;
+        border-radius: inherit;
+        background-color: var(--header-a-color);
+    }
+
+    #query-container form button:hover {
+        background-color: var(--header-a-color-hover);
+    }
+
 </style>
 
     <script>

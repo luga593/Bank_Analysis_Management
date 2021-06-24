@@ -60,7 +60,7 @@
         border-radius: 10px;
         justify-content: space-evenly;
         margin-top: 200px;
-        background-color: #3b4465 ;
+        background-color: var(--bkg-color);
         margin: auto;
         width: 50%;
         border: 3px solid #F9E805;
