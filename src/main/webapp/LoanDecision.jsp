@@ -72,7 +72,7 @@ h2 {
 	function downloadPDF() {
 		var doc = new jsPDF();
 		doc.fromHTML('<html><head><title>${title}</title></head><body>' + document.getElementById("Decision").innerHTML + '</body></html>');
-		doc.save('div.pdf');
+		doc.save('Decision.pdf');
 		html2pdf(element);
 	}
 </script>
