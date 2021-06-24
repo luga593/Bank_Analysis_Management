@@ -60,6 +60,12 @@
     <artifactId>postgresql</artifactId>
     <version>42.2.20</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/com.itextpdf/html2pdf -->
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>html2pdf</artifactId>
+    <version>3.0.4</version>
+</dependency>
 <dependency>
  <groupId>com.prowidesoftware</groupId>
     <artifactId>pw-swift-core</artifactId>

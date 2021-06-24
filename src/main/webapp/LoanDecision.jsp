@@ -5,6 +5,8 @@
 <link rel="stylesheet" type="text/css" href="WEB-INF/MyStyle.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Poppins">
+	<script src="html2pdf.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 </head>
 <body>
 	<jsp:include page="base.jsp" />
@@ -12,8 +14,13 @@
 	<div id="GetLoanDecision">
 		<button type="submit" onclick="myFunction()">Get loan decision</button>
 	</div>
+	<div id="Decision">
 	<div id="PositiveDecision"></div>
 	<div id="NegativeDecision"></div>
+	</div>
+	<div id="DownloadAsPDF">
+		<button type="submit" onclick="downloadPDF()">Download as PDF</button>
+	</div>
 </body>
 <style>
 <jsp:include page ="WEB-INF/CSS/baseStyle.css"/>
@@ -62,6 +69,9 @@ h2 {
 				"http://localhost:8080/Topicus/LoanDecisionServlet", true); //CHANGE PARAM TO IBAN
 		request.send();
 	}
-	
+	function downloadPDF() {
+		var element = document.getElementById('Decision');
+		html2pdf(element);
+	}
 </script>
 </html>
