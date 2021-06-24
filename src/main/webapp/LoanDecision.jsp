@@ -70,7 +70,9 @@ h2 {
 		request.send();
 	}
 	function downloadPDF() {
-		var element = document.getElementById('Decision');
+		var doc = new jsPDF();
+		doc.fromHTML('<html><head><title>${title}</title></head><body>' + document.getElementById("Decision").innerHTML + '</body></html>');
+		doc.save('div.pdf');
 		html2pdf(element);
 	}
 </script>
