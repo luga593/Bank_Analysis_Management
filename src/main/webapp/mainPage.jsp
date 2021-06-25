@@ -24,7 +24,7 @@
 <div class="main">
     <div class="row">
         <div class="column">
-            <h2 style = "text-decoration: underline solid #F9E805">Processes & Transactions</h2>
+            <h2 style = "text-decoration: underline solid #F9E805"><a href="Table.jsp">Processes & Transactions</a></h2>
             <p>Our intelligent web application allows you to view all transactions related to your company in a table,
             Bank statements can be downloaded in whatever format you choose, we also allow sorting on individual
             attributes based on your needs. Additionally, there are also different language settings to choose from.
@@ -32,19 +32,19 @@
         </div>
 
         <div class="column">
-            <h2 style = "text-decoration: underline solid #F9E805">Bank Statement Upload</h2>
+            <h2 style = "text-decoration: underline solid #F9E805"><a href="upload.jsp">Bank Statement Upload</a> </h2>
             <p>Topicus now introduces a new feature to permit multiple uploads of your bank statements for parsing,
             this parsed result will be available in the "Processes & Transactions" section in addition with all previously
             uploaded files, but the individually uploaded file can be accessed in the "Table View" section.</p>
         </div>
 
         <div class="column2">
-            <h2 style = "text-decoration: underline solid #F9E805">Chart View And Graph</h2>
+            <h2 style = "text-decoration: underline solid #F9E805"><a href="Chart.jsp">Chart View And Graph</a> </h2>
             <p>Andrea,simon, luis change this part,  line 43 of mainPae.jsp </p>
         </div>
 
         <div class="column2">
-            <h2 style = "text-decoration: underline solid #F9E805"> Table View</h2>
+            <h2 style = "text-decoration: underline solid #F9E805"> <a href="TableSingular.jsp">Table View</a> </h2>
             <p>This section allows you to view your most recently uploaded file, this section has all features of the table
             in "Processes & Transactions".</p>
         </div>
@@ -60,7 +60,7 @@
         border-radius: 10px;
         justify-content: space-evenly;
         margin-top: 200px;
-        background-color: #3b4465 ;
+        background-color: var(--bkg-color);
         margin: auto;
         width: 50%;
         border: 3px solid #F9E805;

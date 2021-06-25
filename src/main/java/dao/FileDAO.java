@@ -26,7 +26,8 @@ import java.util.TimeZone;
 
 
 public class FileDAO {
-	int fileid;
+	private int fileid;
+	private String filename;
 	private Connection connection;
 
 	public FileDAO() {
@@ -40,7 +41,7 @@ public class FileDAO {
 		}
 
 	}
-
+	
 	public boolean addFileDetails(MT940 mt940,String tmp,Long dateTime,String filename) {
 		String insertFile = "Insert into transactionfile(transactionreferenceno,relatedreference,accid,statementno,date,currency,startingamount,userid,closingammount,closingdate,time,filename)" + 
 				"values " + "(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -122,6 +123,7 @@ public class FileDAO {
 			statement1.setTimestamp(11,file.getTime(),Calendar.getInstance(TimeZone.getTimeZone("UTC")));
 			statement3.setTimestamp(11,file.getTime(),Calendar.getInstance(TimeZone.getTimeZone("UTC")));
 			file.setFilename(filename);
+			this.setFilename(filename);
 			statement1.setString(12, file.getFilename());
 			statement3.setString(12, file.getFilename());
 			statement1.executeUpdate();
@@ -165,6 +167,9 @@ public class FileDAO {
 					// j++;
 				}
 			}
+			statement1.close();
+			statement2.close();
+			statement3.close();
 			// System.out.println(res);
 			return true; 			
 		} catch (SQLException | NullPointerException e) {			
@@ -185,6 +190,14 @@ public class FileDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 }

@@ -313,3 +313,11 @@ td {
     cursor: pointer;
     display: inline-block;
 }
+
+h2{
+    color: white;
+    text-align: center;
+    letter-spacing: 3px;
+    /*margin-bottom: 200px;*/
+    margin-top: 20px;
+}

@@ -57,8 +57,10 @@ public class ShowChartsLuis {
 
 
     public String[] getStats(String iban) throws SQLException{
-        return new String[]{getNoRecipient(iban), getNoIbanNoDesc(iban),getNoDescription(iban), getGoodProcesses(iban),
-        getProcesses(iban)};
+       // return new String[]{getNoRecipient(iban), getNoIbanNoDesc(iban),getNoDescription(iban), getGoodProcesses(iban),
+        //getProcesses(iban)};
+    	String[] response = {"2","4","1","2","9"};
+    	return response;
     };
 
     //puts all of the id's into a list and returns it
@@ -133,7 +135,7 @@ public class ShowChartsLuis {
 
     public static void main(String args[]) throws SQLException {
         ShowChartsLuis sh1 = new ShowChartsLuis();
-
+        System.out.println(sh1.getStats(""));
         System.out.println(sh1.getProcesses("NL34RABO0327101691").toString());
         System.out.println(sh1.getGoodProcesses("NL34RABO0327101691").toString());
         System.out.println(sh1.getNoRecipient("NL34RABO0327101691").toString());

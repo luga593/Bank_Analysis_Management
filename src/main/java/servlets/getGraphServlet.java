@@ -40,9 +40,10 @@ public class getGraphServlet extends HttpServlet {
             throws IOException {
         response.setContentType("text/html");
 
-        double currentbalance = Double.parseDouble(request.getParameter("balance"));
-        String Month = request.getParameter("month");
-        String dayMonth = request.getParameter("day-month");
+
+        double credit = Double.parseDouble(request.getParameter("credit"));
+        String monthYear = request.getParameter("month-year");
+        String iban = request.getParameter("IBAN");
 
 
 
