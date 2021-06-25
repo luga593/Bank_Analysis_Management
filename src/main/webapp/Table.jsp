@@ -304,6 +304,8 @@ th {
 		};
 		xmlhttp.open("GET", "http://localhost:8080/Topicus/ListOfFilesServlet",
 				true);
+		// xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/ListOfFilesServlet",
+		//		true);
 		xmlhttp.send();
 	}
 	function loadXMLDoc() {
@@ -314,6 +316,7 @@ th {
 			}
 		};
 		xmlhttp.open("GET", "http://localhost:8080/Topicus/tempxml", true);
+		// xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/tempxml", true);
 		xmlhttp.send();
 	}
 	function myFunction(xml) {

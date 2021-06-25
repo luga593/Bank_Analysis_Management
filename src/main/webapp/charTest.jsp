@@ -45,7 +45,10 @@
       }
     }
     request.open("GET","http://localhost:8080/Topicus_war/ChartTest" + "?" +
-            "iban="+ ibanVal,true);                                                      //CHANGE PARAM TO IBAN
+            "iban="+ ibanVal,true);  
+    // request.open("GET","http://topicus-bank1.paas.hosted-by-previder.com/Topicus/ChartTest" + "?" +
+    //        "iban="+ ibanVal,true);                                                      
+    //CHANGE PARAM TO IBAN
     request.send();
   }
   //after taking all values updates the chart <waiting until all vars are assigned a value,the this func>

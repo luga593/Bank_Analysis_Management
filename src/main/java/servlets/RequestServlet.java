@@ -40,6 +40,7 @@ public class RequestServlet extends HttpServlet {
 		String[] body = request.getReader().readLine().split(":");
 		RequestDao dao = new RequestDao();
 		dao.addToDatabase(body[0]);
+		//response.sendRedirect("TableSingular.jsp");
 	}
 
 }

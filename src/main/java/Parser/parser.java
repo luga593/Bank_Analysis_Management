@@ -8,6 +8,7 @@ import java.util.List;
 import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
 
 import dao.FileDAO;
+import dao.RequestDao;
 import dao.UserDAO;
 
 public class parser {
@@ -441,6 +442,8 @@ public class parser {
 				tmp = tmp.replace(":28:", ":28C:");
 				MT940 file = new MT940(tmp);
 				FileDAO dao = new FileDAO();
+				RequestDao dao1 = new RequestDao();
+				dao1.addToDatabase(filename);;
 				result = dao.addFileDetails(file,tmp,dateTime,filename);
 			}
 		}

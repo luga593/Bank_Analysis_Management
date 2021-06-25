@@ -68,7 +68,8 @@ h2 {
 			}	
 		}
 		request.open("GET",
-				"http://localhost:8080/Topicus/LoanDecisionServlet", true); //CHANGE PARAM TO IBAN
+				"http://localhost:8080/Topicus/LoanDecisionServlet", true);
+				//"http://topicus-bank1.paas.hosted-by-previder.com/Topicus/LoanDecisionServlet", true); //CHANGE PARAM TO IBAN
 		request.send();
 	}
 	function downloadPDF() {
