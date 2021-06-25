@@ -11,8 +11,12 @@ public class ShowChartsLuis {
     Connection connection =  DB.getConnection();
 
 
-    private static final String QUERY = "SELECT  COUNT(DISTINCT p.*) FROM process p, transactionfile t\n" +
-        "WHERE p.fileid = t.fileid AND t.userid = ? AND t.time = (SELECT MAX(time) FROM transactionfile)";
+    private static final String QUERY = "SELECT COUNT(DISTINCT p.*) FROM process p, transactionfile t, \n" +
+            "(Select t.filename as filename, max(t.time) as time from transactionfile t, \n" +
+            "(Select r.filename as filename, r.time as time from request r ) as lastRequest ,  \n" +
+            "(Select max(r.time) as time from request r) as l \n" +
+            "where lastrequest.time = l.time and t.filename = lastRequest.filename group by t.filename) as lastFile\n" +
+            "WHERE p.fileid = t.fileid AND t.userid = 1 and  t.filename = lastFile.filename and t.time = lastFile.time";
 
 
     //only null iban
