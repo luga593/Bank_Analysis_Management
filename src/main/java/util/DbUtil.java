@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+//Class to connect to the database.
 public class DbUtil {
     private static final String DRIVER_NAME = "org.postgresql.Driver";
     private static final String host = "bronto.ewi.utwente.nl";
