@@ -162,11 +162,7 @@
    		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState === 4 && this.status === 200) {
-				
-				//for(i = 0; i < files.length; i++) {
-				//	console.log(files[i]);		
-				//	document.getElementById("ListOfFiles").innerHTML = this.responseText;
-				//}
+				window.location.replace("http://localhost:8080/Topicus/TableSingular.jsp");
 			}
 		};
 		xmlhttp.open("Post", "http://localhost:8080/Topicus/RequestServlet",
