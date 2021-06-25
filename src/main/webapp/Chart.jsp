@@ -30,9 +30,9 @@ To change this template use File | Settings | File Templates.
 
             <input type="number" id="input1" placeholder="Minimum amount of credits." name="credit">
 
-            <input type="month" id="input235" placeholder="Please enter the month and date." name="month-year">
+            <input type="month" id="input235" placeholder="Please enter the month and date." name="month-year" >
 
-            <input type="text" id="input4" placeholder="Please enter the IBAN." name="IBAN">
+            <input type="text" id="input4" placeholder="Please enter the IBAN." name="IBAN" >
 
             <button type="submit" onclick="loadGraph()">Load graph</button>
 <%--        </form>--%>
