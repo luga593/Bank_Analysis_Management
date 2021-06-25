@@ -28,7 +28,9 @@ function buildPieChart() {
         }
     }
     request.open("GET", "http://localhost:8080/Topicus/ChartTest" + "?" +
-        "iban=" + ibanVal, true);                                                      //CHANGE PARAM TO IBAN
+       "iban=" + ibanVal, true);
+    // request.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/ChartTest" + "?" +
+    //    "iban=" + ibanVal, true);                                                      //CHANGE PARAM TO IBAN
     request.send();
     console.log("function 3");
 }

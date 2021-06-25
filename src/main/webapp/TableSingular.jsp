@@ -99,6 +99,7 @@ th {
 			}
 		};
 		xmlhttp.open("GET", "http://localhost:8080/Topicus/singular", true);
+		// xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/singular", true);
 		xmlhttp.send();
 	}
 	function myFunction(xml) {
