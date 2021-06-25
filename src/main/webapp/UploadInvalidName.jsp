@@ -28,7 +28,7 @@
                  <input type="submit" class = "loginButton" value="Upload .940" />
                  <div>
 		            <p style = "color:red"> File names can't contain the following characters: </p>
-		            <p style = "color:red"> ' " - ; | # = whitespace.</p>
+		            <p style = "color:red"> ' " - ; | # =.</p>
 		         </div>
              </form>
          </div>
