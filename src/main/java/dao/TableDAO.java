@@ -73,20 +73,13 @@ public class TableDAO {
 		return xml;		
 	}
 	public String selectData3() {
-		String sql ="Select XMLELEMENT(NAME transactionFiles, XMLAGG(xml)) "
-                + "FROM (SELECT xmlelement(Name transactionFile , "
-                + "                xmlattributes(accid , date , ROUND(startingamount::numeric, 2) as startingAmount , ROUND(closingammount::numeric, 2) as closingammount , closingdate), "
-                + "                xmlagg(xmlelement(Name process, "
-                + "                        xmlattributes(p.iban, description, ROUND(transactionammount::numeric, 2) as transactionammount, valuedate, entrydate, p.creditdebit, p.partyname) "
-                + "                                 ) "
-                + "                       ) "
-                + "                ) AS xml "
-                + "      from transactionfile f, process p "
-                + "      where f.fileid = p.fileid and "
-                + "		 time = (Select max(time) from transactionfile)"
-                + "      group by f.fileid "
-                + "      order by f.fileid "
-                + ") AS transactions;";
+		String sql ="Select XMLELEMENT(NAME transactionFiles, XMLAGG(xml)) \r\n"
+				+ "FROM (SELECT xmlelement(Name transactionFile ,  xmlattributes(accid , date , ROUND(startingamount::numeric, 2) as startingAmount , ROUND(closingammount::numeric, 2) as closingammount , closingdate), xmlagg(xmlelement(Name process, xmlattributes(p.iban, description, ROUND(transactionammount::numeric, 2) as transactionammount, valuedate, entrydate, p.creditdebit, p.partyname)  )  ) ) AS xml from transactionfile f, process p, (Select t.filename as filename, max(t.time) as time from transactionfile t, (Select r.filename as filename, r.time as time from request r ) as lastRequest ,  (Select max(r.time) as time from request r) as l  \r\n"
+				+ "where lastrequest.time = l.time and t.filename = lastRequest.filename\r\n"
+				+ "group by t.filename) as lastFile \r\n"
+				+ "where f.fileid = p.fileid and f.filename = lastFile.filename and f.time = lastFile.time\r\n"
+				+ "group by f.fileid)\r\n"
+				+ " AS transactions;;";
 		String xml = null;
 		try {
 			Statement st = connection.createStatement();
