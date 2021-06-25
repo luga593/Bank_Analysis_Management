@@ -22,20 +22,36 @@ public class SimonsGraph extends Application{
     	
     	private List<List<String>> result = new ArrayList<List<String>>();
 		private List<List<String>> finalresult = new ArrayList<List<String>>();
-    	private static final String query = "SELECT t.startingamount,p.entrydate,p.creditdebit, p.transactionammount ,t.time \n"
-    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
-    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
-    			+ "ORDER BY p.entrydate ";
-    	private static final String queryrep = "SELECT t.startingamount,p.entrydate,p.creditdebit, p.transactionammount ,t.time \n"
-    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
-    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
-    			+ "ORDER BY p.entrydate ";
-    	private static final String query3 = "SELECT p.creditdebit, p.transactionammount ,t.time \n"
-    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
-    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n";
-    	private static final String query3rep = "SELECT p.creditdebit, p.transactionammount ,t.time \n"
-    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
-    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n";
+    	private static final String query ="SELECT f.startingamount, p.entrydate,p.creditdebit, p.transactionammount ,f.time "
+    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS f, "
+    			+ "(Select t.filename as filename, max(t.time) as time from transactionfile t  , (Select r.filename as filename, r.time as time from request r ) as lastRequest , "
+    			+ "(Select max(r.time) as time from request r) as l  "
+    			+ "where lastrequest.time = l.time and t.filename = lastRequest.filename "
+    			+ "group by t.filename) as lastFile "
+    			+ "where f.fileid = p.fileid and f.filename = lastFile.filename and f.time = lastFile.time "
+    			+ "ORDER BY p.entrydate";
+    	private static final String queryrep = "SELECT f.startingamount, p.entrydate,p.creditdebit, p.transactionammount ,f.time "
+    			+ " FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS f, \n"
+    			+ " (Select t.filename as filename, max(t.time) as time from transactionfile t  , (Select r.filename as filename, r.time as time from request r ) as lastRequest "
+    			+ " , (Select max(r.time) as time from request r) as l  "
+    			+ " where lastrequest.time = l.time and t.filename = lastRequest.filename "
+    			+ " group by t.filename) as lastFile "
+    			+ " where f.fileid = p.fileid and f.filename = lastFile.filename and f.time = lastFile.time \n"
+    			+ " ORDER BY p.entrydate";
+    	private static final String query3 = "SELECT p.creditdebit, p.transactionammount , f.time\n"
+    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS f , \n"
+    			+ "(Select t.filename as filename, max(t.time) as time from transactionfile t  , (Select r.filename as filename, r.time as time from request r ) as lastRequest ,\n"
+    			+ "(Select max(r.time) as time from request r) as l  \n"
+    			+ "where lastrequest.time = l.time and t.filename = lastRequest.filename \n"
+    			+ "group by t.filename) as lastFile \n"
+    			+ "where f.fileid = p.fileid and f.filename = lastFile.filename and f.time = lastFile.time";
+    	private static final String query3rep = "SELECT p.creditdebit, p.transactionammount , f.time\n"
+    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS f , \n"
+    			+ "(Select t.filename as filename, max(t.time) as time from transactionfile t  , (Select r.filename as filename, r.time as time from request r ) as lastRequest ,\n"
+    			+ "(Select max(r.time) as time from request r) as l  \n"
+    			+ "where lastrequest.time = l.time and t.filename = lastRequest.filename \n"
+    			+ "group by t.filename) as lastFile \n"
+    			+ "where f.fileid = p.fileid and f.filename = lastFile.filename and f.time = lastFile.time";
 
 //    	String query4 = "SELECT SUM(tr.transferredmoney) AS transferedTo \n"
 //    			+ "FROM dab_di20212b_7.transactiondifer3 as tr \n"
