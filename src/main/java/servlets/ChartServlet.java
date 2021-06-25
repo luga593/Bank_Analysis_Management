@@ -23,10 +23,15 @@ public class ChartServlet extends HttpServlet {
         String reqParam = req.getParameter("iban");
         PrintWriter pw = res.getWriter();
         res.setContentType("text/plain");
+        String response = "";
+     
         try {
+        	System.out.println(chartdata.getStats(reqParam).toString());
             for(String x : chartdata.getStats(reqParam)){
-                pw.write(x + ",");
+            	response += x+",";
             }
+            pw.write(response);
+            System.out.println(response);
             pw.close();
 
         }catch(SQLException e){
