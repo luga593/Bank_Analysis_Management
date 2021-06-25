@@ -9,31 +9,53 @@ public class ShowChartsLuis {
     //this is being made static, so we might aswell declare it once
     DbUtil DB = new DbUtil();
     Connection connection =  DB.getConnection();
-    //Queries have to be implemented as STORED PROCEDURES
-    private static final String QUERY = "Select  COUNT (DISTINCT p.*) FROM transactionFile t, process p\n" +
-            "Where t.fileid = p.fileid AND t.accid LIKE ?";
-
-    private static final String QUERY1 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
-            "Where t.fileid = p.fileid AND t.accid LIKE ? AND p.iban is NULL AND p.description is NOT NULL;\n";
-
-    private static final String QUERY2 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
-            "Where t.fileid = p.fileid AND t.accid LIKE ? AND p.description is NULL AND iban is NOT NULL;\n";
-
-    private static final String QUERY3 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
-            "Where p.fileid= t.fileid AND t.accid LIKE ? AND p.processid NOT IN(SELECT DISTINCT p.processid FROM TransactionFile t, process \n" +
-            "  WHERE t.fileid = p.fileid AND t.accid LIKE ? AND (p.description is NULL OR p.iban \n" +
-            "  is NULL ));\n";
-
-    public static final String QUERY4 = "SELECT  COUNT(DISTINCT p.*) FROM TransactionFile t, process p\n" +
-            "Where t.fileid = p.fileid AND t.accid LIKE ? AND p.iban is NULL And p.description is NULL;";
 
 
-    private static final String QUERY5 = "SELECT COUNT(DISTINCT p1.*) FROM process p1, process p2, transactionfile t\n" +
-            "WHERE p1.partyname = p2.partyname AND p1.iban <> p2.iban AND p1.fileid = t.fileid AND p2.fileid= t.fileid AND time = (SELECT MAX(time) FROM transactionfile WHERE userid = ?);\n";
+    private static final String QUERY = "SELECT  COUNT(DISTINCT p.*) FROM process p, transactionfile t\n" +
+        "WHERE p.fileid = t.fileid AND t.userid = ? AND t.time = (SELECT MAX(time) FROM transactionfile)";
 
-    /**
-     * non matching iban query pending
-     */
+
+    //only null iban
+    private static final String QUERY1 = "SELECT COUNT(DISTINCT p.*) FROM process p, transactionfile t,\n" +
+        "(Select t.filename as filename, max(t.time) as time from transactionfile t, \n" +
+        "(Select r.filename as filename, r.time as time from request r ) as lastRequest,\n" +
+        "(Select max(r.time) as time from request r) as l \n" +
+        "where lastrequest.time = l.time and t.filename = lastRequest.filename group by t.filename) as lastFile\n" +
+        "WHERE p.fileid = t.fileid AND t.userid = ? and  t.filename = lastFile.filename and t.time = lastFile.time \n" +
+        "AND (p.iban <> '' IS NOT TRUE) AND NOT (p.description <> '' IS NOT TRUE);";
+
+
+    //only null description
+    private static final String QUERY2 = "SELECT COUNT(DISTINCT p.*) FROM process p, transactionfile t, (Select t.filename as filename, max(t.time) as time from transactionfile t, (Select r.filename as filename, r.time as time from request r ) as lastRequest ,  (Select max(r.time) as time from request r) as l \n" +
+            "where lastrequest.time = l.time and t.filename = lastRequest.filename\n" +
+            "group by t.filename) as lastFile\n" +
+            "WHERE p.fileid = t.fileid AND t.userid = ? and  t.filename = lastFile.filename and t.time = lastFile.time \n" +
+            "AND NOT (p.iban <> '' IS NOT TRUE) AND  (p.description <> '' IS NOT TRUE);";
+
+    //good processes for the last
+    private static final String QUERY3 = "SELECT  p.* FROM process p, transactionfile t, (Select t.filename as filename, max(t.time) as time from transactionfile t, (Select r.filename as filename, r.time as time from request r ) as lastRequest ,  (Select max(r.time) as time from request r) as l \n" +
+            "where lastrequest.time = l.time and t.filename = lastRequest.filename\n" +
+            "group by t.filename) as lastFile\n" +
+            "WHERE p.fileid = t.fileid AND t.userid = ? and  t.filename = lastFile.filename and t.time = lastFile.time \n" +
+            "AND p.processid NOT IN\n" +
+            "(SELECT  p.processid FROM process p, transactionfile t,\n" +
+            "(Select t.filename as filename, max(t.time) as time from transactionfile t, \n" +
+            "(Select r.filename as filename, r.time as time from request r ) as lastRequest , \n" +
+            "(Select max(r.time) as time from request r) as l \n" +
+            "where lastrequest.time = l.time and t.filename = lastRequest.filename group by t.filename) as lastFile\n" +
+            "WHERE p.fileid = t.fileid AND t.userid = ? and  t.filename = lastFile.filename and t.time = lastFile.time \n" +
+            "AND ((p.iban <> '' IS NOT TRUE) OR (p.description <> '' IS NOT TRUE)))";
+
+    //no iban no description
+    public static final String QUERY4 = "SELECT COUNT(DISTINCT p.*) FROM process p, transactionfile t,\n" +
+            "(Select t.filename as filename, max(t.time) as time from transactionfile t, \n" +
+            "(Select r.filename as filename, r.time as time from request r ) as lastRequest,\n" +
+            "(Select max(r.time) as time from request r) as l \n" +
+            "where lastrequest.time = l.time and t.filename = lastRequest.filename group by t.filename) as lastFile\n" +
+            "WHERE p.fileid = t.fileid AND t.userid = ? and  t.filename = lastFile.filename and t.time = lastFile.time \n" +
+            "AND (p.iban <> '' IS NOT TRUE) AND (p.description <> '' IS NOT TRUE);";
+
+
     public String[] getStats(String iban) throws SQLException{
         return new String[]{getNoRecipient(iban), getNoIbanNoDesc(iban),getNoDescription(iban), getGoodProcesses(iban),
         getProcesses(iban)};
@@ -51,23 +73,24 @@ public class ShowChartsLuis {
             result.add(resultSet.getString(12));
         }
         return result;
-    };
-    public String getProcesses(String iban) throws SQLException {
+    }
+
+    public String getProcesses(String userID) throws SQLException {
         String result = null;
 
         PreparedStatement st = connection.prepareStatement(QUERY);
-        st.setString(1,iban);
+        st.setString(1,userID);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
         result = resultSet.getString(1);
         return result;
-    };
+    }
     //returns the number of processes with no recipient iban. this processes belong to all files of a given account<param>
-    public String getNoRecipient(String iban) throws SQLException{
+    public String getNoRecipient(String userID) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY1);
-        st.setString(1,iban);
+        st.setString(1,userID);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -75,10 +98,10 @@ public class ShowChartsLuis {
         return result;
     }
 
-    public String getNoDescription(String iban) throws SQLException{
+    public String getNoDescription(String userID) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY2);
-        st.setString(1,iban );
+        st.setString(1,userID);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -106,16 +129,6 @@ public class ShowChartsLuis {
         result = resultSet.getString(1);
         return result;
     }
-    public String getDifferentIban(String userid) throws SQLException{
-        String result = "0";
-        PreparedStatement st = connection.prepareStatement(QUERY5);
-        st.setString(1,userid );
-        ResultSet resultSet = st.executeQuery();
-
-        resultSet.next();
-        result = resultSet.getString(1);
-        return result;
-    }
 
 
     public static void main(String args[]) throws SQLException {
@@ -126,56 +139,6 @@ public class ShowChartsLuis {
         System.out.println(sh1.getNoRecipient("NL34RABO0327101691").toString());
         System.out.println(sh1.getNoDescription("NL34RABO0327101691").toString());
         System.out.println(sh1.getNoIbanNoDesc("NL34RABO0327101691").toString());
-/*
-        DbUtil DB = new DbUtil();
 
-        Connection connection = DB.getConnection(); //this is being made static, so we might aswell declare it once
-
-
-        String query = "SELECT p.*, t.fileid FROM TransactionFile t, process p\r\n"
-                + "WHERE p.fileid = t.fileid AND t.fileid = ?;"; //getting all the processes that match an ID
-
-        String query1 = "SELECT COUNT(p.*) FROM TransactionFile t, process p\r\n" //getting count of processes with null iban (in a day statement mt940)
-                + "WHERE p.fileid = t.fileid AND p.iban is NULL AND t.fileid = ?;";
-
-        String query2 = "SELECT COUNT(p.*) FROM TransactionFile t, process p\r\n"
-                + "WHERE p.fileid = t.fileid AND p.description is NULL AND t.fileid = ?;";
-
-        //count how many have null description
-        //--------
-
-    try {
-        PreparedStatement st = connection.prepareStatement(query);
-        st.setLong(1, 286);
-        ResultSet resultSet = st.executeQuery();
-
-        int processCount = 0; //countss the process for a file ID
-        while (resultSet.next()) {
-            //System.out.println(resultSet.getString(4));
-            processCount++;
-
-        }
-        System.out.println(processCount);
-
-        //now check for the process that have a null recipient for your chart
-        PreparedStatement st1 = connection.prepareStatement(query1);
-        st1.setLong(1, 286);
-        ResultSet resultSet1 = st1.executeQuery();
-        resultSet1.next();
-        System.out.println(resultSet1.getInt(1));
-
-
-        //check for null description
-        PreparedStatement st2 = connection.prepareStatement(query1);
-        st2.setLong(1, 286);
-        ResultSet resultSet2 = st2.executeQuery();
-        resultSet2.next();
-        System.out.println(resultSet2.getInt(1));
-
-      }catch(SQLException e){
-        System.out.println("something happened");
-    }
-
- */
     }
 }
