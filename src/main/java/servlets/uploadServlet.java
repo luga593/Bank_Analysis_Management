@@ -57,7 +57,7 @@ public class uploadServlet extends HttpServlet{
 
 	public static boolean validateFileName(String fileName) {
 		// Validate filename: prevent SQL Injection
-		String pattern = "^[^' \"\\-#;|=]+$";
+		String pattern = "^[^'\"\\-#;|=]+$";
 		boolean isMatch = Pattern.matches(pattern, fileName);
 		System.out.println(isMatch);
 		return isMatch;
