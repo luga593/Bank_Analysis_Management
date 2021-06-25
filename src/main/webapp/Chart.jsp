@@ -1,4 +1,5 @@
-<%@ page import="java.time.*" %><%--
+<%@ page import="java.time.*" %>
+<%@ page import="servlets.logInServlet" %><%--
 Created by IntelliJ IDEA.
 User: User
 Date: 14/06/2021
@@ -119,7 +120,10 @@ To change this template use File | Settings | File Templates.
     <jsp:include page="WEB-INF/JS/darkTheme.js"/>
     <jsp:include page="WEB-INF/JS/sideNav.js"/>
 
+    var userid = <%= logInServlet.getUser().getUserID()%>
+
     function loadGraph() {
+
         var query = document.getElementById("query1").value;
 
         if(masspopChart != null){

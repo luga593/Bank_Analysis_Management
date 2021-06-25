@@ -20,13 +20,13 @@ public class ChartServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException{
         ShowChartsLuis chartdata = new ShowChartsLuis();
-        String reqParam = req.getParameter("iban");
+        int reqParam = Integer.parseInt(req.getParameter("uID"));
         PrintWriter pw = res.getWriter();
         res.setContentType("text/plain");
         String response = "";
-     
+
         try {
-        	System.out.println(chartdata.getStats(reqParam).toString());
+
             for(String x : chartdata.getStats(reqParam)){
             	response += x+",";
             }

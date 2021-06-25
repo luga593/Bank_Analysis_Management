@@ -60,7 +60,8 @@ public class logInServlet extends HttpServlet {
 			response.sendRedirect("mainPage.jsp");
         } else {
         	response.sendRedirect("failedLogin.jsp");
-        }   
+        }
+
     }
     
     public void doPost (HttpServletRequest request, HttpServletResponse response)

@@ -17,8 +17,10 @@ function buildPieChart() {
 
     setDisplay("chart-container", "block");
 
-    var ibanVal = "";
+    var uID = userid.toString();
     var request = new XMLHttpRequest();
+    console.log(uID);
+    console.log(typeof uID);
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             datavalues = request.responseText; //this is a string
@@ -27,8 +29,8 @@ function buildPieChart() {
 
         }
     }
-    request.open("GET", "http://localhost:8080/Topicus/ChartTest" + "?" +
-       "iban=" + ibanVal, true);
+    request.open("GET", "http://localhost:8080/Topicus_war/ChartTest" + "?" +
+       "uID=" + uID, true);
     // request.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/ChartTest" + "?" +
     //    "iban=" + ibanVal, true);                                                      //CHANGE PARAM TO IBAN
     request.send();
@@ -69,6 +71,7 @@ function initialize() {
     console.log("initialize 0");
     myChart= document.getElementById('myChart').getContext('2d');
     masspopChart = new Chart('myChart', {
+        color: '#FFF',
         type: 'pie',
         data:{
             labels: ['transactions with no description','transactions with no recipient nor description',
@@ -92,6 +95,7 @@ function initialize() {
             }]
         },
         options: {},
+
     });
     console.log("initialize 1");
 }

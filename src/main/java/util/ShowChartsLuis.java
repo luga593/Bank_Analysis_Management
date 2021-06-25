@@ -16,7 +16,7 @@ public class ShowChartsLuis {
             "(Select r.filename as filename, r.time as time from request r ) as lastRequest ,  \n" +
             "(Select max(r.time) as time from request r) as l \n" +
             "where lastrequest.time = l.time and t.filename = lastRequest.filename group by t.filename) as lastFile\n" +
-            "WHERE p.fileid = t.fileid AND t.userid = 1 and  t.filename = lastFile.filename and t.time = lastFile.time";
+            "WHERE p.fileid = t.fileid AND t.userid = ? and  t.filename = lastFile.filename and t.time = lastFile.time";
 
 
     //only null iban
@@ -37,7 +37,7 @@ public class ShowChartsLuis {
             "AND NOT (p.iban <> '' IS NOT TRUE) AND  (p.description <> '' IS NOT TRUE);";
 
     //good processes for the last
-    private static final String QUERY3 = "SELECT  p.* FROM process p, transactionfile t, (Select t.filename as filename, max(t.time) as time from transactionfile t, (Select r.filename as filename, r.time as time from request r ) as lastRequest ,  (Select max(r.time) as time from request r) as l \n" +
+    private static final String QUERY3 = "SELECT COUNT (DISTINCT p.*) FROM process p, transactionfile t, (Select t.filename as filename, max(t.time) as time from transactionfile t, (Select r.filename as filename, r.time as time from request r ) as lastRequest ,  (Select max(r.time) as time from request r) as l \n" +
             "where lastrequest.time = l.time and t.filename = lastRequest.filename\n" +
             "group by t.filename) as lastFile\n" +
             "WHERE p.fileid = t.fileid AND t.userid = ? and  t.filename = lastFile.filename and t.time = lastFile.time \n" +
@@ -60,15 +60,15 @@ public class ShowChartsLuis {
             "AND (p.iban <> '' IS NOT TRUE) AND (p.description <> '' IS NOT TRUE);";
 
 
-    public String[] getStats(String iban) throws SQLException{
-       // return new String[]{getNoRecipient(iban), getNoIbanNoDesc(iban),getNoDescription(iban), getGoodProcesses(iban),
-        //getProcesses(iban)};
-    	String[] response = {"2","4","1","2","9"};
-    	return response;
+    public String[] getStats(int UserID) throws SQLException{
+
+       return new String[]{getNoRecipient(UserID), getNoIbanNoDesc(UserID),getNoDescription(UserID), getGoodProcesses(UserID),
+        getProcesses(UserID)};
+
     };
 
     //puts all of the id's into a list and returns it
-    public ArrayList<String> getProcesses(int fileid) throws SQLException {
+    /*public ArrayList<String> getProcesses(int fileid) throws SQLException {
         ArrayList<String> result = new ArrayList<String>();
 
         PreparedStatement st = connection.prepareStatement(QUERY);
@@ -80,12 +80,12 @@ public class ShowChartsLuis {
         }
         return result;
     }
-
-    public String getProcesses(String userID) throws SQLException {
+*/
+    public String getProcesses(int userID) throws SQLException {
         String result = null;
 
         PreparedStatement st = connection.prepareStatement(QUERY);
-        st.setString(1,userID);
+        st.setInt(1,userID);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -93,10 +93,10 @@ public class ShowChartsLuis {
         return result;
     }
     //returns the number of processes with no recipient iban. this processes belong to all files of a given account<param>
-    public String getNoRecipient(String userID) throws SQLException{
+    public String getNoRecipient(int userID) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY1);
-        st.setString(1,userID);
+        st.setInt(1,userID);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -104,31 +104,31 @@ public class ShowChartsLuis {
         return result;
     }
 
-    public String getNoDescription(String userID) throws SQLException{
+    public String getNoDescription(int userID) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY2);
-        st.setString(1,userID);
+        st.setInt(1,userID);
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
         result = resultSet.getString(1);
         return result;
     }
-    public String getNoIbanNoDesc(String iban) throws SQLException{
+    public String getNoIbanNoDesc(int iban) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY4);
-        st.setString(1,iban );
+        st.setInt(1,iban );
         ResultSet resultSet = st.executeQuery();
         resultSet.next();
 
         result = resultSet.getString(1);
         return result;
     }
-    public String getGoodProcesses(String iban) throws SQLException{
+    public String getGoodProcesses(int iban) throws SQLException{
         String result = null;
         PreparedStatement st = connection.prepareStatement(QUERY3);
-        st.setString(1,iban );
-        st.setString(2,iban );
+        st.setInt(1,iban );
+        st.setInt(2,iban );
         ResultSet resultSet = st.executeQuery();
 
         resultSet.next();
@@ -137,14 +137,15 @@ public class ShowChartsLuis {
     }
 
 
-    public static void main(String args[]) throws SQLException {
+    public static void main(int args[]) throws SQLException {
         ShowChartsLuis sh1 = new ShowChartsLuis();
-        System.out.println(sh1.getStats(""));
-        System.out.println(sh1.getProcesses("NL34RABO0327101691").toString());
-        System.out.println(sh1.getGoodProcesses("NL34RABO0327101691").toString());
-        System.out.println(sh1.getNoRecipient("NL34RABO0327101691").toString());
-        System.out.println(sh1.getNoDescription("NL34RABO0327101691").toString());
-        System.out.println(sh1.getNoIbanNoDesc("NL34RABO0327101691").toString());
+        System.out.println(sh1.getProcesses(2));
+        System.out.println(sh1.getGoodProcesses(2));
+        System.out.println(sh1.getNoRecipient(2));
+        System.out.println(sh1.getNoDescription(2));
+        System.out.println(sh1.getNoIbanNoDesc(2));
+        System.out.println(sh1.getStats(2));
+
 
     }
 }
