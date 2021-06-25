@@ -9,6 +9,7 @@ To change this template use File | Settings | File Templates.
 <html>
 <head>
     <title>Chart View</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
 </head>
 <body>
     <jsp:include page="base.jsp"/>
@@ -16,10 +17,10 @@ To change this template use File | Settings | File Templates.
         <h2>CHART VIEW AND GRAPH</h2>
 
     <div id="query-container">
-        <form action="#" method="post">
+<%--        <form>--%>
             <p>Select a query and enter the data to load a graph.</p>
 
-            <select id="query1" name="query" onchange="showElements(this.value);">
+            <select id="query1" name="query" onchange="showElements(this.value)">
                 <option value="1">query1</option>
                 <option value="2">query2</option>
                 <option value="3">query3</option>
@@ -33,8 +34,13 @@ To change this template use File | Settings | File Templates.
 
             <input type="text" id="input4" placeholder="Please enter the IBAN." name="IBAN">
 
-            <button type="submit">Load graph</button>
-        </form>
+            <button type="submit" onclick="loadGraph()">Load graph</button>
+<%--        </form>--%>
+    </div>
+
+    <div class="chart-container" id="chart-container" style="height: 40vh; width:40vw">
+        <canvas id="myChart" ></canvas>
+
     </div>
 
 </div>
@@ -44,6 +50,12 @@ To change this template use File | Settings | File Templates.
 
     body {
         height: auto;
+    }
+
+    #chart-container {
+        display: none;
+        position: absolute;
+        right: 0;
     }
 
     input, label {
@@ -64,12 +76,21 @@ To change this template use File | Settings | File Templates.
     }
 
     #query-container {
-        display: flex;
-        margin-left: 0;
+        float: left;
+        display: inline-block;
+        margin-left: 10px;
         margin-top: 10px;
         width: 25%;
-        height: 100%;
-        /*justify-content: space-around;*/
+        height: auto;
+        text-align: center;
+        background-color: var(--header-color);
+        border: solid 3px;
+        border-color: var(--button-color);
+        border-radius: 15px;
+        padding: 10px;
+
+        /*mb*/
+        justify-content: space-around;
     }
 
         #query-container form {
@@ -108,23 +129,23 @@ To change this template use File | Settings | File Templates.
         display: block;
     }
 
-    #query-container form input {
+    #query-container input {
         margin-top: 10px;
     }
 
-    #query-containe form select {
+    #query-container select {
         border: inherit;
         border-radius: inherit;
     }
 
-    #query-container form button {
+    #query-container button {
         margin-top: 10px;
         border: inherit;
         border-radius: inherit;
         background-color: var(--header-a-color);
     }
 
-    #query-container form button:hover {
+    #query-container button:hover {
         background-color: var(--header-a-color-hover);
     }
 
