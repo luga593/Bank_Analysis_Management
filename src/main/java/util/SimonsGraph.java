@@ -6,44 +6,44 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.core.Application;
 
-public class SimonsGraph {
-
-	DbUtil newdb = new DbUtil();
-	int rowCount = 0;
-
-	// Statement statement2 = newdb.getConnection().createStatement();
+public class SimonsGraph extends Application{
+    	
+    	DbUtil newdb = new DbUtil();
+    	int rowCount = 0;
+    	
+    	//Statement statement2 = newdb.getConnection().createStatement();
 //    	Statement statement3 = newdb.getConnection().createStatement();
 //    	Statement statement4 = newdb.getConnection().createStatement();
-
-
-	private static final String query = "SELECT t.startingamount,p.entrydate,p.creditdebit, p.transactionammount ,t.time \n"
-			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
-			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
-			+ "ORDER BY p.entrydate ";
-	private static final String queryrep = "SELECT t.startingamount,p.entrydate,p.creditdebit, p.transactionammount ,t.time \n"
-			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
-			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
-			+ "ORDER BY p.entrydate ";
-
     	
-//    	String query2 = "CREATE MATERIALIZED VIEW transactiondifer3 AS "
-//    			+ "SELECT t.fileid, t.startingamount - t.closingammount AS transferredmoney \n"
-//    			+ "FROM dab_di20212b_7.transactionfile AS t \n"
-//    			+ "WHERE date_part('month',t.date) = 3 \n";
-//    	String query3 = "SELECT SUM(tr.transferredmoney) AS transferedFrom \n"
-//    			+ "FROM dab_di20212b_7.transactiondifer3 as tr \n"
-//    			+ "WHERE tr.transferredmoney>0 AND tr.fileid <> 1 \n";
+    	private List<List<String>> result = new ArrayList<List<String>>();
+		private List<List<String>> finalresult = new ArrayList<List<String>>();
+    	private static final String query = "SELECT t.startingamount,p.entrydate,p.creditdebit, p.transactionammount ,t.time \n"
+    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
+    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
+    			+ "ORDER BY p.entrydate ";
+    	private static final String queryrep = "SELECT t.startingamount,p.entrydate,p.creditdebit, p.transactionammount ,t.time \n"
+    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
+    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n"
+    			+ "ORDER BY p.entrydate ";
+    	private static final String query3 = "SELECT p.creditdebit, p.transactionammount ,t.time \n"
+    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
+    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n";
+    	private static final String query3rep = "SELECT p.creditdebit, p.transactionammount ,t.time \n"
+    			+ "FROM dab_di20212b_7.process AS p, dab_di20212b_7.transactionfile AS t \n"
+    			+ "WHERE t.fileid = p.fileid AND t.time = (SELECT max(t.time) FROM dab_di20212b_7.transactionfile AS t) \n";
+
 //    	String query4 = "SELECT SUM(tr.transferredmoney) AS transferedTo \n"
 //    			+ "FROM dab_di20212b_7.transactiondifer3 as tr \n"
 //    			+ "WHERE tr.transferredmoney<0 AND tr.fileid <> 1 \n";
 //    	String query5 = "SELECT MIN(t.closingammount)"
 //    			+ "FROM dab_di20212b_7.transactionfile as t "
 //    			+ "WHERE EXTRACT(MONTH FROM t.date) = ?";
-
+    	
 //    	try {
 //        	int rs2 = statement2.executeUpdate(query2);
 //        	}
@@ -72,7 +72,7 @@ public class SimonsGraph {
 //    		System.out.println("Sum of transfered money to the account"+rs5.getString(1));
 //    	}
 //    	}
-
+    	
 //    	rs3.close();
 //    	rs4.close();
 //    	statement.close();
@@ -80,12 +80,13 @@ public class SimonsGraph {
 //    	statement3.close();
 //    	statement4.close();
 //    	statement5.close();
+    	
 
-	public List<List<String>> getqueryResult() throws SQLException {
-		DbUtil newdb = new DbUtil();
+
+    public List<List<String>> getqueryResult() throws SQLException {
+    	DbUtil newdb = new DbUtil();
 		int rowCount = 0;
-		List<List<String>> result = new ArrayList<List<String>>();
-		List<List<String>> finalresult = new ArrayList<List<String>>();
+		
 		List<Double> amounttransfered = new ArrayList<Double>();
 		List<Double> finalammounts = new ArrayList<Double>();
 		Statement statement = newdb.getConnection().createStatement();
@@ -104,18 +105,19 @@ public class SimonsGraph {
 			amounttransfered.add(rs.getDouble(4));
 		}
 		initialamount = Double.parseDouble(result.get(0).get(0));
-		for (int i = 0; i < result.get(2).size(); i++) {
-			if (result.get(2).get(i).equals("D")) {
-				double res = amounttransfered.get(i) * (-1);
-				amounttransfered.set(i, res);
-			}
+	for(int i=0;i<result.get(2).size();i++) {
+		if (result.get(2).get(i).equals("D")) {
+			double res = amounttransfered.get(i)*(-1);
+			amounttransfered.set(i, res);
 		}
-
+	}
+		
 		for (int i = 0; i < amounttransfered.size(); i++) {
-			if (i == 0) {
+			if(i==0) {
 				finalammounts.add(initialamount + amounttransfered.get(0));
-			} else {
-				finalammounts.add(finalammounts.get(i - 1) + amounttransfered.get(i));
+			}
+			else {
+			finalammounts.add(finalammounts.get(i-1) + amounttransfered.get(i));
 			}
 		}
 		for (int j = 0; j < 2; j++) {
@@ -128,42 +130,95 @@ public class SimonsGraph {
 		rs.close();
 		rsrep.close();
 		return finalresult;
-
+    	
+    }
+    
+public String getminimumammount() throws SQLException {
+	List<Double> doublelist = new ArrayList<Double>();
+	double minvalue;
+	if (finalresult.get(1).equals(null))
+		return null;
+	else
+		for(int i=0;i<finalresult.get(1).size();i++) {
+			doublelist.add(Double.parseDouble(finalresult.get(1).get(i)));
+		}
+	minvalue = doublelist.get(0);
+	for(int i=0;i<doublelist.size();i++) {
+		if (doublelist.get(i)<minvalue) {
+			minvalue = doublelist.get(i);
+		}
 	}
-
-    public static String toJavascriptArray(List<List<String>> arr){
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
-        for(int i=0; i<arr.get(0).size(); i++){
-            sb.append("\"").append(arr.get(0)).append("\"");
-            if(i+1 < arr.get(0).size()){
-                sb.append(",");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
-    }
-    public static String toJavascriptArray1(List<List<String>> arr){
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
-        for(int i=0; i<arr.get(0).size(); i++){
-            sb.append("\"").append(arr.get(0)).append("\"");
-            if(i+1 < arr.get(0).size()){
-                sb.append(",");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
-    }
+	return String.valueOf(minvalue);
+	
+	
+}
+public String getTransferedToAcc() throws SQLException {
+	Statement statement = newdb.getConnection().createStatement();
+	Statement statement2 = newdb.getConnection().createStatement();
+	ResultSet rs = statement.executeQuery(query3);
+	ResultSet rsrep = statement2.executeQuery(query3rep);
+	List<List<String>> result1 = new ArrayList<List<String>>();
+	double transferedMoney = 0;
+	while (rsrep.next()) {
+		result1.add(new ArrayList<String>());
+	}
+	while (rs.next()) {
+		result1.get(0).add(rs.getString(1));
+		result1.get(1).add(rs.getString(2));
+		result1.get(2).add(rs.getString(3));
+	}
+	for(int i=0;i<result1.get(1).size();i++) {
+		if(result1.get(0).get(i).equals("C")) {
+			transferedMoney = transferedMoney+Double.parseDouble(result1.get(1).get(i));
+		}
+	}
+	rs.close();
+	rsrep.close();
+	return String.valueOf(transferedMoney);
+	
+}
+public String getTransferedFromAcc() throws SQLException {
+	Statement statement = newdb.getConnection().createStatement();
+	Statement statement2 = newdb.getConnection().createStatement();
+	ResultSet rs = statement.executeQuery(query3);
+	ResultSet rsrep = statement2.executeQuery(query3rep);
+	List<List<String>> result1 = new ArrayList<List<String>>();
+	double transferedMoney = 0;
+	while (rsrep.next()) {
+		result1.add(new ArrayList<String>());
+	}
+	while (rs.next()) {
+		result1.get(0).add(rs.getString(1));
+		result1.get(1).add(rs.getString(2));
+		result1.get(2).add(rs.getString(3));
+	}
+	for(int i=0;i<result1.get(1).size();i++) {
+		if(result1.get(0).get(i).equals("D")) {
+			transferedMoney = transferedMoney + Double.parseDouble(result1.get(1).get(i));
+		}
+	}
+	rs.close();
+	rsrep.close();
+	return String.valueOf(transferedMoney);
+	
+}
     public static void main(String[] args) throws SQLException {
     	SimonsGraph newggraph = new SimonsGraph();
     	List<List<String>> result1 = new ArrayList<List<String>>();
     	result1 = newggraph.getqueryResult();
+    	String result3;
+    	String result4;
+    	result3 = newggraph.getTransferedFromAcc();
+    	System.out.println("transfered from"+result3);
+    	result3 = newggraph.getTransferedToAcc();
+    	System.out.println("transfered to"+result3);
+    	result4 = newggraph.getminimumammount();
+    	System.out.println("minimum ammount"+result4);
     	 for(int i = 0;i<result1.size();i++) {
       		 for(int j=0;j<result1.get(i).size();j++) {
       			 System.out.println(result1.get(i).get(j));
       		 }
       	 }
     }
-
 }
+
