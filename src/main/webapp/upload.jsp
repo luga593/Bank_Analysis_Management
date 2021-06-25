@@ -18,9 +18,14 @@
  <body onload = "getFiles()">
      <div id="main">
          <h2>BANK STATEMENT UPLOAD</h2>
-		 <div id="ListOfFiles"></div>
+		 <div id = "center">
+		 <div id = "leftcenter">
+		 <label for="files">Choose a file:</label>
 		 <select id = "Selector"></select>
-		 <button id ="fileSelector" onclick="">Select file</button>
+		 <div id = "buttonForPastFile">
+		 <button id = "SelectFilebutton" onclick = "selectFile()">Select file</button>
+		</div>
+		 </div>
          <div id="fileUpload">
              <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
                  <p>
@@ -29,6 +34,7 @@
 
                  <input type="submit" class = "loginButton" value="Upload .940" />
              </form>
+         </div>
          </div>
      </div>
  </body>
@@ -43,13 +49,15 @@
         /*margin-bottom: 200px;*/
         margin-top: 20px;
     }
-
+	#option {
+	width:45px;
+	}
     #fileUpload {
         /*margin-left: 20px;*/
         /*margin-top: 20px;*/
         /*width: 420px;*/
         /*height: 150px;*/
-
+		height: 100px;
         margin: auto;
         margin-top: 20px;
         width: 420px;
@@ -61,10 +69,48 @@
         padding: 5px;
         text-align: center;
         border: 3px solid black
-
+		border: solid;
+   		 border-radius: 10px;
+    	border-width: 2px;
 
     }
-
+    #SelectFilebutton {
+    border-width: 2px;
+    border-radius: 10px;
+    margin-top : 5px;
+    }
+    #leftcenter{
+      margin: auto;
+        margin-top: 20px;
+        width: 420px;
+        background-color: var(--header-color);
+        border: transparent;
+        border-radius: 10px;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 5px;
+        text-align: center;
+       /* border: 3px solid black */
+    }
+    #center {
+    display: flex;
+    justify-content : center;
+    }
+	#Selector {
+	margin: auto;
+    margin-top: 10px;
+    width: 420px;
+    background-color: var(--header-color);
+    /* border: transparent; */
+    border-radius: 10px;
+    border: solid;
+    border-width: 2px;
+    /* justify-content: space-evenly; */
+    /* align-items: center; */
+    padding: 5px;
+    text-align: center;
+	
+	}
     #fileUpload input[type="submit"] {
         width: 200px;
         height: 25px;
@@ -93,7 +139,7 @@
 				select(files);
 				//for(i = 0; i < files.length; i++) {
 				//	console.log(files[i]);		
-					document.getElementById("ListOfFiles").innerHTML = this.responseText;
+				//	document.getElementById("ListOfFiles").innerHTML = this.responseText;
 				//}
 			}
 		};
@@ -108,9 +154,25 @@
 			var option = document.createElement("option");
 			option.value = files[i];
 			option.text = files[i];
-			console.log(option);
 			x.add(option,null);
    		}
     }
+   	function selectFile() {
+   		console.log(document.getElementById("Selector").value);
+   		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState === 4 && this.status === 200) {
+				
+				//for(i = 0; i < files.length; i++) {
+				//	console.log(files[i]);		
+				//	document.getElementById("ListOfFiles").innerHTML = this.responseText;
+				//}
+			}
+		};
+		xmlhttp.open("Post", "http://localhost:8080/Topicus/RequestServlet",
+				true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send(document.getElementById("Selector").value);
+   	}
 </script>
 </html>
