@@ -143,8 +143,9 @@
 				//}
 			}
 		};
-		xmlhttp.open("GET", "http://localhost:8080/Topicus/ListOfFilesServlet",
-				true);
+		xmlhttp.open("GET", "http://localhost:8080/Topicus/ListOfFilesServlet",	true);
+		// xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/ListOfFilesServlet",
+		//		true);
 		xmlhttp.send();
 	}
     function select(files) {
@@ -163,10 +164,13 @@
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState === 4 && this.status === 200) {
 				window.location.replace("http://localhost:8080/Topicus/TableSingular.jsp");
+				// window.location.replace("http://topicus-bank1.paas.hosted-by-previder.com/Topicus/TableSingular.jsp");
 			}
 		};
 		xmlhttp.open("Post", "http://localhost:8080/Topicus/RequestServlet",
 				true);
+		// xmlhttp.open("Post", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/RequestServlet",
+		//		true);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xmlhttp.send(document.getElementById("Selector").value);
    	}

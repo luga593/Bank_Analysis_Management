@@ -21,6 +21,7 @@
 					}
 				};
 				xmlhttp.open("GET", "http://localhost:8080/Topicus/TestSimon", true);
+				//xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/TestSimon", true);
 				xmlhttp.send();
 			}
 		function showGraph(data) {
