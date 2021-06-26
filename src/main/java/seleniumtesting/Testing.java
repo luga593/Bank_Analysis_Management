@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 class Testing {
 	private static WebDriver driver;
@@ -64,7 +65,23 @@ class Testing {
 		Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/Topicus/TableSingular.jsp"));
 		driver.get("http://localhost:8080/Topicus/upload.jsp");
 		file = new File("Test-Solution.940");
+		driver.findElement(By.name("fileToUpload")).sendKeys(file.getAbsolutePath());
+		driver.findElement(By.className("loginButton")).click();
+		Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/Topicus/UploadInvalidName.jsp"));
+		driver.get("http://localhost:8080/Topicus/upload.jsp");
+		Select select = new Select(driver.findElement(By.id("Selector")));
+		select.selectByValue("value0");
+		driver.findElement(By.cssSelector("button[id='SelectFilebutton']")).click();
+		try {
+			Thread.sleep(40);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//driver.findElement(By.id("SelectFilebutton")).click();
+		Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/Topicus/TableSingular.jsp"));
 	}
+	
 	
 
 

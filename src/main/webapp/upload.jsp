@@ -153,7 +153,7 @@
 		for(i = 0; i < files.length; i++) {
 			//console.log(files[i]);		
 			var option = document.createElement("option");
-			option.value = files[i];
+			option.value = "value"+i;
 			option.text = files[i];
 			x.add(option,null);
    		}
