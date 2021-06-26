@@ -62,6 +62,8 @@ class Testing {
 		driver.findElement(By.name("fileToUpload")).sendKeys(file.getAbsolutePath());
 		driver.findElement(By.className("loginButton")).click();
 		Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/Topicus/TableSingular.jsp"));
+		driver.get("http://localhost:8080/Topicus/upload.jsp");
+		file = new File("Test-Solution.940");
 	}
 	
 
