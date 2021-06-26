@@ -2,6 +2,8 @@ package seleniumtesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -56,7 +58,10 @@ class Testing {
 		login();
 		driver.findElement(By.linkText("Bank Statement Upload")).click();
 		Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/Topicus/upload.jsp"));
-		
+		File file = new File("Sample ING.940");
+		driver.findElement(By.name("fileToUpload")).sendKeys(file.getAbsolutePath());
+		driver.findElement(By.className("loginButton")).click();
+		Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/Topicus/TableSingular.jsp"));
 	}
 	
 
