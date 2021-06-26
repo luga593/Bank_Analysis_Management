@@ -24,7 +24,7 @@
         Login
         <span class="underline"></span>
       </button>
-      <form class="form form-login" action="login" method = "post">
+      <form autocomplete="off" class="form form-login" action="login" method = "post">
         <fieldset>
           <legend>Please, enter your username and password for login.</legend>
           <div class="input-block">
@@ -50,7 +50,7 @@
         Sign Up
         <span class="underline"></span>
       </button>
-      <form class="form form-signup">
+      <form autocomplete="off" class="form form-signup">
         <fieldset>
           <legend>Please, enter your email, password and password confirmation for sign up.</legend>
 
