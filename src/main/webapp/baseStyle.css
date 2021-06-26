@@ -1,0 +1,323 @@
+/*dark theme*/
+body {
+    --text-color: #222;
+    --bkg-color: #3b4465;
+    --header-color: #F9E805;
+    --header-color2: #F9E805;
+    --header-a-color-hover: #fff;
+    --header-a-color: #5c5c5c;
+    --button-color: #F9E805;
+    --box-shadow: 10px 0px 5px grey;
+    --title-color: black;
+    --text-color: black;
+}
+body.dark-theme {
+    --text-color: #eee;
+    --bkg-color: #202124;
+    --header-color: #292a2d;
+    --header-color2: rgba(150,150,150,1);
+    --header-a-color-hover: #dae327;
+    --header-a-color: #fff;
+    --button-color: #fff;
+    --box-shadow: 0px 0px 0px grey;
+    --title-color: white;
+    --text-color: #959595;
+}
+
+@media (prefers-color-scheme: dark) {
+    /* defaults to dark theme */
+    body {
+        --text-color: #eee;
+        --bkg-color: #202124;
+        --header-color: #292a2d;
+        --header-color2: rgba(150,150,150,1);
+        --header-a-color-hover: #dae327;
+        --header-a-color: #fff;
+        --button-color: #fff;
+        --box-shadow: 0px 0px 0px grey;
+        --title-color: white;
+        --text-color: #959595;
+    }
+    body.light-theme {
+        --text-color: #222;
+        --bkg-color: #3b4465;
+        --header-color: #F9E805;
+        --header-color2: #F9E805;
+        --header-a-color-hover: #fff;
+        --header-a-color: #5c5c5c;
+        --button-color: #F9E805;
+        --box-shadow: 10px 0px 5px grey;
+        --title-color: black;
+        --text-color: black;
+    }
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: var(--bkg-color);
+    margin: 0;
+}
+
+/*header*/
+header {
+    background-image: linear-gradient(to right, var(--header-color2), var(--header-color));
+    /*background: var(--header-color);*/
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 50px;
+    padding-top: 19px;
+}
+
+nav a {
+    color: var(--header-a-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--header-a-color-hover);
+
+}
+
+.nav-bar {
+    width: 99%;
+    height: 60px;
+    margin: 0 auto;
+}
+
+#logo-container {
+    float: left;
+    background-color: transparent;/*var(--button-color);*/
+    height: 40px;
+    width: 185px;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 0;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+#logo-container:hover {
+    background-color: var(--header-a-color-hover);
+}
+
+.logo {
+    padding: 0;
+    width: auto;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.btn-toggle {
+    float: right;
+    margin-top: 20px;
+    margin-left: 50px;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-toggle:hover {
+    background-color: var(--header-a-color-hover);
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: var(--header-color); /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    box-shadow: var(--box-shadow);
+}
+
+/* The navigation menu links */
+.sidenav a {
+    /*background-color: black;*/
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: var(--header-a-color);
+    display: inline-block;
+    transition: 0.3s;
+    width: 100%;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: var(--header-a-color-hover);
+}
+
+.sidenav a:not(.closebtn) {
+    border-bottom-style: solid;
+    border-bottom-color: var(--header-a-color);
+}
+
+.sidenav a:not(.closebtn):hover {
+    border-bottom-color: var(--header-a-color-hover);
+}
+
+/* Position and style the menu button top left corner */
+
+.sidenav-button div  {
+    /*background-image: url('../../images/menu.png');*/
+    width: 40px;
+    height: 40px;
+    background-size: 40px;
+    float: left;
+    margin-top: 10px;
+    background-color: transparent;/*var(--button-color);*/
+    border-radius: 10px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.sidenav-button div:hover {
+    background-color: var(--header-a-color-hover);
+}
+
+.sidenav-button img {
+    height: 35px;
+    width: 35px;
+    margin-left: 2px;
+    margin-top: 4px;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    top: 0;
+    width: 100%;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    background: var(--bkg-color);
+    margin: 0;
+    position: absolute;
+    top: 60px; /* Header Height */
+    width: 100%;
+    height: 100%;
+    color: var(--text-color);
+}
+
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+#log-out {
+    all: unset;
+    text-transform: uppercase;
+    color: var(--header-a-color);
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+#log-out:hover {
+    color: var(--header-a-color-hover);
+}
+
+.topicusLogo{
+    background-image: url("images/topicusBl.png");
+    height: 110px;
+    width: 300px;
+    position: relative;
+    z-index: 2;
+    left: 370px;
+    margin-top: 10px;
+}
+.backImage{
+    position: absolute;
+    width: auto;
+    height: 100%;
+    left: 700px;
+    right: 0;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+input {
+    width: 50%;
+    margin: 0;
+    border: solid;
+    border-radius: 10px;
+    border-width: 2px;
+}
+
+/*links*/
+body a {
+    text-decoration: none;
+}
+
+/*tables*/
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-color: var(--text-color);
+}
+
+th, td {
+    padding: 15px;
+}
+
+th {
+    color: var(--title-color);
+}
+
+td {
+    color: var(--text-color);
+}
+
+/*processes*/
+#processes {
+    margin-left: 50px;
+}
+
+.button {
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+h2{
+    color: white;
+    text-align: center;
+    letter-spacing: 3px;
+    /*margin-bottom: 200px;*/
+    margin-top: 20px;
+}

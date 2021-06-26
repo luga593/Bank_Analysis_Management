@@ -18,9 +18,18 @@
  <body onload = "getFiles()">
      <div id="main">
          <h2>BANK STATEMENT UPLOAD</h2>
+
+         <div class = "column">
+             <h2>Description</h2>
+             <p>Topicus now allows you to upload any file of type MT940 of any arbitrary size, when you
+             choose to upload you will be directed to the "Table view" section where you can view your
+             parsed file. Additionally, you can also choose to view any file that you have uploaded previously
+             without having to upload it again.</p>
+         </div>
+
 		 <div id = "center">
 		 <div id = "leftcenter">
-		 <label for="files">Choose a file:</label>
+		 <label style = "color: white" for= "files">Choose a file:</label>
 		 <select id = "Selector"></select>
 		 <div id = "buttonForPastFile">
 		 <button id = "SelectFilebutton" onclick = "selectFile()">Select file</button>
@@ -29,10 +38,10 @@
          <div id="fileUpload">
              <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
                  <p>
-                     Select a file : <input type="file" name="fileToUpload" size="45" accept=".940"/>
+                      Select a file : <input type="file" name="fileToUpload" size="auto" accept=".940" />
                  </p>
 
-                 <input type="submit" class = "loginButton" value="Upload .940" />
+                 <input type="submit" class = "loginButton" value="Upload File" />
              </form>
          </div>
          </div>
@@ -40,7 +49,7 @@
  </body>
 
 <style>
-    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+    <jsp:include page="baseStyle.css"/>
 
     h2{
         color: white;
@@ -48,6 +57,18 @@
         letter-spacing: 3px;
         /*margin-bottom: 200px;*/
         margin-top: 20px;
+    }
+
+    .column {
+        margin: auto;
+        justify-content: space-evenly;
+        text-align: center;
+        color: white;
+        float: none;
+        width: 50%;
+        padding: 5px;
+        border: 3px solid #F9E805;
+        border-radius: 10px;
     }
 	#option {
 	width:45px;
@@ -61,71 +82,100 @@
         margin: auto;
         margin-top: 20px;
         width: 420px;
-        background-color: var(--header-color);
-        border: transparent;
+        background-color: var(--bkg-color);
+        border: 3px solid #F9E805;
         border-radius: 10px;
         justify-content: space-evenly;
         align-items: center;
         padding: 5px;
         text-align: center;
-        border: 3px solid black
-		border: solid;
    		 border-radius: 10px;
-    	border-width: 2px;
+    }
 
-    }
-    #SelectFilebutton {
-    border-width: 2px;
-    border-radius: 10px;
-    margin-top : 5px;
-    }
     #leftcenter{
-      margin: auto;
+        height: 100px;
+        margin: auto;
         margin-top: 20px;
         width: 420px;
-        background-color: var(--header-color);
-        border: transparent;
+        background-color: var(--bkg-color);
+        border: 3px solid #F9E805;
         border-radius: 10px;
         justify-content: space-evenly;
         align-items: center;
         padding: 5px;
         text-align: center;
-       /* border: 3px solid black */
     }
+
+    #SelectFilebutton {
+        background-color: #F9E805;
+        color: black;
+        border-width: 2px;
+        border-radius: 10px;
+        margin-top : 5px;
+        border: #3b4465;
+    }
+
+    /*#leftcenter:hover{*/
+    /*    transform: scale(1.5);*/
+    /*}*/
+
+    /*#fileUpload:hover{*/
+    /*    transform: scale(1.5);*/
+    /*}*/
+
     #center {
-    display: flex;
-    justify-content : center;
+        display: flex;
+        justify-content : center;
     }
+
 	#Selector {
-	margin: auto;
-    margin-top: 10px;
-    width: 420px;
-    background-color: var(--header-color);
-    /* border: transparent; */
-    border-radius: 10px;
-    border: solid;
-    border-width: 2px;
-    /* justify-content: space-evenly; */
-    /* align-items: center; */
-    padding: 5px;
-    text-align: center;
-	
+        color: white;
+        border: 3px solid black;
+        margin: auto;
+        margin-top: 10px;
+        width: 420px;
+        background-color: var(--bkg-color);
+        /* border: transparent; */
+        border-radius: 10px;
+        border: 1px solid #F9E805;
+        /* justify-content: space-evenly; */
+        /* align-items: center; */
+        padding: 5px;
+        text-align: center;
 	}
+
     #fileUpload input[type="submit"] {
+        /*width: 200px;*/
+        /*height: 25px;*/
+        /*font-family: "Calibri";*/
+        /*font-size: 18px;*/
+        /*margin: auto;*/
         width: 200px;
         height: 25px;
-        font-family: "Calibri";
-        font-size: 18px;
-        margin: auto;
+        background-color: #F9E805;
+        color: black;
+        border-width: 2px;
+        border-radius: 10px;
+        /*margin-top : 5px;*/
+        border: #3b4465;
     }
 
     #fileUpload input[type="file"] {
-        width: 300px;
-        font-family: "Calibri";
-        font-size: 15px;
+        color: white;
+        border: 1px solid #F9E805;
+        padding: 5px;
+        width: 420px;
+        /*font-family: "Calibri";*/
+        font-size: 13px;
         align-content: center;
         margin: auto;
     }
+
+    #fileUpload p{
+        color: white;
+        margin: auto;
+    }
+
 </style>
 
 <script>
@@ -153,7 +203,7 @@
 		for(i = 0; i < files.length; i++) {
 			//console.log(files[i]);		
 			var option = document.createElement("option");
-			option.value = files[i];
+			option.value = "value" + i;
 			option.text = files[i];
 			x.add(option,null);
    		}
