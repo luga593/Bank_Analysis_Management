@@ -16,7 +16,7 @@ public class newtest {
 	  @BeforeClass
 	  public static void createAndStartService() throws IOException {
 	    service = new ChromeDriverService.Builder()
-	        .usingDriverExecutable(new File("/Users/andrea/Desktop/Development/workspace/NewTopicus1/chromedriver"))
+	        .usingDriverExecutable(new File("C:/Users/victo/Desktop/Technical Computer Science/Year1/Module 4/Topicus/chromedriver"))
 	        .usingAnyFreePort()
 	        .build();
 	    service.start();

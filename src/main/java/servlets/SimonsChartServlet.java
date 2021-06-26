@@ -22,10 +22,8 @@ public class SimonsChartServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Writes the number of processes flagged for differenet reasons separated by
-	 * coma. the last value is the total number of files
-	 */
+
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("hello");
