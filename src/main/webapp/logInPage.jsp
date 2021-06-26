@@ -131,7 +131,7 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="WEB-INF/MyStyle.css">
+    <link rel="stylesheet" type="text/css" href="MyStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <meta charset="utf-8">
 </head>
@@ -162,7 +162,7 @@
 </script>
 
 <style>
-    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+    <jsp:include page="baseStyle.css"/>
 
     .login form{
 

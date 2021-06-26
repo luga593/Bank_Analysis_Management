@@ -1,38 +1,54 @@
 /*dark theme*/
 body {
     --text-color: #222;
-    --bkg-color: #fff;
+    --bkg-color: #3b4465;
     --header-color: #F9E805;
+    --header-color2: #F9E805;
     --header-a-color-hover: #fff;
     --header-a-color: #5c5c5c;
-    --button-color: #fff;
+    --button-color: #F9E805;
+    --box-shadow: 10px 0px 5px grey;
+    --title-color: black;
+    --text-color: black;
 }
 body.dark-theme {
     --text-color: #eee;
-    --bkg-color: #242424;
-    --header-color: #000000;
+    --bkg-color: #202124;
+    --header-color: #292a2d;
+    --header-color2: rgba(150,150,150,1);
     --header-a-color-hover: #dae327;
     --header-a-color: #fff;
     --button-color: #fff;
+    --box-shadow: 0px 0px 0px grey;
+    --title-color: white;
+    --text-color: #959595;
 }
 
 @media (prefers-color-scheme: dark) {
     /* defaults to dark theme */
     body {
         --text-color: #eee;
-        --bkg-color: #242424;
-        --header-color: #000000;
+        --bkg-color: #202124;
+        --header-color: #292a2d;
+        --header-color2: rgba(150,150,150,1);
         --header-a-color-hover: #dae327;
         --header-a-color: #fff;
         --button-color: #fff;
+        --box-shadow: 0px 0px 0px grey;
+        --title-color: white;
+        --text-color: #959595;
     }
     body.light-theme {
         --text-color: #222;
-        --bkg-color: #fff;
+        --bkg-color: #3b4465;
         --header-color: #F9E805;
+        --header-color2: #F9E805;
         --header-a-color-hover: #fff;
         --header-a-color: #5c5c5c;
-        --button-color: #fff;
+        --button-color: #F9E805;
+        --box-shadow: 10px 0px 5px grey;
+        --title-color: black;
+        --text-color: black;
     }
 }
 
@@ -47,7 +63,8 @@ body {
 
 /*header*/
 header {
-    background: var(--header-color);
+    background-image: linear-gradient(to right, var(--header-color2), var(--header-color));
+    /*background: var(--header-color);*/
 }
 
 header::after {
@@ -85,16 +102,32 @@ nav a:hover {
 }
 
 .nav-bar {
-    width: 90%;
+    width: 99%;
     height: 60px;
     margin: 0 auto;
 }
 
-.logo {
+#logo-container {
     float: left;
-    padding: 10px 0;
+    background-color: transparent;/*var(--button-color);*/
+    height: 40px;
+    width: 185px;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 0;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+#logo-container:hover {
+    background-color: var(--header-a-color-hover);
+}
+
+.logo {
+    padding: 0;
     width: auto;
     height: 40px;
+    margin-left: 10px;
 }
 
 .btn-toggle {
@@ -104,6 +137,7 @@ nav a:hover {
     height: 20px;
     border: none;
     border-radius: 5px;
+    transition: 0.3s;
 }
 
 .btn-toggle:hover {
@@ -121,7 +155,7 @@ nav a:hover {
     background-color: var(--header-color); /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    box-shadow: 10px 0px 5px grey;
+    box-shadow: var(--box-shadow);
 }
 
 /* The navigation menu links */
@@ -153,10 +187,27 @@ nav a:hover {
 /* Position and style the menu button top left corner */
 
 .sidenav-button div  {
-    width: 20px;
-    height: 2px;
-    background-color: var(--header-a-color);
-    margin: 6px 0 ;
+    /*background-image: url('../../images/menu.png');*/
+    width: 40px;
+    height: 40px;
+    background-size: 40px;
+    float: left;
+    margin-top: 10px;
+    background-color: transparent;/*var(--button-color);*/
+    border-radius: 10px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.sidenav-button div:hover {
+    background-color: var(--header-a-color-hover);
+}
+
+.sidenav-button img {
+    height: 35px;
+    width: 35px;
+    margin-left: 2px;
+    margin-top: 4px;
 }
 
 /* Position and style the close button (top right corner) */
@@ -173,6 +224,8 @@ nav a:hover {
     position: absolute;
     top: 60px; /* Header Height */
     width: 100%;
+    height: 100%;
+    color: var(--text-color);
 }
 
 
@@ -183,43 +236,44 @@ nav a:hover {
     .sidenav a {font-size: 18px;}
 }
 
-/*login*/
-
-.login {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--header-color);
-    border: none;
-    height: 400px;
-    width: 450px;
-    border-radius: 10px;
-    justify-content: space-evenly;
-    align-items: center;
-    position: relative;
-    left: 305px;
-    z-index: 3;
-    font-family: Calibri light;
+#log-out {
+    all: unset;
+    text-transform: uppercase;
     color: var(--header-a-color);
-    right: 165px;
-    margin: 0 auto;
-    margin-top: 50px;
+    font-size: 16px;
+    transition: 0.3s;
 }
-.loginButton{
-    border: none;
-    padding: 0;
-    background-color: var(--button-color);
-    height: 40px;
-    width: 350px;
-    border-radius: 15px;
-    font-family: "Calibri";
-    font-size: 18px;
+
+#log-out:hover {
+    color: var(--header-a-color-hover);
+}
+
+.topicusLogo{
+    background-image: url("images/topicusBl.png");
+    height: 110px;
+    width: 300px;
+    position: relative;
+    z-index: 2;
+    left: 370px;
+    margin-top: 10px;
+}
+.backImage{
+    position: absolute;
+    width: auto;
+    height: 100%;
+    left: 700px;
+    right: 0;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 input {
     width: 50%;
     margin: 0;
-    border: none;
+    border: solid;
     border-radius: 10px;
+    border-width: 2px;
 }
 
 /*links*/
@@ -231,13 +285,39 @@ body a {
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+    border-color: var(--text-color);
 }
 
 th, td {
     padding: 15px;
 }
 
+th {
+    color: var(--title-color);
+}
+
+td {
+    color: var(--text-color);
+}
+
 /*processes*/
 #processes {
     margin-left: 50px;
+}
+
+.button {
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+h2{
+    color: white;
+    text-align: center;
+    letter-spacing: 3px;
+    /*margin-bottom: 200px;*/
+    margin-top: 20px;
 }

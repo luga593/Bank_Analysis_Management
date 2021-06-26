@@ -216,12 +216,21 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.5/jspdf.plugin.autotable.js"></script>
+	<link rel ="stylesheet" href = "tableStyle.css">
 </head>
 
-<body onload = "getFiles()">
+<body onload="loadXMLDoc()">
 <jsp:include page="base.jsp" />
 	<div id="main">
-		<h2>TABLE VIEW</h2>
+		<h2>PROCESSES & TRANSACTIONS</h2>
+
+		<div class = "column">
+			<h2>Description</h2>
+			<p>Our intelligent web application allows you to view all transactions related to your company in a table,
+				Bank statements can be downloaded in whatever format you choose, we also allow sorting on individual
+				attributes based on your needs. Additionally, there are also different language settings to choose from.
+				Fraudulent transactions are flagged and you are notified of it in this section.</p>
+		</div>
 
 		<div id="container-table"></div>
 		
@@ -229,59 +238,79 @@
 		<div id="ListOfFiles"></div>
 
 		<div>
-			<button id="download-csv">Download CSV</button>
-			<button id="download-json">Download JSON</button>
-			<button id="download-xlsx">Download XLSX</button>
-			<button id="download-pdf">Download PDF</button>
-			<button id="download-html">Download HTML</button>
-			<button id="lang-french">French</button>
-			<button id="lang-dutch">Dutch</button>
-			<button id="lang-default">Default (English)</button>
+<%--			downloads--%>
+			<ul>
+				<button id="download-csv">Download CSV</button>
+				<button id="download-json">Download JSON</button>
+				<button id="download-xlsx">Download XLSX</button>
+				<button id="download-pdf">Download PDF</button>
+				<button id="download-html">Download HTML</button>
+				<button id="print-table"> Print Table</button>
+			</ul>
 		</div>
 
-		<button type="button" onclick="loadXMLDoc()">Get table</button>
 		<br>
 		<br>
 
 	</div>
 </body>
 <style>
-<jsp:include page ="WEB-INF/CSS/baseStyle.css"/>
-h2 {
-	color: white;
+<jsp:include page ="baseStyle.css"/>
+<jsp:include page ="tableStyle.css"/>
+
+
+.column {
+	margin: auto;
+	justify-content: space-evenly;
 	text-align: center;
-	letter-spacing: 3px;
-	margin-bottom: 20px;
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
-
-th, td {
-	text-align: left;
-	padding: 10px;
-}
-
-tr:hover {
-	background-color: #f5f5f5;
-}
-
-th {
-	background-color: #3b4465;
+	color: white;
+	float: none;
+	width: 50%;
+	padding: 5px;
+	border: 3px solid #F9E805;
+	border-radius: 10px;
 }
 
 #table {
+	left: 200px;
+	width: 75%;
+	max-width: 100%;
+	border-radius: 15px;
 	margin: auto;
 }
 
-#container-table {
-	margin: 10px auto auto;
-	background-color: var(- -bkg-color);
-	height: 200px;
-	width: 200px;
+
+.tabulator .tabulator-header {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	border-bottom: 1px solid #999;
+	background-color: #F9E805;
+	color: #555;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
 }
+
+button {
+	display: none;
+	border-radius: 15px;
+	border: 3px solid #F9E805 ;
+	background-color: var(--bkg-color);
+	color: white;
+}
+
+button:hover{
+	background-color: #F9E805;
+	color: black;
+	border: 3px solid #F9E805;
+	transition: 0.4s;
+}
+
 </style>
 
 <script>
@@ -289,25 +318,25 @@ th {
 	<jsp:include page="WEB-INF/JS/sideNav.js"/>
 
 
-	function getFiles() {
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (this.readyState === 4 && this.status === 200) {
-				console.log(this.responseText);
-				var files = this.responseText.split("\n");
-				for(i = 0; i < files.length; i++) {
-					console.log(files[i]);
-					
-				}
-				document.getElementById("ListOfFiles").innerHTML = this.responseText;
-			}
-		};
-		xmlhttp.open("GET", "http://localhost:8080/Topicus/ListOfFilesServlet",
-				true);
-		// xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/ListOfFilesServlet",
-		//		true);
-		xmlhttp.send();
-	}
+	// function getFiles() {
+	// 	var xmlhttp = new XMLHttpRequest();
+	// 	xmlhttp.onreadystatechange = function() {
+	// 		if (this.readyState === 4 && this.status === 200) {
+	// 			console.log(this.responseText);
+	// 			var files = this.responseText.split("\n");
+	// 			for(i = 0; i < files.length; i++) {
+	// 				console.log(files[i]);
+	//
+	// 			}
+	// 			document.getElementById("ListOfFiles").innerHTML = this.responseText;
+	// 		}
+	// 	};
+	// 	xmlhttp.open("GET", "http://localhost:8080/Topicus_war_exploded/ListOfFilesServlet",
+	// 			true);
+	// 	// xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/ListOfFilesServlet",
+	// 	//		true);
+	// 	xmlhttp.send();
+	//}
 	function loadXMLDoc() {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -355,7 +384,7 @@ th {
 							.getAttribute("partyname"),
 					isTrusted : x[i].getElementsByTagName("process")[j]
 							.getAttribute("iban") != null
-							&& (x[i].getAttribute("closingammount")
+							& (x[i].getAttribute("closingammount")
 									- x[i].getAttribute("startinggamount") != x[i]
 									.getElementsByTagName("process")[j]
 									.getAttribute("transactionammount"))
@@ -377,6 +406,7 @@ th {
 		//}
 
 		let table = new Tabulator("#table", {
+			printAsHtml: true,
 			data : tableData,
 			pagination : "local",
 			paginationSize : 10,
@@ -497,6 +527,13 @@ th {
 					});
 				});
 
+		document.getElementById("print-table").addEventListener("click", function(){
+			table.print(false, true);
+		});
+
+
+
+
 		//set locale to French
 		document.getElementById("lang-french").addEventListener("click",
 				function() {
@@ -515,9 +552,10 @@ th {
 					table.setLocale("");
 				});
 
+
 	}
-	function filterOnName(name) {
-		table.setFilter("filename", "=", name);
-	}
+	// function filterOnName(name) {
+	// 	table.setFilter("filename", "=", name);
+	// }
 </script>
 </html>

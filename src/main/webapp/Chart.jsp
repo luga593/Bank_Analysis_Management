@@ -17,6 +17,16 @@ To change this template use File | Settings | File Templates.
 <div id="main">
     <h2>CHART AND GRAPH VIEW</h2>
 
+    <div class = "column">
+        <h2>Description</h2>
+        <p>Our intelligent web application allows you to view all transactions related to your company in a table,
+            Bank statements can be downloaded in whatever format you choose, we also allow sorting on individual
+            attributes based on your needs. Additionally, there are also different language settings to choose from.
+            Fraudulent transactions are flagged and you are notified of it in this section.</p>
+    </div>
+
+    <div class = "space"</div>
+
     <div id="query-container">
 <%--        <form>--%>
             <p>Select a query and enter the data to load a graph.</p>
@@ -47,10 +57,26 @@ To change this template use File | Settings | File Templates.
 </div>
 
 <style>
-    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+    <jsp:include page="baseStyle.css"/>
+
+    .column {
+        margin: auto;
+        justify-content: space-evenly;
+        text-align: center;
+        color: white;
+        float: none;
+        width: 50%;
+        padding: 5px;
+        border: 3px solid #F9E805;
+        border-radius: 10px;
+    }
 
     body {
         height: auto;
+    }
+
+    .space{
+        height: 150px;
     }
 
     #chart-container {

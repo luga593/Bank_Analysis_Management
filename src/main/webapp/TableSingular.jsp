@@ -19,77 +19,119 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.5/jspdf.plugin.autotable.js"></script>
 </head>
 
-<body>
+<body onload="loadXMLDoc()">
 	<jsp:include page="base.jsp" />
 	<div id="main">
 		<h2>TABLE VIEW</h2>
 
+		<div class = "column">
+			<h2>Description</h2>
+			<p>This section allows you to view your most recently uploaded file, this section has all features of the table
+				in "Processes & Transactions". You can select what uploaded files you would like to view without
+			having to re-upload it again.</p>
+		</div>
+
 		<div id="container-table"></div>
-		
-		<div id="table"></div>
-
-
-		<div>
-			<button id="download-csv">Download CSV</button>
-			<button id="download-json">Download JSON</button>
-			<button id="download-xlsx">Download XLSX</button>
-			<button id="download-pdf">Download PDF</button>
-			<button id="download-html">Download HTML</button>
+		<%--			languages--%>
+		<ul>
 			<button id="lang-french">French</button>
 			<button id="lang-dutch">Dutch</button>
 			<button id="lang-default">Default (English)</button>
+		</ul>
+
+		<div id="table"></div>
+		<div id="ListOfFiles"></div>
+
+		<div>
+			<%--			downloads--%>
+			<ul>
+				<button class = "csv"  id="download-csv">Download CSV</button>
+				<button class = "json" id="download-json">Download JSON</button>
+				<button id="download-xlsx">Download XLSX</button>
+				<button id="download-pdf">Download PDF</button>
+				<button id="download-html">Download HTML</button>
+				<button id="print-table">Print Table</button>
+
+			</ul>
 		</div>
 
-		<button type="button" onclick="loadXMLDoc()">Get table</button>
 		<br>
 		<br>
 
 	</div>
 </body>
 
-<style>
-<jsp:include page ="WEB-INF/CSS/baseStyle.css"/>
+<<style>
+	<jsp:include page ="baseStyle.css"/>
+	<jsp:include page ="tableStyle.css"/>
 
-h2{
-	color: white;
-	text-align: center;
-	letter-spacing: 3px;
-	margin-bottom: 20px;
-}
 
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
+	.column {
+		margin: auto;
+		justify-content: space-evenly;
+		text-align: center;
+		color: white;
+		float: none;
+		width: 50%;
+		padding: 5px;
+		border: 3px solid #F9E805;
+		border-radius: 10px;
+	}
 
-th, td {
-	text-align: left;
-	padding: 10px;
-}
+	#table {
+		left: 200px;
+		width: 75%;
+		max-width: 100%;
+		border-radius: 15px;
+		margin: auto;
+	}
 
-tr:hover {
-	background-color: #f5f5f5;
-}
 
-th {
-	background-color: #3b4465;
-}
+	.tabulator .tabulator-header {
+		position: relative;
+		box-sizing: border-box;
+		width: 100%;
+		border-bottom: 1px solid #999;
+		background-color: #F9E805;
+		color: #555;
+		font-weight: bold;
+		white-space: nowrap;
+		overflow: hidden;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		-o-user-select: none;
+	}
 
-#table {
-	margin: auto;
-}
+	button {
+		display: none;
+		border-radius: 15px;
+		border: 3px solid #F9E805 ;
+		background-color: var(--bkg-color);
+		color: white;
 
-#container-table {
-	margin: 10px auto auto;
-	background-color: var(- -bkg-color);
-	height: 200px;
-	width: 200px;
-}
+	}
+
+	button:hover{
+		background-color: #F9E805;
+		color: black;
+		border: 3px solid #F9E805;
+		transition: 0.4s;
+	}
+
 </style>
 
 <script>
 	<jsp:include page="WEB-INF/JS/darkTheme.js"/>
 	<jsp:include page="WEB-INF/JS/sideNav.js"/>
+
+	function showButtons() {
+		var buttons = document.getElementsByTagName("button");
+
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i].style.display = "inline";
+		}
+	}
 
 	function loadXMLDoc() {
 		var xmlhttp = new XMLHttpRequest();
@@ -101,6 +143,8 @@ th {
 		xmlhttp.open("GET", "http://localhost:8080/Topicus/singular", true);
 		// xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/singular", true);
 		xmlhttp.send();
+
+		showButtons();
 	}
 	function myFunction(xml) {
 		var i;
@@ -126,13 +170,18 @@ th {
 					StartingAmount : x[i].getAttribute("startingamount"),
 					TransactionAmount : x[i].getElementsByTagName("process")[j]
 							.getAttribute("transactionammount"),
-					ClosingAmount : x[i].getAttribute("closingammount"),
+					ClosingAmount : (parseFloat(x[i]
+							.getAttribute("startingamount")) + parseFloat(x[i]
+							.getElementsByTagName("process")[j]
+							.getAttribute("transactionammount"))).toFixed(2),
 					PartyName : x[i].getElementsByTagName("process")[j]
 							.getAttribute("partyname"),
 					isTrusted : x[i].getElementsByTagName("process")[j]
-							.getAttribute("iban") != null
-							&& (x[i].getAttribute("startingamount")
-									- x[i].getAttribute("closingammount") < 600)
+									.getAttribute("iban") != null
+							&& (x[i].getAttribute("closingammount")
+									- x[i].getAttribute("startinggamount") != x[i]
+											.getElementsByTagName("process")[j]
+											.getAttribute("transactionammount"))
 				}
 				tableData.push(temp);
 			}
@@ -150,6 +199,7 @@ th {
 	//}
 		
 		let table = new Tabulator("#table", {
+			printAsHtml: true,
 			data : tableData,
 			pagination : "local",
 			paginationSize : 10,
@@ -288,10 +338,14 @@ th {
 					table.setLocale("");
 				});
 
+		document.getElementById("print-table").addEventListener("click", function(){
+			table.print(false, true);
+		});
+
 	}
-	function filterOnName(name) {
-		table.setFilter("filename", "=", name);
-	}
+	// function filterOnName(name) {
+	// 	table.setFilter("filename", "=", name);
+	// }
 </script>
 
 </html>

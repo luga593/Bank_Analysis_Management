@@ -36,7 +36,7 @@
  </body>
 
 <style>
-    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+    <jsp:include page="baseStyle.css"/>
 
     h2{
         color: white;
