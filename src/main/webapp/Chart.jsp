@@ -17,18 +17,8 @@ To change this template use File | Settings | File Templates.
 <div id="main">
     <h2>CHART AND GRAPH VIEW</h2>
 
-    <div class = "column">
-        <h2>Description</h2>
-        <p>Our intelligent web application allows you to view all transactions related to your company in a table,
-            Bank statements can be downloaded in whatever format you choose, we also allow sorting on individual
-            attributes based on your needs. Additionally, there are also different language settings to choose from.
-            Fraudulent transactions are flagged and you are notified of it in this section.</p>
-    </div>
-
-    <div class = "space"</div>
-
     <div id="query-container">
-<%--        <form>--%>
+<form method = "get" action = "/Topicus/TestSimon">
             <p>Select a query and enter the data to load a graph.</p>
 
             <select id="query1" name="query" onchange="showElements(this.value)">
@@ -46,7 +36,7 @@ To change this template use File | Settings | File Templates.
             <input type="text" id="input4" placeholder="Please enter the IBAN." name="IBAN" >
 
             <button type="submit" onclick="loadGraph()">Load graph</button>
-<%--        </form>--%>
+</form>
     </div>
 
     <div class="chart-container" id="chart-container" style="height: 40vh; width:40vw">
@@ -57,26 +47,10 @@ To change this template use File | Settings | File Templates.
 </div>
 
 <style>
-    <jsp:include page="baseStyle.css"/>
-
-    .column {
-        margin: auto;
-        justify-content: space-evenly;
-        text-align: center;
-        color: white;
-        float: none;
-        width: 50%;
-        padding: 5px;
-        border: 3px solid #F9E805;
-        border-radius: 10px;
-    }
+    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
 
     body {
         height: auto;
-    }
-
-    .space{
-        height: 150px;
     }
 
     #chart-container {
@@ -149,46 +123,53 @@ To change this template use File | Settings | File Templates.
     var userid = <%= logInServlet.getUser().getUserID()%>
 
     function loadGraph() {
-
+	
         var query = document.getElementById("query1").value;
-
+		console.log("aici");
         if(masspopChart != null){
             ClearRiskChart();
         }
         if (query == "4") {
             buildPieChart();
         }
+        console.log("Am ajuns");
+        if (query == "5"){
+        	getData();
+        }
+        
 
     }
     // chart luis
-    <jsp:include page="WEB-INF/JS/pieChart.js"/>
+	<jsp:include page="WEB-INF/JS/SimonsChart.js"/>
+		 <jsp:include page="WEB-INF/JS/pieChart.js"/>
 
 
 
-    // takes an id and sets display to none or block
-    function setDisplay(id, display) {
-        document.getElementById(id).style.display = display;
-    }
+			    // takes an id and sets display to none or block
+			    function setDisplay(id, display) {
+			        document.getElementById(id).style.display = display;
+			    }
 
-    // reads selector value to determine which elements should be visible
-    function showElements(query) {
-        var inputs1 = ["2","3","5"];
+			    // reads selector value to determine which elements should be visible
+			    function showElements(query) {
+			        var inputs1 = ["2","3","5"];
 
-        if (inputs1.includes(query)) {
-            setDisplay("input235", "block");
-            setDisplay("input4", "none");
-            setDisplay("input1", "none");
-        } else if (query == "4") {
-            setDisplay("input235", "none");
-            setDisplay("input4", "none");
-            setDisplay("input1", "none");
-        } else {
-            setDisplay("input235", "none");
-            setDisplay("input4", "none");
-            setDisplay("input1", "block");
-        }
-    }
-    </script>
+			        if (inputs1.includes(query)) {
+			            setDisplay("input235", "block");
+			            setDisplay("input4", "none");
+			            setDisplay("input1", "none");
+			        } else if (query == "4") {
+			            setDisplay("input235", "none");
+			            setDisplay("input4", "none");
+			            setDisplay("input1", "none");
+			        } else {
+			            setDisplay("input235", "none");
+			            setDisplay("input4", "none");
+			            setDisplay("input1", "block");
+			        }
+			    }
+			    </script>
+
 
 </body>
 </html>

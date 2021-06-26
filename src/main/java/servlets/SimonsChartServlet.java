@@ -17,21 +17,36 @@ import util.SimonsGraph;
 @WebServlet("/TestSimon")
 public class SimonsChartServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-
-
+	private double credit;
+    private String monthYear;
+    private String iban;
+    
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("hello");
+		 if(!request.getParameter("credit").equals("")) {
+		        credit = Double.parseDouble(request.getParameter("credit"));
+		 } 
+		        if(!request.getParameter("month-year").equals("")) {
+		        monthYear = request.getParameter("month-year");
+		        System.out.println("Sunt aici"+monthYear);
+		        
+		        }
+		        if(!request.getParameter("IBAN").equals("")){
+		            monthYear = request.getParameter("IBAN");
+		            }
+		        try {
+					Thread.sleep(100);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		SimonsGraph newggraph = new SimonsGraph();
 		List<List<String>> result = new ArrayList<List<String>>();
 		String result2 = "";
 		try {
-			result = newggraph.getqueryResult();
+			result = newggraph.getqueryResult(monthYear);
+			System.out.println("Sunt in Simons Chart Servlet");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,14 +61,12 @@ public class SimonsChartServlet extends HttpServlet {
 				} else {
 					result2 = result2 + result.get(i).get(j)+",";
 				}
-
 			}
 		}
 		pw.write(result2);
 
 		pw.close();
 		response.setContentType("text/plain");
-
 	}
 
 }
