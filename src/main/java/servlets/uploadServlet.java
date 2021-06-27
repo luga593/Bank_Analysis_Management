@@ -39,7 +39,7 @@ public class uploadServlet extends HttpServlet{
 			} else {
 				InputStream fileContent = filePart.getInputStream();
 				String result = IOUtils.toString(fileContent, StandardCharsets.UTF_8);
-				parser parser = new parser(fileName);
+				parser parser = new parser();
 				isValidated = parser.uploadToDatabase(result, fileName);
 		        if (isValidated == true) {
 		        	response.sendRedirect("TableSingular.jsp");
