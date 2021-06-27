@@ -54,7 +54,7 @@ class Testing {
 
 	}
 	@Test
-	public void testUpload() {
+	public void testMainFunctionalities() {
 		login();
 		
 		driver.findElement(By.linkText("Bank Statement Upload")).click();
