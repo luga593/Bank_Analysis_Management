@@ -38,12 +38,12 @@ public class AmountDateServlet extends HttpServlet {
 		SimonsGraph newggraph = new SimonsGraph();
 		List<List<String>> result = new ArrayList<List<String>>();
 		String result2 = "";
-		try {
-			result = newggraph.getqueryResult();
-		} catch (SQLException e) {
+		//try {
+			//result = newggraph.getqueryResult();
+	//	} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	//		e.printStackTrace();
+	//	}
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/plain");
 

@@ -71,7 +71,7 @@
         background-color: var(--bkg-color);
         margin: auto;
         width: 50%;
-        border: 3px solid #F9E805;
+        /*border: 3px solid var(--header-color);*/
         padding: 10px;
     }
     /* Create three equal columns that floats next to each other */

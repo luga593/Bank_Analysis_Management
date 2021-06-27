@@ -28,23 +28,28 @@
          </div>
 
 		 <div id = "center">
-		 <div id = "leftcenter">
-		 <label style = "color: white" for= "files">Choose a file:</label>
-		 <select id = "Selector"></select>
-		 <div id = "buttonForPastFile">
-		 <button id = "SelectFilebutton" onclick = "selectFile()">Select file</button>
-		</div>
-		 </div>
-         <div id="fileUpload">
-             <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
-                 <p>
-                      Select a file : <input type="file" name="fileToUpload" size="auto" accept=".940" />
-                 </p>
+		    <div id = "leftcenter">
+		        <label style = "color: white" for= "files">Choose a file:</label>
+		        <select id = "Selector"></select>
+		        <div id = "buttonForPastFile">
+		            <button id = "SelectFilebutton" onclick = "selectFile()">Select file</button>
+		        </div>
+		    </div>
 
-                 <input type="submit" class = "loginButton" value="Upload File" />
-             </form>
+
+             <div id="fileUpload">
+                 <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
+                     <p>
+                          Select a file : <input type="file" name="fileToUpload" size="auto" accept=".940" />
+                     </p>
+
+                     <button type="submit" value="Upload File"></button>
+                 </form>
+             </div>
+
          </div>
-         </div>
+
+
      </div>
  </body>
 
@@ -176,6 +181,14 @@
         margin: auto;
     }
 
+    button {
+        background-color: #F9E805;
+        color: black;
+        border-width: 2px;
+        border-radius: 10px;
+        margin-top : 5px;
+        border: #3b4465;
+    }
 </style>
 
 <script>
@@ -203,7 +216,7 @@
 		for(i = 0; i < files.length; i++) {
 			//console.log(files[i]);		
 			var option = document.createElement("option");
-			option.value = "value" + i;
+			option.value = files[i];
 			option.text = files[i];
 			x.add(option,null);
    		}

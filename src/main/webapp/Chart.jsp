@@ -18,7 +18,7 @@ To change this template use File | Settings | File Templates.
     <h2>CHART AND GRAPH VIEW</h2>
 
     <div id="query-container">
-<form method = "get" action = "/Topicus/TestSimon">
+<form >
             <p>Select a query and enter the data to load a graph.</p>
 
             <select id="query1" name="query" onchange="showElements(this.value)">
@@ -47,7 +47,7 @@ To change this template use File | Settings | File Templates.
 </div>
 
 <style>
-    <jsp:include page="WEB-INF/CSS/baseStyle.css"/>
+    <jsp:include page="baseStyle.css"/>
 
     body {
         height: auto;
