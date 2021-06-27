@@ -129,7 +129,7 @@ public double getminimumammount() throws SQLException {
 	}
 	return minvalue;	
 }
-public boolean getCreditResponse() throws SQLException {
+public boolean getCreditResponse(String monthyear) throws SQLException {
 	SimonsChartServlet getparam = new SimonsChartServlet();
 	double credit = 0;
 	if (credit == 0) {
@@ -180,7 +180,7 @@ public String getTransferedToAcc() throws SQLException {
 	return String.valueOf(transferedMoney);
 	
 }
-public String getTransferedFromAcc() throws SQLException {
+public String getTransferedFromAcc(String monthyear) throws SQLException {
 	PreparedStatement statement =newdb.getConnection().prepareStatement(query3);
 	PreparedStatement statement5 =newdb.getConnection().prepareStatement(query3);
 	String year="";

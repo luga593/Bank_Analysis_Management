@@ -24,7 +24,8 @@ public class SimonsChartServlet extends HttpServlet {
     
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		 if(!request.getParameter("credit").equals("")) {
+		System.out.println("param"+request.getParameter("credit"));
+		 if(!request.getParameter("credit").equals("")&& request.getParameter("credit")!=null) {
 		        credit = Double.parseDouble(request.getParameter("credit"));
 		 } 
 		        if(!request.getParameter("month-year").equals("")) {
@@ -53,7 +54,12 @@ public class SimonsChartServlet extends HttpServlet {
 		}
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/plain");
-
+		if(result==null||result.isEmpty()) {
+			pw.write("No result found");
+			pw.close();
+			response.setContentType("text/plain");
+		}
+		else {
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < result.get(i).size(); j++) {
 				if (j == result.get(i).size() - 1) {
@@ -67,6 +73,7 @@ public class SimonsChartServlet extends HttpServlet {
 
 		pw.close();
 		response.setContentType("text/plain");
+		}
 	}
 
 }
