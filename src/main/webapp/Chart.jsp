@@ -18,7 +18,7 @@ To change this template use File | Settings | File Templates.
     <h2>CHART AND GRAPH VIEW</h2>
 
     <div id="query-container">
-<form >
+<%-- <form method = "get" action = "/Topicus/TestSimon">--%>
             <p>Select a query and enter the data to load a graph.</p>
 
             <select id="query1" name="query" onchange="showElements(this.value)">
@@ -36,9 +36,10 @@ To change this template use File | Settings | File Templates.
             <input type="text" id="input4" placeholder="Please enter the IBAN." name="IBAN" >
 
             <button type="submit" onclick="loadGraph()">Load graph</button>
-</form>
+<%--</form>--%>
     </div>
-
+	<div class="w3-container" id="resultnotfound">
+	</div>
     <div class="chart-container" id="chart-container" style="height: 40vh; width:40vw">
         <canvas id="myChart" ></canvas>
 
@@ -123,18 +124,30 @@ To change this template use File | Settings | File Templates.
     var userid = <%= logInServlet.getUser().getUserID()%>
 
     function loadGraph() {
-	
+    	document.getElementById("resultnotfound").innerHTML = "";
         var query = document.getElementById("query1").value;
-		console.log("aici");
+        var credit = "";
+        credit = document.getElementById("input1").value;
+        var monthyear="";
+        monthyear = document.getElementById("input235").value;
+        var iban = "";
+        iban =document.getElementById("input4").value;
+        console.log(iban);
+        console.log(credit);
+        console.log(monthyear);
         if(masspopChart != null){
             ClearRiskChart();
+        }
+        if(amountgraph != null){
+            ClearChart();
         }
         if (query == "4") {
             buildPieChart();
         }
+
         console.log("Am ajuns");
         if (query == "5"){
-        	getData();
+        	getData(credit,monthyear,iban);
         }
         
 

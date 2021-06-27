@@ -1,4 +1,5 @@
-function getData() {
+var amountgraph;
+function getData(cred,monthyear,iban) {
 				console.log("sunt aici");
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
@@ -6,11 +7,17 @@ function getData() {
 						showGraph(this.responseText);
 					}
 				};
-				xmlhttp.open("GET", "http://localhost:8080/Topicus/TestSimon", true);
+				xmlhttp.open("GET", "http://localhost:8080/Topicus/TestSimon?credit="+cred+"&month-year="+monthyear+"&IBAN="+iban, true);
 				//xmlhttp.open("GET", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/TestSimon", true);
 				xmlhttp.send();
 			}
 		function showGraph(data) {
+		 	if(data==="No result found"){
+		 	console.log("no result found");
+		 	document.getElementById("resultnotfound").innerHTML = "No result found";
+		 	setDisplay("chart-container", "block");
+		 	}
+		 	else{
 			var ctx = document.getElementById('myChart').getContext('2d');
 			var arr = data.split("/");
 			dates = arr[0].split(",");
@@ -21,7 +28,7 @@ function getData() {
 				jsArray.push(dates[i]);
 				jsArray1.push(amounts[i])
 			}
-			var myChart = new Chart(ctx, {
+			amountgraph = new Chart(ctx, {
 				type : 'line',
 				data : {
 					labels : jsArray,
@@ -54,4 +61,10 @@ function getData() {
 					}
 				}
 			});
+			setDisplay("chart-container", "block");
+			}
 		}
+function ClearChart(){
+    amountgraph.destroy();
+    cleared = true;
+}
