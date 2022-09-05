@@ -1,3 +1,4 @@
+/*
 package seleniumtesting;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,7 +100,8 @@ class Testing {
 		//driver.findElement(By.id("table"));
 	}
 	
-	/*
+	*/
+/*
 	@Test
 	public void testProcessesAndTransactions() {
 		try {
@@ -111,5 +113,7 @@ class Testing {
 		login();
 		// driver.findElement(By.linkText("Processes & Transactions")).click();
 	}
-	*/
+	*//*
+
 }
+*/
