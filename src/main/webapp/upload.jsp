@@ -40,10 +40,10 @@
              <div id="fileUpload">
                  <form action="/Topicus/upload" method="post" enctype="multipart/form-data">
                      <p>
-                          Select a file : <input type="file" name="fileToUpload" size="auto" accept=".940" />
+                         Select a file : <input type="file" name="fileToUpload" size="auto" accept=".940" />
                      </p>
 
-                     <button type="submit" value="Upload File"></button>
+                     <button type="submit" value="Upload File">upload file</button>
                  </form>
              </div>
 
@@ -86,7 +86,7 @@
 		height: 100px;
         margin: auto;
         margin-top: 20px;
-        width: 420px;
+        width: 430px;
         background-color: var(--bkg-color);
         border: 3px solid #F9E805;
         border-radius: 10px;
@@ -230,12 +230,14 @@
 				// window.location.replace("http://topicus-bank1.paas.hosted-by-previder.com/Topicus/TableSingular.jsp");
 			}
 		};
-		xmlhttp.open("Post", "http://localhost:8080/Topicus/RequestServlet",
-				true);
+		xmlhttp.open("Get", "http://localhost:8080/Topicus/RequestServlet", true);
 		// xmlhttp.open("Post", "http://topicus-bank1.paas.hosted-by-previder.com/Topicus/RequestServlet",
 		//		true);
-		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		//xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");  not relevant anymore
 		xmlhttp.send(document.getElementById("Selector").value);
+
+
    	}
 </script>
 </html>

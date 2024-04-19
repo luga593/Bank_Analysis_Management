@@ -53,6 +53,7 @@ public class uploadServlet extends HttpServlet{
 			//the file was not a mt940 file
 			response.sendRedirect("UploadFail.jsp");
 			}
+
 	}	
 
 	public static boolean validateFileName(String fileName) {

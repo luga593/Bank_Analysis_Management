@@ -15,6 +15,9 @@ public class parser {
 	
 
 	public boolean uploadToDatabase(String mt,String filename) {
+		//mt = content of the file
+		// uploads the file content to the respective tables in the database.   ps there is some redundancy in the data
+
 		boolean result = false;
 		Long dateTime = System.currentTimeMillis();
 		int index = 0;
@@ -35,7 +38,7 @@ public class parser {
 				MT940 file = new MT940(tmp);
 				FileDAO dao = new FileDAO();
 				RequestDao dao1 = new RequestDao();
-				dao1.addToDatabase(filename);;
+				dao1.addToDatabase(filename);
 				result = dao.addFileDetails(file,tmp,dateTime,filename);
 			}
 		}

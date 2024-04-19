@@ -1,48 +1,79 @@
 package util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+/**
+ * Utility Class for connecting to the postgres SQL database.
+ * @author Group 7 of the Data & information project.
+ * @author Luis Hinojosa (maintainer)
+ */
 
-//Class to connect to the database. DbUtil class
 public class DbUtil {
-    private static final String DRIVER_NAME = "org.postgresql.Driver";
-    private static final String host = "bronto.ewi.utwente.nl";
-    private static final String dbname = "dab_di20212b_7";
-    private static final String jdbcURL = "jdbc:postgresql://" + host + ":5432/" + dbname + "?dab_di20212b_7";
-    private static final String dbUser = "dab_di20212b_7";
-    private static final String dbPass = "WHT7j8rVmsTZfH70";
+
+    private static Properties properties = new Properties();
+
+    static {
+        try {
+            // Load properties from file using ClassLoader
+            ClassLoader classLoader = DbUtil.class.getClassLoader();
+            InputStream fis = classLoader.getResourceAsStream("db.properties");
+            properties.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getDriver(){
+        return properties.getProperty("driverName");
+    }
+    public static String getJdbcURL(){
+        return properties.getProperty("jdbcURL");
+    }
+    public static String getDbUser() {
+        return properties.getProperty("dbUser");
+    }
+
+    public static String getDbPass() {
+        return properties.getProperty("dbPass");
+    }
+    public static String getDBName(){
+        return properties.getProperty("dbname");
+    }
+
     static Connection connection = null;
     static {
         try {
             try {
-                Class.forName(DRIVER_NAME);
+                Class.forName(getDriver());
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            connection = DriverManager.getConnection(jdbcURL, dbname, dbPass);
-			/*
-			Context context = new InitialContext();
-			DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/dab_di20212b_110");
-			connection = ds.getConnection();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		*/
+
+            connection = DriverManager.getConnection(getJdbcURL(), getDbUser(), getDbPass());
         }catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * returns the connection attribute.
+     * @return The connection object
+     */
     public static Connection getConnection() {
         return connection;
     }
+
+    /**
+     * closes the connection.
+     */
     public static void closeConnection() {
 		try {
 			connection.close();

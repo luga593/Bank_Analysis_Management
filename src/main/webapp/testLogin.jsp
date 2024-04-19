@@ -29,6 +29,7 @@
             <label for="login-password">Password</label>
             <input id="login-password" type="password"  name = "password" required>
           </div>
+
         </fieldset>
         <button type="submit" class="btn-login">Login</button>
       </form>
@@ -39,38 +40,38 @@
         Sign Up
         <span class="underline"></span>
       </button>
-      <form autocomplete="off" class="form form-signup">
+      <form autocomplete="off"  id="signupForm" class="form form-signup" action="signup" method="post">
         <fieldset>
           <legend>Please, enter your email, password and password confirmation for sign up.</legend>
 
+
           <div class="input-block">
-            <label for="signup-email">Username</label>
-            <input id="signup-username" type="email" required>
+            <label for="signup-username">Username</label>
+            <input id="signup-username" type="text" name="signup-username" required>
           </div>
 
           <div class="input-block">
             <label for="signup-email">E-mail</label>
-            <input id="signup-email" type="email" required>
+            <input id="signup-email" type="email" name="signup-email" required>
           </div>
 
           <div class="input-block">
-            <label for="signup-email">First Name</label>
-            <input id="signup-fname" type="email" required>
+            <label for="signup-fname">First Name</label>
+            <input id="signup-fname" type="text" name="signup-fname" required>
           </div>
 
           <div class="input-block">
-            <label for="signup-email">Last Name</label>
-            <input id="signup-lname" type="email" required>
+            <label for="signup-lname">Last Name</label>
+            <input id="signup-lname" type="text" name="signup-lname" required>
           </div>
-
 
           <div class="input-block">
             <label for="signup-password">Password</label>
-            <input id="signup-password" type="password" required>
+            <input id="signup-password" type="password" name="signup-password" required>
           </div>
           <div class="input-block">
             <label for="signup-password-confirm">Confirm password</label>
-            <input id="signup-password-confirm" type="password" required>
+            <input id="signup-password-confirm" type="password" name="signup-password-confirm" required>
           </div>
         </fieldset>
         <button type="submit" class="btn-signup">Continue</button>
@@ -78,6 +79,12 @@
     </div>
   </div>
 </section>
+<div id="responseMessage"></div>
+
+<script>
+
+
+</script>
 </body>
 </html>
 

@@ -45,9 +45,9 @@ public class FileDAO {
 	public boolean addFileDetails(MT940 mt940,String tmp,Long dateTime,String filename) {
 		String insertFile = "Insert into transactionfile(transactionreferenceno,relatedreference,accid,statementno,date,currency,startingamount,userid,closingammount,closingdate,time,filename)" + 
 				"values " + "(?,?,?,?,?,?,?,?,?,?,?,?)";
-		String insertTransaction = "Insert into process(valuedate,entrydate,creditdebit,transactionammount,cusomter_reference,details,iban,incasantid,description,partyname,fileid) values "
+		String insertTransaction = "Insert into request(valuedate,entrydate,creditdebit,transactionammount,customerreference,details,iban,incasantid,description,partyname,fileid) values "
 				+ "(?,?,?,?,?,?,?,?,?,?,?)";
-		String query = "Select f.fileid from dab_di20212b_7.transactionfile f "
+		String query = "Select f.fileid from transactionfile f "
 				+ "where transactionreferenceno = ? and " + "relatedreference	=? and " + "accid = ? and "
 				+ "statementno= ? and " + "date = ? and " + "currency = ? and " + "startingamount = ? and "
 				+ "userid = ? and " + "closingammount = ? and " + "closingdate = ? and time = ? and filename = ?";

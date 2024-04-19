@@ -1,9 +1,8 @@
 package util;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import servlets.logInServlet;
+
+import java.sql.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -14,16 +13,20 @@ public class ListOfFiles {
 		 this.connection =  DB.getConnection();
 	}
 	public LinkedHashMap<String,java.sql.Timestamp > getFiles() {
+		int currentUID = logInServlet.getUser().getUserID();
+
 		LinkedHashMap<String,java.sql.Timestamp > map = new LinkedHashMap<String,java.sql.Timestamp >();
 		String query = "Select distinct t.filename,min(t.time) from transactionFile t \r\n"
-				+ "group by t.filename";
+				+ "WHERE t.userid = ?"
+				+ "GROUP BY t.filename, t.userid; \r\n";
 		try {
-			Statement st = connection.createStatement();
-			ResultSet set = st.executeQuery(query);
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, currentUID);
+			ResultSet set = ps.executeQuery();
 			while(set.next()) {
 				map.put(set.getString(1), set.getTimestamp(2));
 			}
-			st.close();
+			ps.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

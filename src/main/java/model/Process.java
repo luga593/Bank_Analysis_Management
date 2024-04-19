@@ -45,9 +45,14 @@ public String getIban() {
 public void setIban(String iban) {
 	this.iban = iban;
 }
-public String getDescription() {
-	return description;
-}
+	public String getDescription() {
+		// Check if description is null or contains only whitespace
+		if (description == null || description.trim().isEmpty()) {
+			return "_";
+		}
+		// If description is not null or empty, return the original description
+		return description;
+	}
 public void setDescription(String description) {
 	this.description = description;
 }

@@ -74,8 +74,8 @@ function initialize() {
         color: '#FFF',
         type: 'pie',
         data:{
-            labels: ['transactions with no description','transactions with no recipient nor description',
-                'transactions with no recipient', 'good Transactions'],
+            labels: ['transactions with no recipient','transactions with no recipient nor description',
+                'transactions with no description', 'good Transactions'],
             datasets: [{
                 label: 'population',
                 data:[

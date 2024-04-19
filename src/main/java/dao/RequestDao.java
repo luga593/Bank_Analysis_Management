@@ -19,13 +19,20 @@ public class RequestDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-		
+
 	}
 	public void addToDatabase(String filename) {
-		String insertFile = "Insert into request values(?,?)";
+
+		System.out.println(filename);
+		if (filename.equals(null) || filename.equals("")){
+			System.out.println("that was null...");
+			return;
+		}
+
+		String insertFile = "Insert into request(filename,time) values(?,?)";
 		try {
 			PreparedStatement statement1 = connection.prepareStatement(insertFile);
-			statement1.setString(1,filename);
+				statement1.setString(1,filename);
 			Long dateTime = System.currentTimeMillis();
 			statement1.setTimestamp(2,new java.sql.Timestamp(dateTime),Calendar.getInstance(TimeZone.getTimeZone("UTC")));
 			statement1.executeUpdate();
