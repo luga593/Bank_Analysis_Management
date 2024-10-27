@@ -9,8 +9,5 @@
         <module name="Topicus" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Topicus" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
