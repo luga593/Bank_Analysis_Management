@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: com.prowidesoftware:pw-swift-core:SRU2020-9.1.4">
+  <library name="Maven: com.prowidesoftware:pw-swift-core:SRU2020-9.1.4" type="java-imported" external-system-id="Maven">
+    <properties groupId="com.prowidesoftware" artifactId="pw-swift-core" version="SRU2020-9.1.4" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/prowidesoftware/pw-swift-core/SRU2020-9.1.4/pw-swift-core-SRU2020-9.1.4.jar!/" />
     </CLASSES>

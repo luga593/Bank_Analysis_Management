@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: org.apache.pdfbox:fontbox:2.0.22">
+  <library name="Maven: org.apache.pdfbox:fontbox:2.0.22" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.apache.pdfbox" artifactId="fontbox" version="2.0.22" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/fontbox/2.0.22/fontbox-2.0.22.jar!/" />
     </CLASSES>

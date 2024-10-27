@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Maven: org.knowm.xchart:xchart:3.8.0">
+  <library name="Maven: org.knowm.xchart:xchart:3.8.0" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.knowm.xchart" artifactId="xchart" version="3.8.0" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/knowm/xchart/xchart/3.8.0/xchart-3.8.0.jar!/" />
     </CLASSES>
